@@ -1,935 +1,2463 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Guidian Hotel- Luxury Accommodation</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        serif: ['Playfair Display', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        gold: {
-                            50: '#fdf9f0',
-                            100: '#fbf0d9',
-                            200: '#f6e0b3',
-                            300: '#edc87a',
-                            400: '#e4b04a',
-                            500: '#d4982a',
-                            600: '#b87a1f',
-                            700: '#935c1b',
-                            800: '#7a4d1e',
-                            900: '#66401c',
-                        },
-                        hotel: {
-                            dark: '#1a1a2e',
-                            navy: '#16213e',
-                            blue: '#0f3460',
-                            accent: '#e94560',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Parables Animation Studio – Ghana's Premier Animation House</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    
     <style>
-        .hero-bg {
-            background: linear-gradient(rgba(26, 26, 46, 0.7), rgba(22, 33, 62, 0.8)), 
-                        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+        /* ============================================================
+           CSS VARIABLES
+           ============================================================ */
+        :root {
+            --primary: #C9A84C;
+            --primary-dark: #A8892A;
+            --primary-light: #E8D5A3;
+            --dark: #0A0A0A;
+            --dark-card: #141414;
+            --dark-surface: #1A1A1A;
+            --text-light: #F5F0E8;
+            --text-muted: #A8A098;
+            --gradient-gold: linear-gradient(135deg, #C9A84C 0%, #F5E6A3 50%, #C9A84C 100%);
+            --shadow-gold: 0 8px 32px rgba(201, 168, 76, 0.2);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --card-radius: 16px;
+            --container-padding: 16px;
         }
-        .room-card:hover .room-overlay {
-            opacity: 1;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .date-input::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-            cursor: pointer;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            padding-top: 70px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .loading-spinner {
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top: 3px solid #d4982a;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .slide-in {
-            animation: slideIn 0.3s ease-out;
-        }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        /* Custom scrollbar */
+
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #1a1a2e;
+            background: var(--dark);
         }
         ::-webkit-scrollbar-thumb {
-            background: #d4982a;
+            background: var(--primary);
             border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ============================================================
+           TYPOGRAPHY - Responsive
+           ============================================================ */
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .text-gold {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-gold-solid {
+            color: var(--primary);
+        }
+
+        /* Responsive headings */
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            line-height: 1.1;
+            font-size: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            line-height: 1.2;
+        }
+
+        /* ============================================================
+           NAVBAR - Fully Responsive
+           ============================================================ */
+        .navbar-custom {
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+            padding: 10px 0;
+            transition: var(--transition);
+        }
+
+        .navbar-custom .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .navbar-custom .navbar-brand span {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-custom .navbar-toggler {
+            border: none;
+            padding: 6px 10px;
+        }
+
+        .navbar-custom .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-custom .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(201,168,76,0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .navbar-custom .nav-link {
+            color: var(--text-light) !important;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            padding: 10px 16px !important;
+            transition: var(--transition);
+            border-radius: 8px;
+        }
+
+        .navbar-custom .nav-link:active {
+            background: rgba(201, 168, 76, 0.1);
+        }
+
+        .navbar-custom .nav-link.active {
+            color: var(--primary) !important;
+            background: rgba(201, 168, 76, 0.08);
+        }
+
+        /* Desktop nav link underline */
+        @media (min-width: 992px) {
+            .navbar-custom .nav-link {
+                position: relative;
+            }
+            .navbar-custom .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background: var(--gradient-gold);
+                transition: var(--transition);
+                transform: translateX(-50%);
+            }
+            .navbar-custom .nav-link:hover::after,
+            .navbar-custom .nav-link.active::after {
+                width: 60%;
+            }
+            .navbar-custom .nav-link:hover {
+                color: var(--primary) !important;
+            }
+            .navbar-custom .nav-link.active {
+                background: transparent;
+            }
+        }
+
+        /* ============================================================
+           PAGE SECTIONS
+           ============================================================ */
+        .page-section {
+            display: none;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
+           HERO - Fully Responsive
+           ============================================================ */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--dark);
+            padding: 30px 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 30% 50%, rgba(201, 168, 76, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(201, 168, 76, 0.04) 0%, transparent 60%);
+            z-index: 1;
+        }
+
+        .hero-bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 30% 50%, rgba(201, 168, 76, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 18px;
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            border-radius: 50px;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 24px;
+            max-width: 100%;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .hero-stats .stat {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 12px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .hero-stats .stat h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+
+        .hero-stats .stat p {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* Hero responsive breakpoints */
+        @media (min-width: 576px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .hero p {
+                font-size: 1.05rem;
+                max-width: 90%;
+            }
+            .hero-stats .stat h3 {
+                font-size: 1.8rem;
+            }
+            .hero-stats .stat p {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                min-height: 85vh;
+                padding: 40px 0;
+            }
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+                max-width: 80%;
+            }
+            .hero-stats {
+                gap: 20px;
+            }
+            .hero-stats .stat {
+                padding: 16px 20px;
+            }
+            .hero-stats .stat h3 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .hero {
+                min-height: 90vh;
+            }
+            .hero-title {
+                font-size: 4.5rem;
+            }
+            .hero p {
+                max-width: 540px;
+            }
+            .hero-badge {
+                font-size: 0.8rem;
+                padding: 8px 24px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .hero-title {
+                font-size: 5rem;
+            }
+        }
+
+        /* ============================================================
+           BUTTONS - Responsive
+           ============================================================ */
+        .btn-gold {
+            background: var(--gradient-gold);
+            color: var(--dark);
+            border: none;
+            padding: 14px 28px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            border-radius: 50px;
+            transition: var(--transition);
+            min-height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+            color: var(--dark);
+        }
+
+        .btn-gold:active {
+            transform: scale(0.97);
+        }
+
+        .btn-outline-gold {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 24px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            border-radius: 50px;
+            transition: var(--transition);
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-outline-gold:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .btn-outline-gold:active {
+            background: rgba(201, 168, 76, 0.1);
+            transform: scale(0.97);
+        }
+
+        .btn-sm {
+            padding: 10px 18px;
+            font-size: 0.85rem;
+            min-height: 42px;
+        }
+
+        .btn-gold.btn-sm {
+            padding: 10px 18px;
+            min-height: 42px;
+        }
+
+        .btn-outline-gold.btn-sm {
+            padding: 8px 16px;
+            min-height: 40px;
+        }
+
+        /* Button responsive */
+        @media (max-width: 575px) {
+            .btn-gold,
+            .btn-outline-gold {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 576px) {
+            .btn-gold {
+                padding: 14px 36px;
+            }
+            .btn-outline-gold {
+                padding: 12px 32px;
+            }
+        }
+
+        /* ============================================================
+           SECTION HEADERS - Responsive
+           ============================================================ */
+        .section-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .section-header .subtitle {
+            display: inline-block;
+            color: var(--primary);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .section-header .divider {
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-gold);
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        @media (min-width: 768px) {
+            .section-header {
+                margin-bottom: 48px;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .section-header .subtitle {
+                font-size: 0.8rem;
+            }
+            .section-header .divider {
+                width: 60px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        /* ============================================================
+           SHOW CARDS - Fully Responsive
+           ============================================================ */
+        .show-card {
+            background: var(--dark-card);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .show-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(201, 168, 76, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .show-card:active {
+            transform: scale(0.98);
+        }
+
+        .show-card .card-thumb {
+            position: relative;
+            height: 160px;
+            background: var(--dark-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .show-card .card-thumb .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .show-card:hover .card-thumb .play-icon {
+            color: var(--primary);
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .show-card .card-thumb .genre-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(201, 168, 76, 0.9);
+            color: var(--dark);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .show-card .card-body {
+            padding: 16px;
+        }
+
+        .show-card .card-body .rating {
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .show-card .card-body h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1rem;
+            margin: 6px 0;
+        }
+
+        .show-card .card-body p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        /* Card responsive */
+        @media (min-width: 576px) {
+            .show-card .card-thumb {
+                height: 180px;
+            }
+            .show-card .card-thumb .play-icon {
+                font-size: 3rem;
+            }
+            .show-card .card-body {
+                padding: 20px;
+            }
+            .show-card .card-body h5 {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .show-card .card-thumb {
+                height: 200px;
+            }
+            .show-card .card-body {
+                padding: 24px;
+            }
+        }
+
+        /* ============================================================
+           FESTIVAL CARDS - Responsive
+           ============================================================ */
+        .festival-card {
+            background: var(--dark-card);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            border-left: 3px solid var(--primary);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .festival-card:hover {
+            transform: translateX(6px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .festival-card:active {
+            transform: scale(0.98);
+        }
+
+        .festival-card .festival-date {
+            display: inline-block;
+            background: rgba(201, 168, 76, 0.15);
+            color: var(--primary);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        .festival-card h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            margin-top: 8px;
+        }
+
+        .festival-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        @media (min-width: 576px) {
+            .festival-card {
+                padding: 24px;
+            }
+            .festival-card h5 {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .festival-card {
+                padding: 28px;
+                border-left-width: 4px;
+            }
+        }
+
+        /* ============================================================
+           BLOG CARDS - Responsive
+           ============================================================ */
+        .blog-card {
+            background: var(--dark-card);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(201, 168, 76, 0.3);
+        }
+
+        .blog-card:active {
+            transform: scale(0.98);
+        }
+
+        .blog-card .blog-meta {
+            padding: 16px 16px 0;
+        }
+
+        .blog-card .blog-meta .category {
+            color: var(--primary);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .blog-card .blog-meta .date {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+
+        .blog-card .blog-body {
+            padding: 12px 16px 16px;
+        }
+
+        .blog-card .blog-body h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .blog-card .blog-body h5 a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .blog-card .blog-body h5 a:hover {
+            color: var(--primary);
+        }
+
+        .blog-card .blog-body p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        @media (min-width: 576px) {
+            .blog-card .blog-meta {
+                padding: 20px 20px 0;
+            }
+            .blog-card .blog-body {
+                padding: 16px 20px 20px;
+            }
+            .blog-card .blog-body h5 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ============================================================
+           BLOG DETAIL - Responsive
+           ============================================================ */
+        .blog-detail-content {
+            background: var(--dark-card);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-detail-content .blog-content p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .blog-detail-content .blog-content ul {
+            color: var(--text-muted);
+            padding-left: 20px;
+        }
+
+        .blog-detail-content .blog-content li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        @media (min-width: 576px) {
+            .blog-detail-content {
+                padding: 28px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .blog-detail-content {
+                padding: 36px;
+            }
+            .blog-detail-content .blog-content p {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .blog-detail-content {
+                padding: 44px;
+            }
+        }
+
+        /* ============================================================
+           REVIEWS - Responsive
+           ============================================================ */
+        .review-card {
+            background: var(--dark-surface);
+            border-radius: var(--card-radius);
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .review-card .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .review-card .reviewer .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--gradient-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--dark);
+            flex-shrink: 0;
+        }
+
+        .review-card .reviewer .reviewer-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .review-card .reviewer .reviewer-info strong {
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .review-card .reviewer .reviewer-info span {
+            font-size: 0.7rem;
+        }
+
+        .review-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        @media (min-width: 576px) {
+            .review-card {
+                padding: 20px;
+            }
+        }
+
+        /* ============================================================
+           VIDEO EMBED
+           ============================================================ */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--card-radius);
+            background: var(--dark-surface);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ============================================================
+           ABOUT PAGE - Responsive
+           ============================================================ */
+        .about-image-placeholder {
+            background: var(--dark-card);
+            border-radius: var(--card-radius);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(201, 168, 76, 0.15);
+            margin-top: 16px;
+        }
+
+        .value-card {
+            background: var(--dark-card);
+            border-radius: var(--card-radius);
+            padding: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .value-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .value-card:active {
+            transform: scale(0.97);
+        }
+
+        .value-card .icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .value-card h6 {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+        }
+
+        .value-card p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        @media (min-width: 576px) {
+            .about-image-placeholder {
+                height: 250px;
+                margin-top: 0;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .about-image-placeholder {
+                height: 320px;
+            }
+            .value-card {
+                padding: 24px;
+            }
+            .value-card .icon {
+                font-size: 2.2rem;
+            }
+            .value-card h6 {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .about-image-placeholder {
+                height: 400px;
+            }
+        }
+
+        /* ============================================================
+           CONTACT - Responsive
+           ============================================================ */
+        .contact-info-card {
+            background: var(--dark-card);
+            border-radius: var(--card-radius);
+            padding: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .contact-info-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .contact-info-card:active {
+            transform: scale(0.97);
+        }
+
+        .contact-info-card .icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .contact-info-card h6 {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+        }
+
+        .contact-info-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        @media (min-width: 576px) {
+            .contact-info-card {
+                padding: 24px;
+            }
+        }
+
+        /* ============================================================
+           FORM - Responsive
+           ============================================================ */
+        .form-control-custom {
+            background: var(--dark-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-light);
+            padding: 12px 16px;
+            border-radius: var(--card-radius);
+            transition: var(--transition);
+            font-size: 0.95rem;
+            min-height: 48px;
+        }
+
+        .form-control-custom:focus {
+            background: var(--dark-card);
+            border-color: var(--primary);
+            color: var(--text-light);
+            box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.08);
+            outline: none;
+        }
+
+        .form-control-custom::placeholder {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-select-custom {
+            background: var(--dark-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-light);
+            padding: 12px 16px;
+            border-radius: var(--card-radius);
+            transition: var(--transition);
+            font-size: 0.95rem;
+            min-height: 48px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23C9A84C' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 12px;
+        }
+
+        .form-select-custom:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.08);
+            outline: none;
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        @media (min-width: 576px) {
+            .form-control-custom {
+                padding: 14px 20px;
+                min-height: 52px;
+            }
+            .form-select-custom {
+                padding: 14px 20px;
+                min-height: 52px;
+            }
+        }
+
+        /* ============================================================
+           CATEGORY PILLS - Responsive
+           ============================================================ */
+        .category-pill {
+            padding: 8px 14px !important;
+            font-size: 0.7rem !important;
+            min-height: 36px;
+            white-space: nowrap;
+        }
+
+        @media (min-width: 576px) {
+            .category-pill {
+                padding: 10px 20px !important;
+                font-size: 0.8rem !important;
+                min-height: 42px;
+            }
+        }
+
+        /* ============================================================
+           FOOTER - Responsive
+           ============================================================ */
+        .footer {
+            background: var(--dark-card);
+            border-top: 1px solid rgba(201, 168, 76, 0.08);
+            padding: 40px 0 20px;
+            margin-top: 20px;
+        }
+
+        .footer .brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.3rem;
+        }
+
+        .footer .brand span {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer .social-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .footer .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .footer .social-links a:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        .footer .social-links a:active {
+            transform: scale(0.92);
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            padding: 4px 0;
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer h6 {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .footer .text-muted {
+            font-size: 0.8rem;
+        }
+
+        @media (min-width: 576px) {
+            .footer {
+                padding: 50px 0 24px;
+            }
+            .footer .brand {
+                font-size: 1.5rem;
+            }
+            .footer .social-links a {
+                width: 42px;
+                height: 42px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .footer {
+                padding: 60px 0 30px;
+            }
+            .footer .brand {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* ============================================================
+           TOAST - Responsive
+           ============================================================ */
+        .toast-container {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            z-index: 9999;
+            width: auto;
+        }
+
+        .toast-custom {
+            background: var(--dark-card);
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            border-radius: var(--card-radius);
+            color: var(--text-light);
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 576px) {
+            .toast-container {
+                left: auto;
+                right: 24px;
+                bottom: 24px;
+                width: auto;
+            }
+            .toast-custom {
+                padding: 16px 24px;
+                min-width: 320px;
+            }
+        }
+
+        /* ============================================================
+           BREADCRUMB - Responsive
+           ============================================================ */
+        .breadcrumb-custom {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 16px;
+        }
+
+        .breadcrumb-custom .breadcrumb-item {
+            font-size: 0.85rem;
+        }
+
+        .breadcrumb-custom .breadcrumb-item a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* ============================================================
+           RATING STARS - Responsive
+           ============================================================ */
+        #ratingStars .form-check {
+            padding-left: 0;
+        }
+
+        #ratingStars .form-check-input {
+            margin-right: 2px;
+        }
+
+        #ratingStars .form-check-label {
+            font-size: 0.8rem;
+            padding-left: 2px;
+        }
+
+        /* ============================================================
+           UTILITY - Responsive
+           ============================================================ */
+        .gap-2 { gap: 8px !important; }
+        .gap-3 { gap: 12px !important; }
+        .gap-4 { gap: 16px !important; }
+
+        @media (min-width: 576px) {
+            .gap-sm-3 { gap: 12px !important; }
+            .gap-sm-4 { gap: 16px !important; }
+        }
+
+        @media (min-width: 768px) {
+            .gap-md-4 { gap: 20px !important; }
+        }
+
+        .mt-2 { margin-top: 8px !important; }
+        .mt-3 { margin-top: 12px !important; }
+        .mt-4 { margin-top: 16px !important; }
+        .mt-5 { margin-top: 24px !important; }
+
+        .mb-2 { margin-bottom: 8px !important; }
+        .mb-3 { margin-bottom: 12px !important; }
+        .mb-4 { margin-bottom: 16px !important; }
+        .mb-5 { margin-bottom: 24px !important; }
+
+        .py-3 { padding-top: 12px !important; padding-bottom: 12px !important; }
+        .py-4 { padding-top: 16px !important; padding-bottom: 16px !important; }
+        .py-5 { padding-top: 24px !important; padding-bottom: 24px !important; }
+
+        @media (min-width: 576px) {
+            .py-sm-5 {
+                padding-top: 40px !important;
+                padding-bottom: 40px !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .py-md-5 {
+                padding-top: 60px !important;
+                padding-bottom: 60px !important;
+            }
+        }
+
+        /* Fix for responsive grid */
+        .row.g-3 {
+            --bs-gutter-y: 0.75rem;
+        }
+        .row.g-4 {
+            --bs-gutter-y: 1rem;
+        }
+
+        @media (min-width: 576px) {
+            .row.g-3 {
+                --bs-gutter-y: 1rem;
+            }
+            .row.g-4 {
+                --bs-gutter-y: 1.5rem;
+            }
+        }
+
+        /* Smooth touch feedback */
+        .touch-feedback {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Prevent horizontal scroll */
+        .container,
+        .container-fluid {
+            overflow-x: hidden;
+        }
+
+        /* ============================================================
+           PRINT STYLES
+           ============================================================ */
+        @media print {
+            .navbar-custom,
+            .footer,
+            .hero-bg-pattern,
+            .hero::before {
+                display: none !important;
+            }
+            body {
+                padding-top: 0 !important;
+                background: #fff !important;
+                color: #000 !important;
+            }
+            .page-section {
+                display: block !important;
+                page-break-after: always;
+            }
+            .page-section:not(.active) {
+                display: none !important;
+            }
         }
     </style>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800 antialiased">
+<body>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-hotel-dark/95 backdrop-blur-md border-b border-white/10 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-hotel text-gold-400 text-2xl"></i>
-                    <div>
-                        <h1 class="font-serif text-2xl text-white tracking-wide">The Guidian Hotel</h1>
-                        <p class="text-xs text-gold-300 uppercase tracking-widest">Luxury Hotel</p>
-                    </div>
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container">
+        <div id="liveToast" class="toast-custom toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body" id="toastMessage">
+                    <i class="fas fa-check-circle text-gold-solid me-2"></i> Action completed!
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#rooms" class="text-gray-300 hover:text-gold-400 transition-colors text-sm uppercase tracking-wider">Rooms</a>
-                    <a href="#booking" class="text-gray-300 hover:text-gold-400 transition-colors text-sm uppercase tracking-wider">Book Now</a>
-                    <a href="#contact" class="text-gray-300 hover:text-gold-400 transition-colors text-sm uppercase tracking-wider">Contact</a>
-                    <button onclick="scrollToBooking()" class="bg-gold-500 hover:bg-gold-600 text-white px-6 py-2.5 rounded-sm font-medium transition-all transform hover:scale-105 shadow-lg shadow-gold-500/20">
-                        Reserve Now
-                    </button>
-                </div>
-                <button class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
+                <button type="button" class="btn-close btn-close-white ms-3" data-bs-dismiss="toast" style="font-size: 0.7rem;"></button>
             </div>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-hotel-dark border-t border-white/10">
-            <div class="px-4 pt-2 pb-6 space-y-2">
-                <a href="#rooms" class="block px-3 py-2 text-gray-300 hover:text-gold-400">Rooms</a>
-                <a href="#booking" class="block px-3 py-2 text-gray-300 hover:text-gold-400">Book Now</a>
-                <a href="#contact" class="block px-3 py-2 text-gray-300 hover:text-gold-400">Contact</a>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- NAVBAR -->
+    <!-- ============================================================ -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showPage('home')">
+                <span>Parables</span> Studio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#" onclick="showPage('home')">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('shows')">Shows</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('festivals')">Festivals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('blog')">Stories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('about')">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('contact')">Contact</a></li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-bg min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-50"></div>
-        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
-            <p class="text-gold-400 uppercase tracking-[0.3em] mb-4 text-sm font-medium">Welcome to Excellence</p>
-            <h1 class="font-serif text-5xl md:text-7xl text-white mb-6 leading-tight">
-                Experience Unparalleled<br>
-                <span class="text-gold-300 italic">Luxury, Comfort  & Security</span>
-            </h1>
-            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-                Nestled in the heart of the city, The Guidian Hotel offers an exquisite blend of modern elegance and timeless sophistication.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="scrollToBooking()" class="bg-gold-500 hover:bg-gold-600 text-white px-8 py-4 rounded-sm font-medium transition-all transform hover:scale-105 shadow-xl shadow-gold-500/30 text-lg">
-                    Book Your Stay
-                </button>
-                <button onclick="document.getElementById('rooms').scrollIntoView({behavior: 'smooth'})" class="border-2 border-white/30 hover:border-gold-400 text-white hover:text-gold-400 px-8 py-4 rounded-sm font-medium transition-all text-lg backdrop-blur-sm">
-                    Explore Rooms
-                </button>
-            </div>
-            
-            <!-- Quick Stats -->
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/20 pt-8">
-                <div class="text-center">
-                    <p class="text-3xl font-serif text-gold-400">50+</p>
-                    <p class="text-gray-400 text-sm mt-1">Luxury Rooms</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-3xl font-serif text-gold-400">5★</p>
-                    <p class="text-gray-400 text-sm mt-1">Star Rating</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-3xl font-serif text-gold-400">24/7</p>
-                    <p class="text-gray-400 text-sm mt-1">Concierge</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-3xl font-serif text-gold-400">100%</p>
-                    <p class="text-gray-400 text-sm mt-1">Satisfaction</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- ============================================================ -->
+    <!-- PAGE: HOME -->
+    <!-- ============================================================ -->
+    <div id="page-home" class="page-section active">
 
-    <!-- Rooms Section -->
-    <section id="rooms" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <p class="text-gold-600 uppercase tracking-widest text-sm font-medium mb-2">Accommodations</p>
-                <h2 class="font-serif text-4xl md:text-5xl text-hotel-dark mb-4">Our Rooms & Suites</h2>
-                <div class="w-24 h-1 bg-gold-400 mx-auto"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Each room is designed with your comfort in mind, featuring premium amenities and breathtaking views.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Deluxe Room -->
-                <div class="room-card group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                    <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Deluxe Room" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute top-4 right-4 bg-gold-500 text-white px-3 py-1 text-sm font-medium rounded-sm">GH₵280/night</div>
-                        <div class="room-overlay absolute inset-0 bg-hotel-dark/60 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                            <button onclick="selectRoom('Deluxe King')" class="bg-white text-hotel-dark px-6 py-2 rounded-sm font-medium hover:bg-gold-50 transition-colors">
-                                Book This Room
-                            </button>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-bg-pattern"></div>
+            <div class="container hero-content">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-7">
+                        <div class="hero-badge">
+                            <i class="fas fa-star me-2"></i> Ghana's Premier Animation Studio
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-serif text-2xl text-hotel-dark mb-2">Deluxe King Room</h3>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">Spacious room with king-size bed and amenities perfect for business or leisure.</p>
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                            <span><i class="fa-solid fa-user mr-1"></i> 2 Guests</span>
-                            <span><i class="fa-solid fa-bed mr-1"></i> 1 King</span>
-                            <span><i class="fa-solid fa-expand mr-1"></i> 35m²</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">WiFi</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Breakfast</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Mini Bar</span>
-                        </div>
-                        <button onclick="selectRoom('Deluxe King')" class="w-full border-2 border-hotel-dark text-hotel-dark hover:bg-hotel-dark hover:text-white py-2 rounded-sm transition-all font-medium">
-                            Select Room
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Executive Suite -->
-                <div class="room-card group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                    <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Executive Suite" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute top-4 right-4 bg-gold-500 text-white px-3 py-1 text-sm font-medium rounded-sm">GH₵320/night</div>
-                        <div class="absolute top-4 left-4 bg-hotel-blue text-white px-3 py-1 text-xs font-medium rounded-sm uppercase tracking-wider">Popular</div>
-                        <div class="room-overlay absolute inset-0 bg-hotel-dark/60 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                            <button onclick="selectRoom('Executive Suite')" class="bg-white text-hotel-dark px-6 py-2 rounded-sm font-medium hover:bg-gold-50 transition-colors">
-                                Book This Room
-                            </button>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-serif text-2xl text-hotel-dark mb-2">Executive Suite</h3>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">Luxurious suite with separate living area, panoramic ocean views, and premium concierge service.</p>
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                            <span><i class="fa-solid fa-user mr-1"></i> 3 Guests</span>
-                            <span><i class="fa-solid fa-bed mr-1"></i> 1 King + Sofa</span>
-                            <span><i class="fa-solid fa-expand mr-1"></i> 55m²</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Ocean View</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Lounge Access</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Butler</span>
-                        </div>
-                        <button onclick="selectRoom('Executive Suite')" class="w-full border-2 border-hotel-dark text-hotel-dark hover:bg-hotel-dark hover:text-white py-2 rounded-sm transition-all font-medium">
-                            Select Room
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Presidential Suite -->
-                <div class="room-card group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                    <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Presidential Suite" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute top-4 right-4 bg-gold-500 text-white px-3 py-1 text-sm font-medium rounded-sm">GH₵650/night</div>
-                        <div class="absolute top-4 left-4 bg-hotel-accent text-white px-3 py-1 text-xs font-medium rounded-sm uppercase tracking-wider">Premium</div>
-                        <div class="room-overlay absolute inset-0 bg-hotel-dark/60 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                            <button onclick="selectRoom('Presidential Suite')" class="bg-white text-hotel-dark px-6 py-2 rounded-sm font-medium hover:bg-gold-50 transition-colors">
-                                Book This Room
-                            </button>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-serif text-2xl text-hotel-dark mb-2">Presidential Suite</h3>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">Ultimate luxury with private terrace, Jacuzzi, dining room, and 24/7 dedicated butler service.</p>
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                            <span><i class="fa-solid fa-user mr-1"></i> 4 Guests</span>
-                            <span><i class="fa-solid fa-bed mr-1"></i> 2 King Beds</span>
-                            <span><i class="fa-solid fa-expand mr-1"></i> 120m²</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Jacuzzi</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Private Terrace</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Chef Service</span>
-                        </div>
-                        <button onclick="selectRoom('Presidential Suite')" class="w-full border-2 border-hotel-dark text-hotel-dark hover:bg-hotel-dark hover:text-white py-2 rounded-sm transition-all font-medium">
-                            Select Room
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Family Room -->
-                <div class="room-card group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                    <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Family Room" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute top-4 right-4 bg-gold-500 text-white px-3 py-1 text-sm font-medium rounded-sm">GH₵250/night</div>
-                        <div class="room-overlay absolute inset-0 bg-hotel-dark/60 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                            <button onclick="selectRoom('Family Room')" class="bg-white text-hotel-dark px-6 py-2 rounded-sm font-medium hover:bg-gold-50 transition-colors">
-                                Book This Room
-                            </button>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-serif text-2xl text-hotel-dark mb-2">Family Room</h3>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">Connecting rooms with garden views, kids' amenities, and spacious living area for the whole family.</p>
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                            <span><i class="fa-solid fa-user mr-1"></i> 4 Guests</span>
-                            <span><i class="fa-solid fa-bed mr-1"></i> 2 Queens</span>
-                            <span><i class="fa-solid fa-expand mr-1"></i> 65m²</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Garden View</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Kids Area</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Crib Available</span>
-                        </div>
-                        <button onclick="selectRoom('Family Room')" class="w-full border-2 border-hotel-dark text-hotel-dark hover:bg-hotel-dark hover:text-white py-2 rounded-sm transition-all font-medium">
-                            Select Room
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Honeymoon Suite -->
-                <div class="room-card group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                    <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Honeymoon Suite" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute top-4 right-4 bg-gold-500 text-white px-3 py-1 text-sm font-medium rounded-sm">GH₵450/night</div>
-                        <div class="absolute top-4 left-4 bg-pink-500 text-white px-3 py-1 text-xs font-medium rounded-sm uppercase tracking-wider">Romantic</div>
-                        <div class="room-overlay absolute inset-0 bg-hotel-dark/60 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                            <button onclick="selectRoom('Honeymoon Suite')" class="bg-white text-hotel-dark px-6 py-2 rounded-sm font-medium hover:bg-gold-50 transition-colors">
-                                Book This Room
-                            </button>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-serif text-2xl text-hotel-dark mb-2">Honeymoon Suite</h3>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">Romantic retreat with rose petal service, champagne welcome, and private balcony with sunset views.</p>
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                            <span><i class="fa-solid fa-user mr-1"></i> 2 Guests</span>
-                            <span><i class="fa-solid fa-bed mr-1"></i> 1 King</span>
-                            <span><i class="fa-solid fa-expand mr-1"></i> 45m²</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Champagne</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Couples Spa</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Sunset View</span>
-                        </div>
-                        <button onclick="selectRoom('Honeymoon Suite')" class="w-full border-2 border-hotel-dark text-hotel-dark hover:bg-hotel-dark hover:text-white py-2 rounded-sm transition-all font-medium">
-                            Select Room
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Standard Twin -->
-                <div class="room-card group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                    <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1595576508898-0ad5c879a061?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Standard Twin" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute top-4 right-4 bg-gold-500 text-white px-3 py-1 text-sm font-medium rounded-sm">GH₵140/night</div>
-                        <div class="room-overlay absolute inset-0 bg-hotel-dark/60 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                            <button onclick="selectRoom('Standard Twin')" class="bg-white text-hotel-dark px-6 py-2 rounded-sm font-medium hover:bg-gold-50 transition-colors">
-                                Book This Room
-                            </button>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-serif text-2xl text-hotel-dark mb-2">Standard Twin</h3>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">Comfortable and practical with two single beds, work desk, and all essential amenities.</p>
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                            <span><i class="fa-solid fa-user mr-1"></i> 2 Guests</span>
-                            <span><i class="fa-solid fa-bed mr-1"></i> 2 Single</span>
-                            <span><i class="fa-solid fa-expand mr-1"></i> 28m²</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Work Desk</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Coffee Maker</span>
-                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Cable TV</span>
-                        </div>
-                        <button onclick="selectRoom('Standard Twin')" class="w-full border-2 border-hotel-dark text-hotel-dark hover:bg-hotel-dark hover:text-white py-2 rounded-sm transition-all font-medium">
-                            Select Room
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Section -->
-    <section id="booking" class="py-20 bg-hotel-dark relative overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-12">
-                <p class="text-gold-400 uppercase tracking-widest text-sm font-medium mb-2">Reservations</p>
-                <h2 class="font-serif text-4xl md:text-5xl text-white mb-4">Book Your Stay</h2>
-                <div class="w-24 h-1 bg-gold-400 mx-auto"></div>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Booking Form -->
-                <div class="lg:col-span-2 bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-white/10">
-                    <form id="bookingForm" class="space-y-6" onsubmit="handleBooking(event)">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <!-- Personal Info -->
-                            <div class="space-y-4">
-                                <h3 class="text-gold-400 font-medium text-lg mb-4 flex items-center">
-                                    <i class="fa-solid fa-user mr-2"></i> Personal Details
-                                </h3>
-                                <div>
-                                    <label class="block text-gray-300 text-sm mb-2">Full Name *</label>
-                                    <input type="text" id="fullName" required class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-400 transition-colors" placeholder="John Doe">
-                                </div>
-                                <div>
-                                    <label class="block text-gray-300 text-sm mb-2">Email Address *</label>
-                                    <input type="email" id="email" required class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-400 transition-colors" placeholder="john@example.com">
-                                </div>
-                                <div>
-                                    <label class="block text-gray-300 text-sm mb-2">Phone Number *</label>
-                                    <input type="tel" id="phone" required class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-400 transition-colors" placeholder="+1 (555) 000-0000">
-                                </div>
-                                <div>
-                                    <label class="block text-gray-300 text-sm mb-2">Special Requests</label>
-                                    <textarea id="requests" rows="3" class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold-400 transition-colors" placeholder="Any special requirements..."></textarea>
-                                </div>
-                            </div>
-
-                            <!-- Booking Details -->
-                            <div class="space-y-4">
-                                <h3 class="text-gold-400 font-medium text-lg mb-4 flex items-center">
-                                    <i class="fa-solid fa-calendar-check mr-2"></i> Booking Details
-                                </h3>
-                                <div>
-                                    <label class="block text-gray-300 text-sm mb-2">Room Type *</label>
-                                    <select id="roomType" required class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors appearance-none cursor-pointer">
-                                        <option value="" class="bg-hotel-dark">Select a room...</option>
-                                        <option value="Deluxe King" class="bg-hotel-dark">Deluxe King Room - GH₵180/night</option>
-                                        <option value="Executive Suite" class="bg-hotel-dark">Executive Suite - GH₵320/night</option>
-                                        <option value="Presidential Suite" class="bg-hotel-dark">Presidential Suite - GH₵650/night</option>
-                                        <option value="Family Room" class="bg-hotel-dark">Family Room - GH₵250/night</option>
-                                        <option value="Honeymoon Suite" class="bg-hotel-dark">Honeymoon Suite - GH₵450/night</option>
-                                        <option value="Standard Twin" class="bg-hotel-dark">Standard Twin - GH₵140/night</option>
-                                    </select>
-                                </div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-gray-300 text-sm mb-2">Check-in Date *</label>
-                                        <input type="date" id="checkIn" required class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors date-input" onchange="calculateTotal(); checkAvailability()">
-                                    </div>
-                                    <div>
-                                        <label class="block text-gray-300 text-sm mb-2">Check-out Date *</label>
-                                        <input type="date" id="checkOut" required class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors date-input" onchange="calculateTotal(); checkAvailability()">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-gray-300 text-sm mb-2">Number of Guests *</label>
-                                    <select id="guests" required class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors appearance-none cursor-pointer">
-                                        <option value="1" class="bg-hotel-dark">1 Guest</option>
-                                        <option value="2" class="bg-hotel-dark" selected>2 Guests</option>
-                                        <option value="3" class="bg-hotel-dark">3 Guests</option>
-                                        <option value="4" class="bg-hotel-dark">4 Guests</option>
-                                    </select>
-                                </div>
-                                
-                                <!-- Availability Status -->
-                                <div id="availabilityStatus" class="hidden p-3 rounded-sm text-sm font-medium"></div>
-                            </div>
-                        </div>
-
-                        <!-- Price Summary -->
-                        <div class="border-t border-white/10 pt-6 mt-6">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-gray-400">Nights</span>
-                                <span class="text-white" id="nightsCount">0</span>
-                            </div>
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-gray-400">Price per night</span>
-                                <span class="text-white" id="pricePerNight">₵0</span>
-                            </div>
-                            <div class="flex justify-between items-center mb-4">
-                                <span class="text-gray-400">Taxes & Fees (12%)</span>
-                                <span class="text-white" id="taxes">₵0</span>
-                            </div>
-                            <div class="flex justify-between items-center text-xl font-serif border-t border-white/10 pt-4">
-                                <span class="text-gold-400">Total</span>
-                                <span class="text-gold-400" id="totalPrice">₵0</span>
-                            </div>
-                        </div>
-
-                        <button type="submit" id="submitBtn" class="w-full bg-gold-500 hover:bg-gold-600 text-white py-4 rounded-sm font-medium text-lg transition-all transform hover:scale-[1.02] shadow-lg shadow-gold-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                            <span id="btnText">Confirm Booking</span>
-                            <div id="btnSpinner" class="loading-spinner hidden"></div>
-                        </button>
-                        
-                        <p class="text-gray-500 text-xs text-center mt-4">
-                            <i class="fa-solid fa-lock mr-1"></i> Secure booking. You'll receive a confirmation email within minutes.
+                        <h1 class="hero-title">
+                            Where Stories<br>
+                            <span class="text-gold">Come to Life</span>
+                        </h1>
+                        <p>
+                            Parables Animation Studio crafts cinematic, culturally-rich animated stories 
+                            that celebrate Ghanaian heritage, inspire families, and captivate audiences worldwide.
                         </p>
-                    </form>
-                </div>
-
-                <!-- Info Sidebar -->
-                <div class="space-y-6">
-                    <div class="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10">
-                        <h3 class="text-gold-400 font-serif text-xl mb-4">Hotel Policies</h3>
-                        <ul class="space-y-3 text-gray-300 text-sm">
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-clock text-gold-400 mt-1 mr-3"></i>
-                                <span>Check-in: 3:00 PM / Check-out: 11:00 AM</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-credit-card text-gold-400 mt-1 mr-3"></i>
-                                <span>Credit card required for guarantee</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-ban text-gold-400 mt-1 mr-3"></i>
-                                <span>Free cancellation up to 48 hours before arrival</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-wifi text-gold-400 mt-1 mr-3"></i>
-                                <span>Complimentary high-speed WiFi</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-utensils text-gold-400 mt-1 mr-3"></i>
-                                <span>Breakfast included with all bookings</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10">
-                        <h3 class="text-gold-400 font-serif text-xl mb-4">Need Help?</h3>
-                        <p class="text-gray-300 text-sm mb-4">Our reservations team is available 24/7 to assist you with your booking.</p>
-                        <div class="space-y-2 text-sm">
-                            <a href="tel:+15551234567" class="flex items-center text-gold-400 hover:text-gold-300 transition-colors">
-                                <i class="fa-solid fa-phone mr-2"></i> +1 (555) 123-4567
+                        <div class="d-flex flex-column flex-sm-row gap-3">
+                            <a href="#" class="btn btn-gold" onclick="showPage('shows')">
+                                <i class="fas fa-play me-2"></i> Explore Our Work
                             </a>
-                            <a href="mailto:reservations@grandhorizon.com" class="flex items-center text-gold-400 hover:text-gold-300 transition-colors">
-                                <i class="fa-solid fa-envelope mr-2"></i> reservations@grandhorizon.com
+                            <a href="#" class="btn btn-outline-gold" onclick="showPage('contact')">
+                                <i class="fas fa-handshake me-2"></i> Work With Us
                             </a>
                         </div>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <h3>12+</h3>
+                                <p>Award Shows</p>
+                            </div>
+                            <div class="stat">
+                                <h3>50+</h3>
+                                <p>Festivals</p>
+                            </div>
+                            <div class="stat">
+                                <h3>100k+</h3>
+                                <p>Viewers</p>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="bg-gradient-to-br from-gold-500/20 to-gold-600/10 rounded-lg p-6 border border-gold-500/20">
-                        <h3 class="text-gold-400 font-serif text-xl mb-2">Special Offer</h3>
-                        <p class="text-gray-300 text-sm mb-4">Book 3+ nights and receive a complimentary spa treatment worth GH₵150.</p>
-                        <div class="text-2xl font-serif text-white">Save 15%</div>
-                        <p class="text-gold-400 text-xs mt-1">On stays longer than 5 nights</p>
+                    <div class="col-lg-5 d-none d-lg-block">
+                        <div class="text-center">
+                            <i class="fas fa-film fa-8x text-gold" style="opacity: 0.12;"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <p class="text-gold-600 uppercase tracking-widest text-sm font-medium mb-2">Get in Touch</p>
-                    <h2 class="font-serif text-4xl text-hotel-dark mb-6">Contact Us</h2>
-                    <p class="text-gray-600 mb-8 leading-relaxed">Have questions about your stay? Our concierge team is ready to assist you with restaurant reservations, transportation, and local recommendations.</p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="bg-gold-100 p-3 rounded-sm mr-4">
-                                <i class="fa-solid fa-location-dot text-gold-600 text-xl"></i>
+        <!-- FEATURED SHOWS -->
+        <section class="py-4 py-sm-5" style="background: var(--dark-surface);">
+            <div class="container">
+                <div class="section-header">
+                    <div class="subtitle"><i class="fas fa-star me-2"></i> Featured Productions</div>
+                    <h2 class="section-title">Our <span class="text-gold">Signature</span> Shows</h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="row g-3 g-sm-4" id="featuredShows">
+                    <!-- JS Populated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- LATEST STORIES + FESTIVALS -->
+        <section class="py-4 py-sm-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-12 col-lg-8">
+                        <div class="section-header text-start" style="text-align: left !important; margin-bottom: 20px;">
+                            <div class="subtitle"><i class="fas fa-book-open me-2"></i> Latest Stories</div>
+                            <h2 class="section-title" style="font-size: 1.5rem;">From Our <span class="text-gold">Blog</span></h2>
+                            <div class="divider" style="margin-left: 0;"></div>
+                        </div>
+                        <div id="latestBlogs">
+                            <!-- JS Populated -->
+                        </div>
+                        <a href="#" class="btn btn-outline-gold btn-sm mt-3" onclick="showPage('blog')">
+                            <i class="fas fa-arrow-right me-2"></i> Read All Stories
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="section-header text-start" style="text-align: left !important; margin-bottom: 20px;">
+                            <div class="subtitle"><i class="fas fa-calendar-alt me-2"></i> Events</div>
+                            <h2 class="section-title" style="font-size: 1.5rem;">Upcoming <span class="text-gold">Festivals</span></h2>
+                            <div class="divider" style="margin-left: 0;"></div>
+                        </div>
+                        <div id="upcomingFestivals">
+                            <!-- JS Populated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PAGE: SHOWS -->
+    <!-- ============================================================ -->
+    <div id="page-shows" class="page-section">
+        <section class="py-4 py-sm-5" style="background: var(--dark-surface); min-height: 70vh;">
+            <div class="container">
+                <div class="section-header">
+                    <div class="subtitle"><i class="fas fa-film me-2"></i> Our Portfolio</div>
+                    <h2 class="section-title">All <span class="text-gold">Productions</span></h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="row g-3 g-sm-4" id="allShows">
+                    <!-- JS Populated -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PAGE: FESTIVALS -->
+    <!-- ============================================================ -->
+    <div id="page-festivals" class="page-section">
+        <section class="py-4 py-sm-5" style="min-height: 70vh;">
+            <div class="container">
+                <div class="section-header">
+                    <div class="subtitle"><i class="fas fa-calendar-alt me-2"></i> Events</div>
+                    <h2 class="section-title">Animation <span class="text-gold">Festivals</span></h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="row g-3 g-sm-4" id="festivalList">
+                    <!-- JS Populated -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PAGE: BLOG -->
+    <!-- ============================================================ -->
+    <div id="page-blog" class="page-section">
+        <section class="py-4 py-sm-5" style="background: var(--dark-surface); min-height: 70vh;">
+            <div class="container">
+                <div class="section-header">
+                    <div class="subtitle"><i class="fas fa-book-open me-2"></i> Insights</div>
+                    <h2 class="section-title">Stories &amp; <span class="text-gold">Perspectives</span></h2>
+                    <div class="divider"></div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="d-flex flex-wrap gap-2 justify-content-center mb-3 mb-sm-4" id="categoryFilters">
+                    <button class="btn btn-outline-gold btn-sm category-pill active" data-category="all">All</button>
+                    <button class="btn btn-outline-gold btn-sm category-pill" data-category="stories">📖 Stories</button>
+                    <button class="btn btn-outline-gold btn-sm category-pill" data-category="parenting_tips">👶 Parenting</button>
+                    <button class="btn btn-outline-gold btn-sm category-pill" data-category="school_reviews">🏫 Schools</button>
+                    <button class="btn btn-outline-gold btn-sm category-pill" data-category="parent_reviews">👪 Parents</button>
+                </div>
+
+                <div class="row g-3 g-sm-4" id="blogPosts">
+                    <!-- JS Populated -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PAGE: BLOG DETAIL -->
+    <!-- ============================================================ -->
+    <div id="page-blog-detail" class="page-section">
+        <section class="py-4 py-sm-5" style="min-height: 70vh;">
+            <div class="container">
+                <nav aria-label="breadcrumb" class="breadcrumb-custom">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" onclick="showPage('blog')">← Back to Stories</a></li>
+                        <li class="breadcrumb-item active text-light" id="blogDetailTitle" style="font-size: 0.85rem;">Post</li>
+                    </ol>
+                </nav>
+
+                <div class="row g-4">
+                    <div class="col-12 col-lg-8">
+                        <div class="blog-detail-content" id="blogDetailContent">
+                            <!-- JS Populated -->
+                        </div>
+
+                        <!-- Reviews Section -->
+                        <div class="mt-4 mt-sm-5">
+                            <h3 class="font-display" style="font-size: 1.3rem;">
+                                <i class="fas fa-star text-gold-solid me-2"></i> Community Reviews
+                            </h3>
+
+                            <!-- Review Form -->
+                            <div class="card" style="background: var(--dark-card); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--card-radius);">
+                                <div class="card-body p-3 p-sm-4">
+                                    <h5 class="font-display" style="font-size: 1.1rem;">Share Your Thoughts</h5>
+                                    <form id="reviewForm">
+                                        <div class="row g-3">
+                                            <div class="col-12 col-md-6">
+                                                <label class="form-label">Your Name</label>
+                                                <input type="text" id="reviewName" class="form-control form-control-custom" placeholder="e.g., Kwame Asante" required>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <label class="form-label">I am a</label>
+                                                <select id="reviewType" class="form-select form-select-custom" required>
+                                                    <option value="parent">Parent</option>
+                                                    <option value="school">School Rep</option>
+                                                    <option value="educator">Educator</option>
+                                                    <option value="fan">Animation Fan</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Your Review</label>
+                                                <textarea id="reviewContent" class="form-control form-control-custom" rows="4" placeholder="What did you think?" required minlength="10"></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Rating</label>
+                                                <div class="d-flex gap-2 flex-wrap" id="ratingStars">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="rating" value="1" id="star1">
+                                                        <label class="form-check-label text-light" for="star1">⭐</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="rating" value="2" id="star2">
+                                                        <label class="form-check-label text-light" for="star2">⭐⭐</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="rating" value="3" id="star3">
+                                                        <label class="form-check-label text-light" for="star3">⭐⭐⭐</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="rating" value="4" id="star4">
+                                                        <label class="form-check-label text-light" for="star4">⭐⭐⭐⭐</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="rating" value="5" id="star5">
+                                                        <label class="form-check-label text-light" for="star5">⭐⭐⭐⭐⭐</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="button" class="btn btn-gold w-100 w-sm-auto" onclick="submitReview()">
+                                                    <i class="fas fa-paper-plane me-2"></i> Submit Review
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-medium text-hotel-dark">Address</h4>
-                                <p class="text-gray-600 text-sm">123 Ocean Drive, Miami Beach, FL 33139</p>
+
+                            <!-- Reviews List -->
+                            <div class="mt-3" id="reviewsList">
+                                <!-- JS Populated -->
                             </div>
                         </div>
-                        <div class="flex items-start">
-                            <div class="bg-gold-100 p-3 rounded-sm mr-4">
-                                <i class="fa-solid fa-phone text-gold-600 text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-hotel-dark">Phone</h4>
-                                <p class="text-gray-600 text-sm">+233555793978) </p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-gold-100 p-3 rounded-sm mr-4">
-                                <i class="fa-solid fa-envelope text-gold-600 text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-hotel-dark">Email</h4>
-                                <p class="text-gray-600 text-sm">info@guardianHotel.com</p>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-12 col-lg-4">
+                        <div class="card" style="background: var(--dark-card); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--card-radius);">
+                            <div class="card-body p-3 p-sm-4">
+                                <h5 class="font-display" style="font-size: 1.1rem;">📌 About Parables</h5>
+                                <p class="text-muted small">We create animated stories that inspire, educate, and celebrate African culture especially Ghana.</p>
+                                <hr style="border-color: rgba(255,255,255,0.05);">
+                                <h6 class="text-gold-solid" style="font-size: 0.85rem;">🎭 Upcoming Events</h6>
+                                <p class="small text-muted">Check our <a href="#" class="text-gold" onclick="showPage('festivals')">festivals page</a> for the latest.</p>
+                                <hr style="border-color: rgba(255,255,255,0.05);">
+                                <h6 class="text-gold-solid" style="font-size: 0.85rem;">📬 Newsletter</h6>
+                                <div class="d-flex gap-2">
+                                    <input type="email" class="form-control form-control-custom" placeholder="Your email" style="flex: 1; min-height: 44px;">
+                                    <button class="btn btn-gold btn-sm" style="min-height: 44px; white-space: nowrap;">Subscribe</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-gray-50 p-8 rounded-lg border border-gray-200">
-                    <h3 class="font-serif text-2xl text-hotel-dark mb-6">Send an Inquiry</h3>
-                    <form class="space-y-4" onsubmit="handleInquiry(event)">
-                        <div class="grid grid-cols-2 gap-4">
-                            <input type="text" required placeholder="First Name" class="w-full border border-gray-300 rounded-sm px-4 py-3 focus:outline-none focus:border-gold-400 transition-colors">
-                            <input type="text" required placeholder="Last Name" class="w-full border border-gray-300 rounded-sm px-4 py-3 focus:outline-none focus:border-gold-400 transition-colors">
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PAGE: ABOUT -->
+    <!-- ============================================================ -->
+    <div id="page-about" class="page-section">
+        <section class="py-4 py-sm-5" style="background: var(--dark-surface); min-height: 70vh;">
+            <div class="container">
+                <div class="section-header">
+                    <div class="subtitle"><i class="fas fa-info-circle me-2"></i> Who We Are</div>
+                    <h2 class="section-title">About <span class="text-gold">Parables</span></h2>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-12 col-lg-6">
+                        <h3 class="font-display" style="font-size: 1.5rem;">Crafting Stories That <span class="text-gold">Matter</span></h3>
+                        <p class="text-muted" style="font-size: 0.95rem; line-height: 1.7;">
+                            Parables Animation Studio was born from a simple belief: that every story has the power 
+                            to inspire, educate, and unite. Based in Accra, Ghana, we blend traditional African 
+                            storytelling with cutting-edge animation techniques.
+                        </p>
+                        <p class="text-muted" style="font-size: 0.95rem; line-height: 1.7;">
+                            Our team of passionate animators, writers, and cultural consultants work together to 
+                            create content that resonates with families across Africa and the diaspora.
+                        </p>
+                        <div class="row g-2 g-sm-3 mt-3">
+                            <div class="col-6 col-md-3">
+                                <div class="value-card">
+                                    <div class="icon"><i class="fas fa-flag"></i></div>
+                                    <h6 class="font-display" style="font-size: 0.8rem;">Proudly Ghanaian</h6>
+                                    <p class="small text-muted">Rooted in culture</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="value-card">
+                                    <div class="icon"><i class="fas fa-globe-africa"></i></div>
+                                    <h6 class="font-display" style="font-size: 0.8rem;">Pan-African</h6>
+                                    <p class="small text-muted">Stories for all</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="value-card">
+                                    <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+                                    <h6 class="font-display" style="font-size: 0.8rem;">Educational</h6>
+                                    <p class="small text-muted">Learn through stories</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="value-card">
+                                    <div class="icon"><i class="fas fa-heart"></i></div>
+                                    <h6 class="font-display" style="font-size: 0.8rem;">Family-First</h6>
+                                    <p class="small text-muted">Content for all ages</p>
+                                </div>
+                            </div>
                         </div>
-                        <input type="email" required placeholder="Email Address" class="w-full border border-gray-300 rounded-sm px-4 py-3 focus:outline-none focus:border-gold-400 transition-colors">
-                        <select class="w-full border border-gray-300 rounded-sm px-4 py-3 focus:outline-none focus:border-gold-400 transition-colors text-gray-600">
-                            <option>General Inquiry</option>
-                            <option>Group Booking</option>
-                            <option>Event Planning</option>
-                            <option>Feedback</option>
-                        </select>
-                        <textarea required rows="4" placeholder="Your message..." class="w-full border border-gray-300 rounded-sm px-4 py-3 focus:outline-none focus:border-gold-400 transition-colors"></textarea>
-                        <button type="submit" class="w-full bg-hotel-dark hover:bg-hotel-blue text-white py-3 rounded-sm font-medium transition-colors">
-                            Send Message
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="about-image-placeholder">
+                            <div class="text-center">
+                                <i class="fas fa-paint-brush fa-3x text-gold" style="opacity: 0.3;"></i>
+                                <p class="text-muted mt-2" style="font-size: 0.8rem;">Our Creative Studio in Accra</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PAGE: CONTACT -->
+    <!-- ============================================================ -->
+    <div id="page-contact" class="page-section">
+        <section class="py-4 py-sm-5" style="min-height: 70vh;">
+            <div class="container">
+                <div class="section-header">
+                    <div class="subtitle"><i class="fas fa-envelope me-2"></i> Get In Touch</div>
+                    <h2 class="section-title">Let's <span class="text-gold">Create Together</span></h2>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="row g-3 g-sm-4">
+                    <div class="col-12 col-lg-5">
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-4 col-lg-12">
+                                <div class="contact-info-card">
+                                    <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                                    <h6 class="font-display" style="font-size: 0.9rem;">Visit Us</h6>
+                                    <p class="text-muted small">Accra, Ghana<br>East Legon</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4 col-lg-12">
+                                <div class="contact-info-card">
+                                    <div class="icon"><i class="fas fa-phone"></i></div>
+                                    <h6 class="font-display" style="font-size: 0.9rem;">Call Us</h6>
+                                    <p class="text-muted small">+233 50 123 4567<br>Mon-Fri: 9am - 6pm</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4 col-lg-12">
+                                <div class="contact-info-card">
+                                    <div class="icon"><i class="fas fa-envelope"></i></div>
+                                    <h6 class="font-display" style="font-size: 0.9rem;">Email Us</h6>
+                                    <p class="text-muted small">hello@parables.studio<br>We reply within 24hrs</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="card" style="background: var(--dark-card); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--card-radius);">
+                            <div class="card-body p-3 p-sm-4 p-md-5">
+                                <h5 class="font-display mb-3" style="font-size: 1.1rem;">Send a Message</h5>
+                                <form id="contactForm">
+                                    <div class="row g-3">
+                                        <div class="col-12 col-sm-6">
+                                            <label class="form-label">Full Name</label>
+                                            <input type="text" class="form-control form-control-custom" placeholder="Your name" required>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <label class="form-label">Email Address</label>
+                                            <input type="email" class="form-control form-control-custom" placeholder="you@example.com" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Subject</label>
+                                            <input type="text" class="form-control form-control-custom" placeholder="What's this about?" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Message</label>
+                                            <textarea class="form-control form-control-custom" rows="4" placeholder="Tell us about your project..." required></textarea>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-gold w-100 w-sm-auto" onclick="showToast('🎉 Message sent! We\'ll get back to you within 24 hours.')">
+                                                <i class="fas fa-paper-plane me-2"></i> Send Message
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-12 col-lg-4">
+                    <div class="brand"><span>Parables</span> Studio</div>
+                    <p class="text-muted small mt-2" style="max-width: 100%;">
+                        Crafting animated stories that celebrate African culture, inspire families, 
+                        and captivate the world.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Vimeo"><i class="fab fa-vimeo-v"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <h6 class="text-gold-solid">Explore</h6>
+                    <div class="footer-links">
+                        <a href="#" onclick="showPage('shows')">Shows</a>
+                        <a href="#" onclick="showPage('festivals')">Festivals</a>
+                        <a href="#" onclick="showPage('blog')">Stories</a>
+                        <a href="#" onclick="showPage('about')">About</a>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <h6 class="text-gold-solid">Support</h6>
+                    <div class="footer-links">
+                        <a href="#" onclick="showPage('contact')">Contact</a>
+                        <a href="#">FAQ</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-4">
+                    <h6 class="text-gold-solid">Newsletter</h6>
+                    <p class="text-muted small">Subscribe for updates on new shows and festivals.</p>
+                    <div class="d-flex gap-2">
+                        <input type="email" class="form-control form-control-custom" placeholder="Enter email" style="flex: 1; min-height: 44px;">
+                        <button class="btn btn-gold btn-sm" style="min-height: 44px; white-space: nowrap;">
+                            <i class="fas fa-arrow-right"></i>
                         </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-hotel-dark text-white py-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <i class="fa-solid fa-hotel text-gold-400 text-2xl"></i>
-                        <div>
-                            <h3 class="font-serif text-xl">The Grand Horizon</h3>
-                        </div>
-                    </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">Luxury accommodation in the heart of Agona Swedru. Experience an excellent service and unforgettable moments.</p>
-                </div>
-                <div>
-                    <h4 class="font-medium text-gold-400 mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#rooms" class="hover:text-gold-400 transition-colors">Our Rooms</a></li>
-                        <li><a href="#booking" class="hover:text-gold-400 transition-colors">Book Now</a></li>
-                        <li><a href="#" class="hover:text-gold-400 transition-colors">Dining</a></li>
-                        <li><a href="#" class="hover:text-gold-400 transition-colors">Spa & Wellness</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-medium text-gold-400 mb-4">Legal</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-gold-400 transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-gold-400 transition-colors">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-gold-400 transition-colors">Cookie Policy</a></li>
-                        <li><a href="#" class="hover:text-gold-400 transition-colors">Accessibility</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-medium text-gold-400 mb-4">Follow Us</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-gold-500 transition-colors">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-gold-500 transition-colors">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-gold-500 transition-colors">
-                            <i class="fa-brands fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-gold-500 transition-colors">
-                            <i class="fa-brands fa-tripadvisor"></i>
-                        </a>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-white/10 pt-8 text-center text-gray-500 text-sm">
-                <p>&copy; 2026 The Guardian Hotel. All rights reserved.</p>
+            <hr style="border-color: rgba(255,255,255,0.05);" class="mt-4">
+            <div class="text-center">
+                <p class="text-muted small mb-0">
+                    &copy; 2026 Parables Animation Studio. All rights reserved. 🇬🇭
+                </p>
             </div>
         </div>
     </footer>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-4 right-4 transform translate-x-full transition-transform duration-300 z-50 max-w-md">
-        <div class="bg-white rounded-lg shadow-2xl border-l-4 p-4 flex items-start gap-3" id="toastContent">
-            <div id="toastIcon" class="mt-0.5"></div>
-            <div>
-                <h4 class="font-medium text-gray-900" id="toastTitle"></h4>
-                <p class="text-sm text-gray-600 mt-1" id="toastMessage"></p>
-            </div>
-        </div>
-    </div>
+    <!-- ============================================================ -->
+    <!-- BOOTSTRAP JS -->
+    <!-- ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Booking Success Modal -->
-    <div id="successModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg max-w-md w-full p-8 text-center slide-in">
-            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fa-solid fa-check text-green-600 text-2xl"></i>
-            </div>
-            <h3 class="font-serif text-2xl text-hotel-dark mb-2">Booking Confirmed!</h3>
-            <p class="text-gray-600 mb-6">Your reservation has been received. A confirmation email has been sent to <span id="confirmEmail" class="font-medium text-hotel-dark"></span>.</p>
-            <div class="bg-gray-50 rounded-lg p-4 mb-6 text-left text-sm space-y-2">
-                <div class="flex justify-between">
-                    <span class="text-gray-500">Booking ID:</span>
-                    <span class="font-medium text-hotel-dark" id="confirmId">GH-2026-001</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-500">Room:</span>
-                    <span class="font-medium text-hotel-dark" id="confirmRoom">-</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-500">Dates:</span>
-                    <span class="font-medium text-hotel-dark" id="confirmDates">-</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-500">Total:</span>
-                    <span class="font-medium text-gold-600" id="confirmTotal">-</span>
-                </div>
-            </div>
-            <button onclick="closeModal()" class="w-full bg-hotel-dark hover:bg-hotel-blue text-white py-3 rounded-sm font-medium transition-colors">
-                Close
-            </button>
-        </div>
-    </div>
-
+    <!-- ============================================================ -->
+    <!-- MAIN JAVASCRIPT -->
+    <!-- ============================================================ -->
     <script>
-        // Room prices
-        const roomPrices = {
-            'Deluxe King': 180,
-            'Executive Suite': 320,
-            'Presidential Suite': 650,
-            'Family Room': 250,
-            'Honeymoon Suite': 450,
-            'Standard Twin': 140
+        // ============================================================
+        // DATA
+        // ============================================================
+        const DATA = {
+            shows: [{
+                id: 1,
+                title: "The Golden Drum",
+                description: "A young boy discovers a magical drum that unites his village through rhythm and dance.",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                genre: "Musical",
+                targetAudience: "Family",
+                rating: 4.9,
+                festivalRelated: true,
+                year: "2025"
+            }, {
+                id: 2,
+                title: "Ananse: Web of Wisdom",
+                description: "The legendary spider Ananse teaches timeless lessons through clever tricks in this modern retelling.",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                genre: "Folklore",
+                targetAudience: "Kids",
+                rating: 4.8,
+                festivalRelated: true,
+                year: "2024"
+            }, {
+                id: 3,
+                title: "Accra Dreams",
+                description: "Three friends navigate life in Accra, discovering the beauty of friendship and family.",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                genre: "Slice of Life",
+                targetAudience: "Teens",
+                rating: 4.6,
+                festivalRelated: false,
+                year: "2025"
+            }, {
+                id: 4,
+                title: "The Talking Drum",
+                description: "An epic journey across the savannah where a magical drum carries the voices of ancestors.",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                genre: "Adventure",
+                targetAudience: "Family",
+                rating: 4.7,
+                festivalRelated: true,
+                year: "2024"
+            }, {
+                id: 5,
+                title: "Nana's Kitchen",
+                description: "Nana teaches her grandchildren traditional recipes and the stories behind each dish.",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                genre: "Educational",
+                targetAudience: "Kids",
+                rating: 4.5,
+                festivalRelated: false,
+                year: "2025"
+            }, {
+                id: 6,
+                title: "The Moonlight Tales",
+                description: "Under the African moon, elders share stories that teach courage and kindness.",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                genre: "Folklore",
+                targetAudience: "Family",
+                rating: 4.9,
+                festivalRelated: true,
+                year: "2023"
+            }, {
+                id: 7,
+                title: "Sankofa Kids",
+                description: "Time-traveling adventures where kids explore Ghana's history to build a better future.",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                genre: "Educational",
+                targetAudience: "Kids",
+                rating: 4.7,
+                festivalRelated: false,
+                year: "2025"
+            }, {
+                id: 8,
+                title: "The Spirit of the Forest",
+                description: "A magical tale of a forest guardian who teaches children about protecting nature.",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                genre: "Fantasy",
+                targetAudience: "Family",
+                rating: 4.8,
+                festivalRelated: false,
+                year: "2024"
+            }],
+
+            festivals: [{
+                id: 1,
+                name: "Accra Animation Festival 2026",
+                description: "West Africa's largest animation celebration with screenings and masterclasses.",
+                eventDate: "2026-12-10",
+                location: "Accra International Conference Centre",
+                website: "#",
+                featuredShowId: 1
+            }, {
+                id: 2,
+                name: "Kumasi Storytelling & Animation Fair",
+                description: "A vibrant fair combining traditional storytelling with modern animation.",
+                eventDate: "2026-10-15",
+                location: "Kumasi Cultural Centre",
+                website: "#",
+                featuredShowId: 2
+            }, {
+                id: 3,
+                name: "Tamale Animation Summit",
+                description: "Northern Ghana's premier animation event focusing on cultural preservation.",
+                eventDate: "2027-02-20",
+                location: "Tamale Sports Stadium",
+                website: "#",
+                featuredShowId: 4
+            }, {
+                id: 4,
+                name: "Parables Family Film Festival",
+                description: "A family-friendly celebration with screenings and character meet-and-greets.",
+                eventDate: "2026-12-20",
+                location: "Accra, Airport City",
+                website: "#",
+                featuredShowId: 6
+            }],
+
+            blogPosts: [{
+                id: 1,
+                title: "The Power of African Folklore in Modern Animation",
+                slug: "african-folklore-animation",
+                content: `<p>African folklore is a treasure trove of wisdom, humor, and timeless lessons. At Parables Studio, we've made it our mission to bring these stories to life through animation.</p>
+                        <p>From the cunning Ananse to the brave warriors of the savannah, these characters have captivated audiences for generations.</p>
+                        <p>In this post, we explore how we adapt traditional tales for contemporary viewers, balancing cultural authenticity with modern storytelling techniques.</p>`,
+                category: "stories",
+                featuredImage: "",
+                author: "Kwame Adjei",
+                views: 2341,
+                created_at: "2026-08-25"
+            }, {
+                id: 2,
+                title: "6 Ways Animation Boosts Childhood Development",
+                slug: "animation-child-development",
+                content: `<p>Animation isn't just entertainment—it's a powerful tool for learning and development. Research shows that well-crafted animated content can enhance creativity, empathy, and cognitive skills in children.</p>
+                        <p>At Parables, we design our shows with developmental milestones in mind. Here are six ways animation positively impacts child development:</p>
+                        <ul>
+                            <li><strong>Language skills:</strong> Exposure to rich vocabulary and dialogue</li>
+                            <li><strong>Emotional intelligence:</strong> Understanding characters' feelings</li>
+                            <li><strong>Problem-solving:</strong> Following story plots and predicting outcomes</li>
+                            <li><strong>Cultural awareness:</strong> Learning about different traditions</li>
+                            <li><strong>Creativity:</strong> Inspiring imaginative play and art</li>
+                            <li><strong>Concentration:</strong> Building attention span through engaging narratives</li>
+                        </ul>`,
+                category: "parenting_tips",
+                featuredImage: "",
+                author: "Akua Mensah",
+                views: 1856,
+                created_at: "2026-08-20"
+            }, {
+                id: 3,
+                title: "Accra Academy's Animation Club: A Success Story",
+                slug: "accra-academy-animation-club",
+                content: `<p>When Accra Academy launched their animation club in 2024, they had no idea it would become one of the school's most popular extracurricular activities.</p>
+                        <p>We visited the school to see the club in action and speak with students and teachers about the impact of animation on learning.</p>
+                        <p>"Animation has given our students a new way to express themselves and explore their creativity," says Mrs. Asare, the club's faculty advisor.</p>`,
+                category: "school_reviews",
+                featuredImage: "",
+                author: "School Review Team",
+                views: 1432,
+                created_at: "2026-08-15"
+            }, {
+                id: 4,
+                title: "Parent Reviews: Why Families Love 'The Golden Drum'",
+                slug: "parent-reviews-golden-drum",
+                content: `<p>Since its premiere, "The Golden Drum" has become a family favorite across Ghana. We spoke with parents about why this show has resonated so deeply.</p>
+                        <p>Parents praise the show's positive messages, beautiful animation, and authentic Ghanaian cultural elements. "My kids are learning about their heritage while being entertained," says Akua Mensah.</p>`,
+                category: "parent_reviews",
+                featuredImage: "",
+                author: "Parent Panel",
+                views: 2078,
+                created_at: "2026-08-10"
+            }, {
+                id: 5,
+                title: "The Art of Visual Storytelling in African Animation",
+                slug: "visual-storytelling-african-animation",
+                content: `<p>Visual storytelling is at the heart of animation, and African artists bring a unique perspective to this art form. From vibrant color palettes inspired by Ghanaian textiles to character designs influenced by traditional masks.</p>
+                        <p>In this article, we explore the visual language of African animation and how Parables Studio incorporates cultural motifs into our character design, backgrounds, and cinematography.</p>`,
+                category: "stories",
+                featuredImage: "",
+                author: "Kwame Adjei",
+                views: 1890,
+                created_at: "2026-08-05"
+            }],
+
+            reviews: [{
+                id: 1,
+                blogPostId: 1,
+                reviewerName: "Ama Serwaa",
+                reviewerType: "parent",
+                content: "This beautifully captures the essence of our storytelling traditions. My children are captivated!",
+                rating: 5,
+                isApproved: true,
+                created_at: "2026-08-24"
+            }, {
+                id: 2,
+                blogPostId: 1,
+                reviewerName: "Dr. Kofi Anane",
+                reviewerType: "educator",
+                content: "An excellent resource for teaching African literature and cultural studies. Highly recommended.",
+                rating: 5,
+                isApproved: true,
+                created_at: "2026-08-23"
+            }, {
+                id: 3,
+                blogPostId: 2,
+                reviewerName: "Esi Amponsah",
+                reviewerType: "parent",
+                content: "These tips are practical and effective. My son's creativity has blossomed since we started using them.",
+                rating: 4,
+                isApproved: true,
+                created_at: "2026-08-19"
+            }, {
+                id: 4,
+                blogPostId: 3,
+                reviewerName: "Mr. Owusu",
+                reviewerType: "school",
+                content: "The animation club has transformed student engagement. We're proud to partner with Parables Studio.",
+                rating: 5,
+                isApproved: true,
+                created_at: "2026-08-14"
+            }, {
+                id: 5,
+                blogPostId: 4,
+                reviewerName: "Nana Yaa",
+                reviewerType: "parent",
+                content: "My whole family watches 'The Golden Drum' together. It's become a Sunday tradition!",
+                rating: 5,
+                isApproved: true,
+                created_at: "2026-08-09"
+            }]
         };
 
-        // Set minimum date to today
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('checkIn').min = today;
-        document.getElementById('checkOut').min = today;
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-hotel-dark/95', 'shadow-lg');
-            } else {
-                navbar.classList.remove('shadow-lg');
-            }
-        });
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        function getShow(id) {
+            return DATA.shows.find(s => s.id === id);
         }
 
-        function scrollToBooking() {
-            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        function getBlogPost(id) {
+            return DATA.blogPosts.find(b => b.id === id);
         }
 
-        function selectRoom(roomType) {
-            document.getElementById('roomType').value = roomType;
-            scrollToBooking();
-            showToast('Room Selected', `₵{roomType} has been selected. Please complete your booking details.`, 'info');
-            calculateTotal();
+        function getReviewsForPost(postId) {
+            return DATA.reviews.filter(r => r.blogPostId === postId && r.isApproved);
         }
 
-        function calculateTotal() {
-            const roomType = document.getElementById('roomType').value;
-            const checkIn = new Date(document.getElementById('checkIn').value);
-            const checkOut = new Date(document.getElementById('checkOut').value);
-            
-            if (!roomType || !checkIn || !checkOut || checkOut <= checkIn) {
-                document.getElementById('nightsCount').textContent = '0';
-                document.getElementById('pricePerNight').textContent = '₵0';
-                document.getElementById('taxes').textContent = '₵0';
-                document.getElementById('totalPrice').textContent = '₵0';
-                return;
-            }
-
-            const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
-            const pricePerNight = roomPrices[roomType] || 0;
-            const subtotal = nights * pricePerNight;
-            const taxes = subtotal * 0.12;
-            const total = subtotal + taxes;
-
-            document.getElementById('nightsCount').textContent = nights;
-            document.getElementById('pricePerNight').textContent = `$${pricePerNight}`;
-            document.getElementById('taxes').textContent = `$${taxes.toFixed(2)}`;
-            document.getElementById('totalPrice').textContent = `$${total.toFixed(2)}`;
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
 
-        function checkAvailability() {
-            const roomType = document.getElementById('roomType').value;
-            const checkIn = document.getElementById('checkIn').value;
-            const checkOut = document.getElementById('checkOut').value;
-            const statusDiv = document.getElementById('availabilityStatus');
+        function starsHTML(rating) {
+            return '⭐'.repeat(Math.round(rating));
+        }
 
-            if (!roomType || !checkIn || !checkOut) {
-                statusDiv.classList.add('hidden');
-                return;
-            }
+        function truncateText(text, max = 100) {
+            const clean = text.replace(/<[^>]*>/g, '');
+            return clean.length > max ? clean.substring(0, max) + '...' : clean;
+        }
 
-            // Simulate availability check - in production, this would call your Google Apps Script
-            statusDiv.classList.remove('hidden');
-            statusDiv.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Checking availability...';
-            statusDiv.className = 'p-3 rounded-sm text-sm font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30';
+        function categoryLabel(cat) {
+            return cat.replace('_', ' ').toUpperCase();
+        }
 
-            setTimeout(() => {
-                // Mock response - replace with actual API call to Google Apps Script
-                const isAvailable = Math.random() > 0.3; // 70% chance available for demo
-                if (isAvailable) {
-                    statusDiv.innerHTML = '<i class="fa-solid fa-check-circle mr-2"></i> Dates available! Proceed with booking.';
-                    statusDiv.className = 'p-3 rounded-sm text-sm font-medium bg-green-500/20 text-green-300 border border-green-500/30';
-                } else {
-                    statusDiv.innerHTML = '<i class="fa-solid fa-times-circle mr-2"></i> Selected dates are not available. Please choose different dates.';
-                    statusDiv.className = 'p-3 rounded-sm text-sm font-medium bg-red-500/20 text-red-300 border border-red-500/30';
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
+        function showPage(page) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('page-' + page);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                link.classList.remove('active');
+                const onclick = link.getAttribute('onclick') || '';
+                if (onclick.includes("showPage('" + page + "')")) {
+                    link.classList.add('active');
                 }
-            }, 1500);
+            });
+
+            // Close mobile menu
+            const navCollapse = document.getElementById('mainNav');
+            if (navCollapse.classList.contains('show')) {
+                const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+                if (bsCollapse) bsCollapse.hide();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (page !== 'blog-detail') sessionStorage.removeItem('blogDetailId');
         }
 
-        async function handleBooking(e) {
-            e.preventDefault();
-            
-            const formData = {
-                fullName: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                roomType: document.getElementById('roomType').value,
-                checkIn: document.getElementById('checkIn').value,
-                checkOut: document.getElementById('checkOut').value,
-                guests: document.getElementById('guests').value,
-                requests: document.getElementById('requests').value,
-                totalPrice: document.getElementById('totalPrice').textContent,
-                timestamp: new Date().toISOString()
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(msg) {
+            document.getElementById('toastMessage').innerHTML = '<i class="fas fa-check-circle text-gold-solid me-2"></i> ' + msg;
+            const toast = new bootstrap.Toast(document.getElementById('liveToast'), { delay: 4000 });
+            toast.show();
+        }
+
+        // ============================================================
+        // RENDER FUNCTIONS
+        // ============================================================
+
+        // -- HOME --
+        function renderHome() {
+            const container = document.getElementById('featuredShows');
+            container.innerHTML = DATA.shows.slice(0, 4).map(s => `
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                    <div class="show-card">
+                        <div class="card-thumb" style="background: linear-gradient(135deg, #1a1a2e, #0f3460);">
+                            <i class="fas fa-play-circle play-icon"></i>
+                            <span class="genre-tag">${s.genre}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <span class="rating">${starsHTML(s.rating)}</span>
+                                <span style="color: var(--text-muted); font-size: 0.6rem;">${s.year}</span>
+                            </div>
+                            <h5>${s.title}</h5>
+                            <p>${truncateText(s.description, 60)}</p>
+                            <a href="#" class="btn btn-outline-gold btn-sm w-100" onclick="showBlogDetail(${s.id}, 'show')">
+                                <i class="fas fa-play me-1"></i> Watch
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Latest blogs
+            const blogContainer = document.getElementById('latestBlogs');
+            blogContainer.innerHTML = DATA.blogPosts.slice(0, 3).map(b => `
+                <div class="blog-card mb-3">
+                    <div class="blog-meta d-flex justify-content-between align-items-center">
+                        <span class="category"><i class="fas fa-tag me-1"></i> ${categoryLabel(b.category)}</span>
+                        <span class="date"><i class="far fa-calendar me-1"></i> ${formatDate(b.created_at)}</span>
+                    </div>
+                    <div class="blog-body">
+                        <h5><a href="#" onclick="showBlogDetail(${b.id}, 'blog')">${b.title}</a></h5>
+                        <p class="text-muted small">${truncateText(b.content, 80)}</p>
+                        <span class="text-muted small"><i class="fas fa-user me-1"></i> ${b.author} · <i class="fas fa-eye me-1"></i> ${b.views}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Festivals
+            const festContainer = document.getElementById('upcomingFestivals');
+            festContainer.innerHTML = DATA.festivals.slice(0, 2).map(f => `
+                <div class="festival-card mb-3">
+                    <span class="festival-date"><i class="far fa-calendar me-1"></i> ${formatDate(f.eventDate)}</span>
+                    <h5>${f.name}</h5>
+                    <p class="text-muted small">${truncateText(f.description, 70)}</p>
+                    <p class="text-muted small"><i class="fas fa-map-marker-alt me-1"></i> ${f.location}</p>
+                    <a href="#" class="btn btn-gold btn-sm w-100" onclick="showPage('festivals')">Learn More</a>
+                </div>
+            `).join('') || '<p class="text-muted text-center py-3">No upcoming festivals.</p>';
+        }
+
+        // -- SHOWS --
+        function renderAllShows() {
+            const container = document.getElementById('allShows');
+            container.innerHTML = DATA.shows.map(s => `
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="show-card">
+                        <div class="card-thumb" style="background: linear-gradient(135deg, #1a1a2e, #0f3460);">
+                            <i class="fas fa-play-circle play-icon"></i>
+                            <span class="genre-tag">${s.genre}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <span class="rating">${starsHTML(s.rating)}</span>
+                                <span style="color: var(--text-muted); font-size: 0.6rem;">${s.year}</span>
+                            </div>
+                            <h5>${s.title}</h5>
+                            <p>${truncateText(s.description, 50)}</p>
+                            <a href="#" class="btn btn-outline-gold btn-sm w-100" onclick="showBlogDetail(${s.id}, 'show')">
+                                <i class="fas fa-play me-1"></i> Watch
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // -- FESTIVALS --
+        function renderFestivals() {
+            const container = document.getElementById('festivalList');
+            container.innerHTML = DATA.festivals.map(f => `
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="festival-card">
+                        <span class="festival-date"><i class="far fa-calendar me-1"></i> ${formatDate(f.eventDate)}</span>
+                        <h5 class="mt-2 font-display">${f.name}</h5>
+                        <p class="text-muted small">${f.description}</p>
+                        <p class="text-muted small"><i class="fas fa-map-marker-alt me-1"></i> ${f.location}</p>
+                        ${getShow(f.featuredShowId) ? `<p class="small"><span class="text-gold-solid">★ Featured:</span> ${getShow(f.featuredShowId).title}</p>` : ''}
+                        <a href="${f.website}" class="btn btn-gold btn-sm w-100"><i class="fas fa-ticket-alt me-1"></i> Get Tickets</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // -- BLOG --
+        let currentCategory = 'all';
+
+        function renderBlog(category = 'all') {
+            currentCategory = category;
+            let posts = DATA.blogPosts;
+            if (category !== 'all') posts = posts.filter(p => p.category === category);
+
+            const container = document.getElementById('blogPosts');
+            container.innerHTML = posts.map(b => `
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="blog-card">
+                        <div class="blog-meta d-flex justify-content-between align-items-center">
+                            <span class="category"><i class="fas fa-tag me-1"></i> ${categoryLabel(b.category)}</span>
+                            <span class="date"><i class="far fa-calendar me-1"></i> ${formatDate(b.created_at)}</span>
+                        </div>
+                        <div class="blog-body">
+                            <h5><a href="#" onclick="showBlogDetail(${b.id}, 'blog')">${b.title}</a></h5>
+                            <p class="text-muted small">${truncateText(b.content, 80)}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted small"><i class="fas fa-user me-1"></i> ${b.author}</span>
+                                <span class="text-muted small"><i class="fas fa-eye me-1"></i> ${b.views}</span>
+                            </div>
+                            <a href="#" class="btn btn-outline-gold btn-sm w-100 mt-2" onclick="showBlogDetail(${b.id}, 'blog')">
+                                <i class="fas fa-arrow-right me-1"></i> Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('') || '<div class="col-12 text-center text-muted py-4">No posts in this category.</div>';
+
+            document.querySelectorAll('.category-pill').forEach(pill => {
+                pill.classList.toggle('active', pill.dataset.category === category);
+            });
+        }
+
+        // -- BLOG DETAIL --
+        function showBlogDetail(id, type) {
+            if (type === 'show') {
+                const s = getShow(id);
+                if (!s) return;
+
+                document.getElementById('blogDetailTitle').textContent = s.title;
+                document.getElementById('blogDetailContent').innerHTML = `
+                    <h1 class="font-display" style="font-size: 1.8rem;">${s.title}</h1>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <span class="text-muted small"><i class="fas fa-tag me-1"></i> ${s.genre}</span>
+                        <span class="text-muted small"><i class="fas fa-users me-1"></i> ${s.targetAudience}</span>
+                        <span class="text-gold-solid">${starsHTML(s.rating)}</span>
+                        ${s.festivalRelated ? '<span class="festival-date"><i class="fas fa-star me-1"></i> Festival Feature</span>' : ''}
+                    </div>
+                    <div class="video-wrapper">
+                        <iframe src="${s.videoUrl}" allowfullscreen></iframe>
+                    </div>
+                    <div class="mt-3">
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">${s.description}</p>
+                        <p class="text-muted small"><i class="fas fa-calendar me-1"></i> Released: ${s.year}</p>
+                    </div>
+                `;
+                document.getElementById('reviewsList').innerHTML = `
+                    <div class="text-center text-muted py-4">
+                        <i class="fas fa-comment fa-2x mb-2" style="opacity: 0.3;"></i>
+                        <p class="small">Reviews for shows coming soon!</p>
+                    </div>
+                `;
+                showPage('blog-detail');
+                return;
+            }
+
+            const b = getBlogPost(id);
+            if (!b) return;
+
+            document.getElementById('blogDetailTitle').textContent = b.title;
+            document.getElementById('blogDetailContent').innerHTML = `
+                <h1 class="font-display" style="font-size: 1.8rem;">${b.title}</h1>
+                <div class="d-flex flex-wrap gap-2 mb-3 text-muted small">
+                    <span><i class="fas fa-user me-1"></i> ${b.author}</span>
+                    <span><i class="far fa-calendar me-1"></i> ${formatDate(b.created_at)}</span>
+                    <span><i class="fas fa-tag me-1"></i> ${categoryLabel(b.category)}</span>
+                    <span><i class="fas fa-eye me-1"></i> ${b.views} views</span>
+                </div>
+                <div class="blog-content">${b.content}</div>
+            `;
+
+            const reviews = getReviewsForPost(id);
+            const container = document.getElementById('reviewsList');
+            if (reviews.length) {
+                container.innerHTML = reviews.map(r => `
+                    <div class="review-card mb-2">
+                        <div class="reviewer">
+                            <div class="avatar">${r.reviewerName.charAt(0)}</div>
+                            <div class="reviewer-info">
+                                <strong>${r.reviewerName}</strong>
+                                <span>${r.reviewerType.charAt(0).toUpperCase() + r.reviewerType.slice(1)}</span>
+                            </div>
+                            <div class="text-gold-solid" style="font-size: 0.8rem;">${'⭐'.repeat(r.rating)}</div>
+                        </div>
+                        <p class="text-muted small">${r.content}</p>
+                        <small class="text-muted" style="font-size: 0.6rem;">${formatDate(r.created_at)}</small>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = '<p class="text-muted text-center py-3">Be the first to share your thoughts!</p>';
+            }
+
+            sessionStorage.setItem('blogDetailId', id);
+            showPage('blog-detail');
+        }
+
+        // -- SUBMIT REVIEW --
+        function submitReview() {
+            const postId = parseInt(sessionStorage.getItem('blogDetailId'));
+            if (!postId) { showToast('Please view a blog post first.'); return; }
+
+            const name = document.getElementById('reviewName').value.trim();
+            const type = document.getElementById('reviewType').value;
+            const content = document.getElementById('reviewContent').value.trim();
+            const ratingInput = document.querySelector('input[name="rating"]:checked');
+
+            if (!name) { showToast('Please enter your name.'); return; }
+            if (!content || content.length < 10) { showToast('Review must be at least 10 characters.'); return; }
+            if (!ratingInput) { showToast('Please select a rating.'); return; }
+
+            const newReview = {
+                id: DATA.reviews.length + 1,
+                blogPostId: postId,
+                reviewerName: name,
+                reviewerType: type,
+                content: content,
+                rating: parseInt(ratingInput.value),
+                isApproved: true,
+                created_at: new Date().toISOString().split('T')[0]
             };
+            DATA.reviews.push(newReview);
 
-            // Validation
-            if (!formData.roomType) {
-                showToast('Error', 'Please select a room type', 'error');
-                return;
-            }
+            document.getElementById('reviewName').value = '';
+            document.getElementById('reviewContent').value = '';
+            document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
 
-            const checkIn = new Date(formData.checkIn);
-            const checkOut = new Date(formData.checkOut);
-            if (checkOut <= checkIn) {
-                showToast('Error', 'Check-out date must be after check-in date', 'error');
-                return;
-            }
+            const container = document.getElementById('reviewsList');
+            const reviews = getReviewsForPost(postId);
+            container.innerHTML = reviews.map(r => `
+                <div class="review-card mb-2">
+                    <div class="reviewer">
+                        <div class="avatar">${r.reviewerName.charAt(0)}</div>
+                        <div class="reviewer-info">
+                            <strong>${r.reviewerName}</strong>
+                            <span>${r.reviewerType.charAt(0).toUpperCase() + r.reviewerType.slice(1)}</span>
+                        </div>
+                        <div class="text-gold-solid" style="font-size: 0.8rem;">${'⭐'.repeat(r.rating)}</div>
+                    </div>
+                    <p class="text-muted small">${r.content}</p>
+                    <small class="text-muted" style="font-size: 0.6rem;">${formatDate(r.created_at)}</small>
+                </div>
+            `).join('');
 
-            // Show loading
-            const btn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const btnSpinner = document.getElementById('btnSpinner');
-            btn.disabled = true;
-            btnText.textContent = 'Processing...';
-            btnSpinner.classList.remove('hidden');
+            showToast('🎉 Thank you! Your review has been submitted.');
+        }
 
-            try {
-                // ============================================
-                // GOOGLE SHEETS INTEGRATION POINT
-                // ============================================
-                // Replace with your Google Apps Script Web App URL
-                const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby9osZE847YNUxpBTTWC2eiREUpGVVclEn4E5kcBzsrkUxY9lXa3QVeMq0BOW98g0TFLg/exec';
-                
-                // For demo purposes, simulate API call
-                // In production, uncomment the fetch below and replace URL:
-                
-                
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.category-pill').forEach(pill => {
+                pill.addEventListener('click', function() {
+                    renderBlog(this.dataset.category);
                 });
-                const result = await response.json();
-                */
+            });
 
-                // Simulate network delay
-                await new Promise(resolve => setTimeout(resolve, 2000));
+            renderHome();
+            renderAllShows();
+            renderFestivals();
+            renderBlog('all');
+            showPage('home');
 
-                // Mock success response
-                const bookingId = 'GH-' + new Date().getFullYear() + '-' + Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-                
-                // Show success modal
-                document.getElementById('confirmEmail').textContent = formData.email;
-                document.getElementById('confirmId').textContent = bookingId;
-                document.getElementById('confirmRoom').textContent = formData.roomType;
-                document.getElementById('confirmDates').textContent = `${formData.checkIn} to ${formData.checkOut}`;
-                document.getElementById('confirmTotal').textContent = formData.totalPrice;
-                document.getElementById('successModal').classList.remove('hidden');
-                document.getElementById('successModal').classList.add('flex');
-
-                // Reset form
-                document.getElementById('bookingForm').reset();
-                calculateTotal();
-
-            } catch (error) {
-                showToast('Booking Failed', 'There was an error processing your booking. Please try again or contact us directly.', 'error');
-                console.error('Booking error:', error);
-            } finally {
-                btn.disabled = false;
-                btnText.textContent = 'Confirm Booking';
-                btnSpinner.classList.add('hidden');
-            }
-        }
-
-        function handleInquiry(e) {
-            e.preventDefault();
-            showToast('Message Sent', 'Thank you for your inquiry. We will respond within 24 hours.', 'success');
-            e.target.reset();
-        }
-
-        function closeModal() {
-            document.getElementById('successModal').classList.add('hidden');
-            document.getElementById('successModal').classList.remove('flex');
-        }
-
-        function showToast(title, message, type = 'info') {
-            const toast = document.getElementById('toast');
-            const toastContent = document.getElementById('toastContent');
-            const toastIcon = document.getElementById('toastIcon');
-            const toastTitle = document.getElementById('toastTitle');
-            const toastMessage = document.getElementById('toastMessage');
-
-            const icons = {
-                success: '<i class="fa-solid fa-check-circle text-green-500 text-xl"></i>',
-                error: '<i class="fa-solid fa-exclamation-circle text-red-500 text-xl"></i>',
-                info: '<i class="fa-solid fa-info-circle text-blue-500 text-xl"></i>'
-            };
-
-            const borders = {
-                success: 'border-green-500',
-                error: 'border-red-500',
-                info: 'border-blue-500'
-            };
-
-            toastIcon.innerHTML = icons[type];
-            toastContent.className = `bg-white rounded-lg shadow-2xl border-l-4 ${borders[type]} p-4 flex items-start gap-3`;
-            toastTitle.textContent = title;
-            toastMessage.textContent = message;
-
-            toast.classList.remove('translate-x-full');
-            
-            setTimeout(() => {
-                toast.classList.add('translate-x-full');
-            }, 5000);
-        }
-
-        // Close modal on outside click
-        document.getElementById('successModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('successModal')) {
-                closeModal();
-            }
+            // Close mobile menu on link click
+            document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    const navCollapse = document.getElementById('mainNav');
+                    if (navCollapse.classList.contains('show')) {
+                        const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+                        if (bsCollapse) bsCollapse.hide();
+                    }
+                });
+            });
         });
     </script>
+
 </body>
 </html>
