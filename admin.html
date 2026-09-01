@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - Parables Studio</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <!-- TinyMCE for rich text editing -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <style>
+        :root {
+            --primary: #C9A84C;
+            --primary-dark: #A8892A;
+            --dark: #0A0A0A;
+            --dark-card: #141414;
+            --dark-surface: #1A1A1A;
+            --text-light: #F5F0E8;
+            --text-muted: #C5C0B8;
+            --text-muted-secondary: #9A958E;
+            --gradient-gold: linear-gradient(135deg, #C9A84C 0%, #F5E6A3 50%, #C9A84C 100%);
+            --shadow-gold: 0 8px 32px rgba(201, 168, 76, 0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --card-radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Admin Layout */
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            width: 260px;
+            background: var(--dark-card);
+            border-right: 1px solid rgba(255,255,255,0.06);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 100;
+            transition: var(--transition);
+        }
+        .admin-sidebar .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .admin-sidebar .brand span {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .admin-sidebar .brand small {
+            font-size: 0.6rem;
+            color: var(--primary);
+            background: rgba(201,168,76,0.15);
+            padding: 2px 8px;
+            border-radius: 20px;
+            -webkit-text-fill-color: var(--primary);
+        }
+        .admin-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+            text-decoration: none;
+        }
+        .admin-nav-item:hover {
+            color: var(--text-light);
+            background: rgba(255,255,255,0.03);
+        }
+        .admin-nav-item.active {
+            color: var(--primary);
+            background: rgba(201,168,76,0.08);
+            border-left-color: var(--primary);
+        }
+        .admin-nav-item i { width: 20px; font-size: 1.1rem; }
+
+        /* Main Content */
+        .admin-main {
+            margin-left: 260px;
+            flex: 1;
+            padding: 24px 32px 40px;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .admin-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .admin-topbar h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin: 0;
+        }
+        .admin-topbar .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .admin-topbar .user-info .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gradient-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .admin-topbar .btn-logout {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            padding: 6px 16px;
+            border-radius: 50px;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        .admin-topbar .btn-logout:hover {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        /* Content Panels */
+        .admin-panel { display: none; }
+        .admin-panel.active { display: block; }
+
+        /* Stats Cards */
+        .stat-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--card-radius);
+            padding: 20px 24px;
+            transition: var(--transition);
+        }
+        .stat-card:hover { border-color: rgba(201,168,76,0.2); }
+        .stat-card .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+        .stat-card .label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+        .stat-card .icon {
+            font-size: 2rem;
+            opacity: 0.3;
+            color: var(--primary);
+        }
+
+        /* Table Styles */
+        .admin-table-wrap {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .admin-table th {
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-weight: 600;
+        }
+        .admin-table td {
+            padding: 12px 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+        .admin-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .admin-table .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .admin-table .actions button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        .admin-table .actions button:hover { background: rgba(255,255,255,0.05); color: var(--text-light); }
+        .admin-table .actions .btn-edit:hover { color: var(--primary); }
+        .admin-table .actions .btn-delete:hover { color: #ff6b6b; }
+
+        /* Badge */
+        .badge-status {
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+        .badge-status.published { background: rgba(180,255,57,0.15); color: #B4FF39; }
+        .badge-status.draft { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+        .badge-status.new { background: rgba(0,229,255,0.15); color: #00E5FF; }
+        .badge-status.read { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+        .badge-status.approved { background: rgba(180,255,57,0.15); color: #B4FF39; }
+        .badge-status.pending { background: rgba(255,181,71,0.15); color: #FFB547; }
+
+        /* Form Styles */
+        .admin-form {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--card-radius);
+            padding: 28px 32px;
+            max-width: 900px;
+        }
+        .admin-form .form-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .admin-form .form-control {
+            background: var(--dark-surface);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: var(--text-light);
+            padding: 10px 14px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        .admin-form .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(201,168,76,0.08);
+            outline: none;
+            background: var(--dark-surface);
+            color: var(--text-light);
+        }
+        .admin-form .form-control::placeholder { color: var(--text-muted-secondary); }
+        .admin-form select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23C9A84C' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 12px;
+        }
+        .admin-form textarea.form-control { min-height: 120px; resize: vertical; }
+
+        /* Buttons */
+        .btn-primary-custom {
+            background: var(--gradient-gold);
+            color: var(--dark);
+            border: none;
+            padding: 10px 24px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+        .btn-primary-custom:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); color: var(--dark); }
+        .btn-outline-custom {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 24px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+        .btn-outline-custom:hover { border-color: var(--primary); color: var(--text-light); }
+        .btn-danger-custom {
+            background: rgba(255,107,107,0.15);
+            color: #ff6b6b;
+            border: none;
+            padding: 8px 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+        .btn-danger-custom:hover { background: rgba(255,107,107,0.25); }
+
+        /* Modal */
+        .admin-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .admin-modal-overlay.open { display: flex; }
+        .admin-modal {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--card-radius);
+            padding: 32px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .admin-modal .close-modal {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+        .admin-modal .close-modal:hover { color: var(--text-light); }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state i { font-size: 3rem; opacity: 0.2; margin-bottom: 16px; }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .admin-sidebar {
+                width: 200px;
+                transform: translateX(-100%);
+            }
+            .admin-sidebar.open { transform: translateX(0); }
+            .admin-main { margin-left: 0; padding: 16px; }
+            .admin-sidebar-toggle {
+                display: inline-flex !important;
+                background: transparent;
+                border: none;
+                color: var(--text-light);
+                font-size: 1.4rem;
+                padding: 4px 8px;
+            }
+        }
+        .admin-sidebar-toggle { display: none; }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .toast-custom {
+            background: var(--dark-card);
+            border: 1px solid rgba(201,168,76,0.25);
+            border-radius: var(--card-radius);
+            color: var(--text-light);
+            padding: 14px 20px;
+            font-size: 0.9rem;
+            min-width: 280px;
+            animation: slideIn 0.3s ease forwards;
+            box-shadow: var(--shadow-gold);
+        }
+        .toast-custom.success { border-color: rgba(180,255,57,0.3); }
+        .toast-custom.error { border-color: rgba(255,107,107,0.3); }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* TinyMCE dark theme override */
+        .tox-tinymce { border-color: rgba(255,255,255,0.08) !important; }
+        .tox .tox-editor-container { background: var(--dark-surface) !important; }
+        .tox .tox-edit-area { background: var(--dark-surface) !important; }
+        .tox .tox-edit-area iframe { background: var(--dark-surface) !important; color: var(--text-light) !important; }
+        .tox .tox-toolbar { background: var(--dark-card) !important; border-color: rgba(255,255,255,0.06) !important; }
+        .tox .tox-toolbar__primary { background: var(--dark-card) !important; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- SIDEBAR -->
+    <!-- ============================================================ -->
+    <div class="admin-wrapper">
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="brand">
+                <span>Parables</span> <small>ADMIN</small>
+            </div>
+            <nav>
+                <div class="admin-nav-item active" data-panel="dashboard">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </div>
+                <div class="admin-nav-item" data-panel="shows">
+                    <i class="bi bi-film"></i> Shows
+                </div>
+                <div class="admin-nav-item" data-panel="festivals">
+                    <i class="bi bi-calendar-event"></i> Festivals
+                </div>
+                <div class="admin-nav-item" data-panel="blog">
+                    <i class="bi bi-newspaper"></i> Stories
+                </div>
+                <div class="admin-nav-item" data-panel="reviews">
+                    <i class="bi bi-star"></i> Reviews
+                </div>
+                <div class="admin-nav-item" data-panel="team">
+                    <i class="bi bi-people"></i> Team
+                </div>
+                <div class="admin-nav-item" data-panel="settings">
+                    <i class="bi bi-gear"></i> Settings
+                </div>
+                <div style="padding: 20px 20px 0; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 16px;">
+                    <a href="index.html" class="admin-nav-item" style="border-left: none;">
+                        <i class="bi bi-house"></i> View Site
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT -->
+        <!-- ============================================================ -->
+        <main class="admin-main">
+            <!-- Top Bar -->
+            <div class="admin-topbar">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="admin-sidebar-toggle" id="sidebarToggle">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <h4 id="panelTitle">Dashboard</h4>
+                </div>
+                <div class="user-info">
+                    <span>admin@Parables.studio</span>
+                    <div class="avatar">A</div>
+                    <button class="btn-logout" id="logoutBtn">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PANEL: DASHBOARD -->
+            <!-- ============================================================ -->
+            <div class="admin-panel active" id="panel-dashboard">
+                <div class="row g-4 mb-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card d-flex justify-content-between align-items-center">
+                            <div><div class="number" id="statShows">0</div><div class="label">Total Shows</div></div>
+                            <div class="icon"><i class="bi bi-film"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card d-flex justify-content-between align-items-center">
+                            <div><div class="number" id="statFestivals">0</div><div class="label">Festivals</div></div>
+                            <div class="icon"><i class="bi bi-calendar-event"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card d-flex justify-content-between align-items-center">
+                            <div><div class="number" id="statBlogs">0</div><div class="label">Blog Posts</div></div>
+                            <div class="icon"><i class="bi bi-newspaper"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card d-flex justify-content-between align-items-center">
+                            <div><div class="number" id="statReviews">0</div><div class="label">Reviews</div></div>
+                            <div class="icon"><i class="bi bi-star"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="admin-table-wrap">
+                            <div style="padding: 16px 18px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                                <strong>Recent Shows</strong>
+                            </div>
+                            <div id="recentShowsList"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="admin-table-wrap">
+                            <div style="padding: 16px 18px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                                <strong>Recent Stories</strong>
+                            </div>
+                            <div id="recentBlogsList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PANEL: SHOWS -->
+            <!-- ============================================================ -->
+            <div class="admin-panel" id="panel-shows">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <div>
+                        <p class="text-muted mb-0">Manage your animated shows and productions.</p>
+                    </div>
+                    <button class="btn btn-primary-custom" onclick="openModal('show')">
+                        <i class="bi bi-plus-lg"></i> Add Show
+                    </button>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Genre</th>
+                                <th>Rating</th>
+                                <th>Year</th>
+                                <th>Featured</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="showsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PANEL: FESTIVALS -->
+            <!-- ============================================================ -->
+            <div class="admin-panel" id="panel-festivals">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <div>
+                        <p class="text-muted mb-0">Manage animation festivals and events.</p>
+                    </div>
+                    <button class="btn btn-primary-custom" onclick="openModal('festival')">
+                        <i class="bi bi-plus-lg"></i> Add Festival
+                    </button>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Location</th>
+                                <th>Featured Show</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="festivalsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PANEL: BLOG -->
+            <!-- ============================================================ -->
+            <div class="admin-panel" id="panel-blog">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <div>
+                        <p class="text-muted mb-0">Manage blog posts and stories.</p>
+                    </div>
+                    <button class="btn btn-primary-custom" onclick="openModal('blog')">
+                        <i class="bi bi-plus-lg"></i> Add Story
+                    </button>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Author</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blogsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PANEL: REVIEWS -->
+            <!-- ============================================================ -->
+            <div class="admin-panel" id="panel-reviews">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <div>
+                        <p class="text-muted mb-0">Manage community reviews and comments.</p>
+                    </div>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Reviewer</th>
+                                <th>Post</th>
+                                <th>Rating</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reviewsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PANEL: TEAM -->
+            <!-- ============================================================ -->
+            <div class="admin-panel" id="panel-team">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <div>
+                        <p class="text-muted mb-0">Manage team members displayed on the site.</p>
+                    </div>
+                    <button class="btn btn-primary-custom" onclick="openModal('team')">
+                        <i class="bi bi-plus-lg"></i> Add Team Member
+                    </button>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teamTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PANEL: SETTINGS -->
+            <!-- ============================================================ -->
+            <div class="admin-panel" id="panel-settings">
+                <div class="admin-form">
+                    <h5 class="mb-4">Studio Settings</h5>
+                    <form id="settingsForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Admin Password</label>
+                                <input type="text" class="form-control" id="settingsAdminPassword" value="Parables2025">
+                                <small class="text-muted" style="font-size:0.75rem;">Use this to log in via 5x click on logo</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Studio Name</label>
+                                <input type="text" class="form-control" id="settingsStudioName" value="Parables Studio">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Email</label>
+                                <input type="email" class="form-control" id="settingsContactEmail" value="hello@Parables.studio">
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary-custom">Save Settings</button>
+                                <span id="settingsStatus" class="ms-3 text-muted" style="font-size:0.9rem;"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MODAL -->
+    <!-- ============================================================ -->
+    <div class="admin-modal-overlay" id="adminModal">
+        <div class="admin-modal">
+            <button class="close-modal" onclick="closeModal()"><i class="bi bi-x-lg"></i></button>
+            <h5 id="modalTitle" class="mb-4">Add New</h5>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TOAST CONTAINER -->
+    <!-- ============================================================ -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS -->
+    <!-- ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ============================================================
+        // DATA MANAGEMENT
+        // ============================================================
+        function getDefaultData() {
+            return {
+                shows: [
+                    { id: 1, title: "The Golden Drum", description: "A young boy discovers a magical drum that unites his village through rhythm and dance.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", genre: "Musical", targetAudience: "Family", rating: 4.9, festivalRelated: true, year: "2025", featured: true },
+                    { id: 2, title: "Ananse: Web of Wisdom", description: "The legendary spider Ananse teaches timeless lessons through clever tricks in this modern retelling.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", genre: "Folklore", targetAudience: "Kids", rating: 4.8, festivalRelated: true, year: "2024", featured: true },
+                    { id: 3, title: "Accra Dreams", description: "Three friends navigate life in Accra, discovering the beauty of friendship and family.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", genre: "Slice of Life", targetAudience: "Teens", rating: 4.6, festivalRelated: false, year: "2025", featured: true },
+                    { id: 4, title: "The Talking Drum", description: "An epic journey across the savannah where a magical drum carries the voices of ancestors.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", genre: "Adventure", targetAudience: "Family", rating: 4.7, festivalRelated: true, year: "2024", featured: false },
+                    { id: 5, title: "Nana's Kitchen", description: "Nana teaches her grandchildren traditional recipes and the stories behind each dish.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", genre: "Educational", targetAudience: "Kids", rating: 4.5, festivalRelated: false, year: "2025", featured: false },
+                    { id: 6, title: "The Moonlight Tales", description: "Under the African moon, elders share stories that teach courage and kindness.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", genre: "Folklore", targetAudience: "Family", rating: 4.9, festivalRelated: true, year: "2023", featured: false },
+                    { id: 7, title: "Sankofa Kids", description: "Time-traveling adventures where kids explore Ghana's history to build a better future.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", genre: "Educational", targetAudience: "Kids", rating: 4.7, festivalRelated: false, year: "2025", featured: false },
+                    { id: 8, title: "The Spirit of the Forest", description: "A magical tale of a forest guardian who teaches children about protecting nature.", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", genre: "Fantasy", targetAudience: "Family", rating: 4.8, festivalRelated: false, year: "2024", featured: false }
+                ],
+                festivals: [
+                    { id: 1, name: "Accra Animation Festival 2026", description: "West Africa's largest animation celebration with screenings and masterclasses.", eventDate: "2026-12-10", location: "Accra International Conference Centre", website: "#", featuredShowId: 1 },
+                    { id: 2, name: "Kumasi Storytelling & Animation Fair", description: "A vibrant fair combining traditional storytelling with modern animation.", eventDate: "2026-10-15", location: "Kumasi Cultural Centre", website: "#", featuredShowId: 2 },
+                    { id: 3, name: "Tamale Animation Summit", description: "Northern Ghana's premier animation event focusing on cultural preservation.", eventDate: "2027-02-20", location: "Tamale Sports Stadium", website: "#", featuredShowId: 4 },
+                    { id: 4, name: "Parables Family Film Festival", description: "A family-friendly celebration with screenings and character meet-and-greets.", eventDate: "2026-12-20", location: "Accra, Airport City", website: "#", featuredShowId: 6 }
+                ],
+                blogPosts: [
+                    { id: 1, title: "The Power of African Folklore in Modern Animation", slug: "african-folklore-animation", content: `<p>African folklore is a treasure trove of wisdom, humor, and timeless lessons. At Parables Studio, we've made it our mission to bring these stories to life through animation.</p><p>From the cunning Ananse to the brave warriors of the savannah, these characters have captivated audiences for generations.</p><p>In this post, we explore how we adapt traditional tales for contemporary viewers, balancing cultural authenticity with modern storytelling techniques.</p>`, category: "stories", author: "Kwame Adjei", views: 2341, created_at: "2026-08-25", status: "published" },
+                    { id: 2, title: "6 Ways Animation Boosts Childhood Development", slug: "animation-child-development", content: `<p>Animation isn't just entertainment—it's a powerful tool for learning and development. Research shows that well-crafted animated content can enhance creativity, empathy, and cognitive skills in children.</p><p>At Parables, we design our shows with developmental milestones in mind. Here are six ways animation positively impacts child development:</p><ul><li><strong>Language skills:</strong> Exposure to rich vocabulary and dialogue</li><li><strong>Emotional intelligence:</strong> Understanding characters' feelings</li><li><strong>Problem-solving:</strong> Following story plots and predicting outcomes</li><li><strong>Cultural awareness:</strong> Learning about different traditions</li><li><strong>Creativity:</strong> Inspiring imaginative play and art</li><li><strong>Concentration:</strong> Building attention span through engaging narratives</li></ul>`, category: "parenting_tips", author: "Akua Mensah", views: 1856, created_at: "2026-08-20", status: "published" },
+                    { id: 3, title: "Accra Academy's Animation Club: A Success Story", slug: "accra-academy-animation-club", content: `<p>When Accra Academy launched their animation club in 2024, they had no idea it would become one of the school's most popular extracurricular activities.</p><p>We visited the school to see the club in action and speak with students and teachers about the impact of animation on learning.</p><p>"Animation has given our students a new way to express themselves and explore their creativity," says Mrs. Asare, the club's faculty advisor.</p>`, category: "school_reviews", author: "School Review Team", views: 1432, created_at: "2026-08-15", status: "published" },
+                    { id: 4, title: "Parent Reviews: Why Families Love 'The Golden Drum'", slug: "parent-reviews-golden-drum", content: `<p>Since its premiere, "The Golden Drum" has become a family favorite across Ghana. We spoke with parents about why this show has resonated so deeply.</p><p>Parents praise the show's positive messages, beautiful animation, and authentic Ghanaian cultural elements. "My kids are learning about their heritage while being entertained," says Akua Mensah.</p>`, category: "parent_reviews", author: "Parent Panel", views: 2078, created_at: "2026-08-10", status: "published" },
+                    { id: 5, title: "The Art of Visual Storytelling in African Animation", slug: "visual-storytelling-african-animation", content: `<p>Visual storytelling is at the heart of animation, and African artists bring a unique perspective to this art form. From vibrant color palettes inspired by Ghanaian textiles to character designs influenced by traditional masks.</p><p>In this article, we explore the visual language of African animation and how Parables Studio incorporates cultural motifs into our character design, backgrounds, and cinematography.</p>`, category: "stories", author: "Kwame Adjei", views: 1890, created_at: "2026-08-05", status: "published" }
+                ],
+                reviews: [
+                    { id: 1, blogPostId: 1, reviewerName: "Ama Serwaa", reviewerType: "parent", content: "This beautifully captures the essence of our storytelling traditions. My children are captivated!", rating: 5, isApproved: true, created_at: "2026-08-24" },
+                    { id: 2, blogPostId: 1, reviewerName: "Dr. Kofi Anane", reviewerType: "educator", content: "An excellent resource for teaching African literature and cultural studies. Highly recommended.", rating: 5, isApproved: true, created_at: "2026-08-23" },
+                    { id: 3, blogPostId: 2, reviewerName: "Esi Amponsah", reviewerType: "parent", content: "These tips are practical and effective. My son's creativity has blossomed since we started using them.", rating: 4, isApproved: true, created_at: "2026-08-19" },
+                    { id: 4, blogPostId: 3, reviewerName: "Mr. Owusu", reviewerType: "school", content: "The animation club has transformed student engagement. We're proud to partner with Parables Studio.", rating: 5, isApproved: true, created_at: "2026-08-14" },
+                    { id: 5, blogPostId: 4, reviewerName: "Nana Yaa", reviewerType: "parent", content: "My whole family watches 'The Golden Drum' together. It's become a Sunday tradition!", rating: 5, isApproved: true, created_at: "2026-08-09" }
+                ],
+                team: [
+                    { name: "Cyril Jones", role: "Founder / Creative Director/Animator", initial: "C" },
+                    { name: "Your Bothers Name", role: "Head of 3D", initial: "M" },
+                    { name: "Kenji Park", role: "Lead Animator", initial: "K" },
+                    { name: "Sasha Okafor", role: "Producer", initial: "S" }
+                ],
+                settings: {
+                    adminPassword: "Parables2025",
+                    studioName: "Parables Studio",
+                    contactEmail: "hello@Parables.studio"
+                }
+            };
+        }
+
+        function loadData() {
+            try {
+                const data = localStorage.getItem('parables_data');
+                if (data) return JSON.parse(data);
+            } catch(e) {}
+            const defaultData = getDefaultData();
+            localStorage.setItem('parables_data', JSON.stringify(defaultData));
+            return defaultData;
+        }
+
+        function saveData(data) {
+            localStorage.setItem('parables_data', JSON.stringify(data));
+        }
+
+        let DATA = loadData();
+
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function starsHTML(rating) {
+            return '⭐'.repeat(Math.round(rating));
+        }
+
+        function getShow(id) {
+            return DATA.shows.find(s => s.id === id);
+        }
+
+        function getBlogPost(id) {
+            return DATA.blogPosts.find(b => b.id === id);
+        }
+
+        function generateId() {
+            return Date.now() + Math.floor(Math.random() * 1000);
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(msg, type = '') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast-custom ' + type;
+            const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+            toast.innerHTML = `<i class="fas ${icon} text-gold-solid me-2"></i> ${msg}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
+        document.querySelectorAll('.admin-nav-item[data-panel]').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.admin-nav-item[data-panel]').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                const panel = this.dataset.panel;
+                document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+                document.getElementById('panel-' + panel).classList.add('active');
+                document.getElementById('panelTitle').textContent = this.textContent.trim();
+                // Close sidebar on mobile
+                document.getElementById('adminSidebar').classList.remove('open');
+            });
+        });
+
+        // Sidebar toggle
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            document.getElementById('adminSidebar').classList.toggle('open');
+        });
+
+        // ============================================================
+        // LOGOUT
+        // ============================================================
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('parables_admin_logged_in');
+            window.location.href = 'index.html';
+        });
+
+        // ============================================================
+        // MODAL
+        // ============================================================
+        let currentModalType = '';
+        let currentEditId = null;
+
+        function openModal(type, editId = null) {
+            currentModalType = type;
+            currentEditId = editId;
+            const modal = document.getElementById('adminModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+
+            const typeNames = {
+                show: 'Show',
+                festival: 'Festival',
+                blog: 'Story',
+                review: 'Review',
+                team: 'Team Member'
+            };
+            title.textContent = (editId ? 'Edit' : 'Add New') + ' ' + typeNames[type];
+
+            if (type === 'show') content.innerHTML = getShowForm(editId);
+            else if (type === 'festival') content.innerHTML = getFestivalForm(editId);
+            else if (type === 'blog') content.innerHTML = getBlogForm(editId);
+            else if (type === 'team') content.innerHTML = getTeamForm(editId);
+
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+
+            // Initialize TinyMCE for blog content
+            if (type === 'blog') {
+                setTimeout(() => initTinyMCE(), 200);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('adminModal').classList.remove('open');
+            document.body.style.overflow = '';
+            // Destroy TinyMCE
+            if (tinymce && tinymce.activeEditor) {
+                tinymce.activeEditor.destroy();
+            }
+        }
+
+        // Close modal on outside click
+        document.getElementById('adminModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // ============================================================
+        // FORM GENERATORS
+        // ============================================================
+        function getShowForm(editId) {
+            const item = editId ? DATA.shows.find(s => s.id === editId) : null;
+            return `
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label">Title *</label>
+                        <input type="text" class="form-control" id="showTitle" value="${item ? item.title : ''}" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Description *</label>
+                        <textarea class="form-control" id="showDescription" rows="3" required>${item ? item.description : ''}</textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Genre *</label>
+                        <input type="text" class="form-control" id="showGenre" value="${item ? item.genre : ''}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Target Audience</label>
+                        <input type="text" class="form-control" id="showAudience" value="${item ? item.targetAudience : ''}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Rating (0-5)</label>
+                        <input type="number" class="form-control" id="showRating" step="0.1" min="0" max="5" value="${item ? item.rating : 4.5}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Year</label>
+                        <input type="text" class="form-control" id="showYear" value="${item ? item.year : new Date().getFullYear()}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Video URL</label>
+                        <input type="url" class="form-control" id="showVideoUrl" value="${item ? item.videoUrl : ''}" placeholder="https://youtube.com/embed/...">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Festival Related</label>
+                        <select class="form-control" id="showFestivalRelated">
+                            <option value="true" ${item && item.festivalRelated ? 'selected' : ''}>Yes</option>
+                            <option value="false" ${item && !item.festivalRelated ? 'selected' : ''}>No</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Featured</label>
+                        <select class="form-control" id="showFeatured">
+                            <option value="true" ${item && item.featured ? 'selected' : ''}>Yes</option>
+                            <option value="false" ${item && !item.featured ? 'selected' : ''}>No</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary-custom" onclick="saveShow()">${editId ? 'Update' : 'Create'} Show</button>
+                        <button class="btn btn-outline-custom ms-2" onclick="closeModal()">Cancel</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getFestivalForm(editId) {
+            const item = editId ? DATA.festivals.find(f => f.id === editId) : null;
+            return `
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label">Name *</label>
+                        <input type="text" class="form-control" id="festivalName" value="${item ? item.name : ''}" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" id="festivalDescription" rows="3">${item ? item.description : ''}</textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Event Date *</label>
+                        <input type="date" class="form-control" id="festivalDate" value="${item ? item.eventDate : ''}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-control" id="festivalLocation" value="${item ? item.location : ''}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Website URL</label>
+                        <input type="url" class="form-control" id="festivalWebsite" value="${item ? item.website : '#'}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Featured Show</label>
+                        <select class="form-control" id="festivalShow">
+                            <option value="">None</option>
+                            ${DATA.shows.map(s => `<option value="${s.id}" ${item && item.featuredShowId === s.id ? 'selected' : ''}>${s.title}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary-custom" onclick="saveFestival()">${editId ? 'Update' : 'Create'} Festival</button>
+                        <button class="btn btn-outline-custom ms-2" onclick="closeModal()">Cancel</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getBlogForm(editId) {
+            const item = editId ? DATA.blogPosts.find(b => b.id === editId) : null;
+            return `
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label">Title *</label>
+                        <input type="text" class="form-control" id="blogTitle" value="${item ? item.title : ''}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Category *</label>
+                        <select class="form-control" id="blogCategory" required>
+                            <option value="stories" ${item && item.category === 'stories' ? 'selected' : ''}>Stories</option>
+                            <option value="parenting_tips" ${item && item.category === 'parenting_tips' ? 'selected' : ''}>Parenting Tips</option>
+                            <option value="school_reviews" ${item && item.category === 'school_reviews' ? 'selected' : ''}>School Reviews</option>
+                            <option value="parent_reviews" ${item && item.category === 'parent_reviews' ? 'selected' : ''}>Parent Reviews</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Author</label>
+                        <input type="text" class="form-control" id="blogAuthor" value="${item ? item.author : ''}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Status</label>
+                        <select class="form-control" id="blogStatus">
+                            <option value="published" ${item && item.status === 'published' ? 'selected' : ''}>Published</option>
+                            <option value="draft" ${item && item.status === 'draft' ? 'selected' : ''}>Draft</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Slug (URL)</label>
+                        <input type="text" class="form-control" id="blogSlug" value="${item ? item.slug : ''}" placeholder="auto-generated">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Content *</label>
+                        <textarea class="form-control" id="blogContent" rows="10">${item ? item.content : ''}</textarea>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary-custom" onclick="saveBlog()">${editId ? 'Update' : 'Create'} Story</button>
+                        <button class="btn btn-outline-custom ms-2" onclick="closeModal()">Cancel</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getTeamForm(editId) {
+            const item = editId ? DATA.team.find(t => t.name === editId) : null;
+            return `
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label">Name *</label>
+                        <input type="text" class="form-control" id="teamName" value="${item ? item.name : ''}" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Role *</label>
+                        <input type="text" class="form-control" id="teamRole" value="${item ? item.role : ''}" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Initial (for avatar)</label>
+                        <input type="text" class="form-control" id="teamInitial" maxlength="2" value="${item ? item.initial : ''}" placeholder="e.g., C">
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary-custom" onclick="saveTeam()">${editId ? 'Update' : 'Create'} Team Member</button>
+                        <button class="btn btn-outline-custom ms-2" onclick="closeModal()">Cancel</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // TINYMCE INIT
+        // ============================================================
+        function initTinyMCE() {
+            if (typeof tinymce !== 'undefined') {
+                tinymce.init({
+                    selector: '#blogContent',
+                    height: 350,
+                    menubar: true,
+                    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                    skin: 'oxide-dark',
+                    content_css: 'dark',
+                    content_style: 'body { background: #1a1a1a; color: #f5f0e8; font-family: Inter, sans-serif; }',
+                    setup: function(editor) {
+                        editor.on('init', function() {
+                            // Set content if it's empty
+                            const content = document.getElementById('blogContent').value;
+                            if (content) {
+                                editor.setContent(content);
+                            }
+                        });
+                    }
+                });
+            }
+        }
+
+        // ============================================================
+        // SAVE FUNCTIONS
+        // ============================================================
+        function saveShow() {
+            const title = document.getElementById('showTitle').value.trim();
+            const description = document.getElementById('showDescription').value.trim();
+            const genre = document.getElementById('showGenre').value.trim();
+            const audience = document.getElementById('showAudience').value.trim();
+            const rating = parseFloat(document.getElementById('showRating').value) || 4.5;
+            const year = document.getElementById('showYear').value.trim();
+            const videoUrl = document.getElementById('showVideoUrl').value.trim();
+            const festivalRelated = document.getElementById('showFestivalRelated').value === 'true';
+            const featured = document.getElementById('showFeatured').value === 'true';
+
+            if (!title || !description || !genre) {
+                showToast('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            if (currentEditId) {
+                // Edit existing
+                const item = DATA.shows.find(s => s.id === currentEditId);
+                if (item) {
+                    item.title = title;
+                    item.description = description;
+                    item.genre = genre;
+                    item.targetAudience = audience;
+                    item.rating = rating;
+                    item.year = year;
+                    item.videoUrl = videoUrl;
+                    item.festivalRelated = festivalRelated;
+                    item.featured = featured;
+                }
+            } else {
+                // Add new
+                DATA.shows.push({
+                    id: generateId(),
+                    title,
+                    description,
+                    genre,
+                    targetAudience: audience,
+                    rating,
+                    year,
+                    videoUrl,
+                    festivalRelated,
+                    featured,
+                    festivalRelated: false
+                });
+            }
+
+            saveData(DATA);
+            closeModal();
+            renderAll();
+            showToast(currentEditId ? '✅ Show updated successfully!' : '✅ Show added successfully!', 'success');
+            currentEditId = null;
+        }
+
+        function saveFestival() {
+            const name = document.getElementById('festivalName').value.trim();
+            const description = document.getElementById('festivalDescription').value.trim();
+            const eventDate = document.getElementById('festivalDate').value;
+            const location = document.getElementById('festivalLocation').value.trim();
+            const website = document.getElementById('festivalWebsite').value.trim();
+            const featuredShowId = parseInt(document.getElementById('festivalShow').value) || null;
+
+            if (!name || !eventDate) {
+                showToast('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            if (currentEditId) {
+                const item = DATA.festivals.find(f => f.id === currentEditId);
+                if (item) {
+                    item.name = name;
+                    item.description = description;
+                    item.eventDate = eventDate;
+                    item.location = location;
+                    item.website = website || '#';
+                    item.featuredShowId = featuredShowId;
+                }
+            } else {
+                DATA.festivals.push({
+                    id: generateId(),
+                    name,
+                    description,
+                    eventDate,
+                    location,
+                    website: website || '#',
+                    featuredShowId
+                });
+            }
+
+            saveData(DATA);
+            closeModal();
+            renderAll();
+            showToast(currentEditId ? '✅ Festival updated successfully!' : '✅ Festival added successfully!', 'success');
+            currentEditId = null;
+        }
+
+        function saveBlog() {
+            const title = document.getElementById('blogTitle').value.trim();
+            const category = document.getElementById('blogCategory').value;
+            const author = document.getElementById('blogAuthor').value.trim();
+            const status = document.getElementById('blogStatus').value;
+            let slug = document.getElementById('blogSlug').value.trim();
+
+            // Get content from TinyMCE
+            let content = '';
+            if (tinymce && tinymce.activeEditor) {
+                content = tinymce.activeEditor.getContent();
+            } else {
+                content = document.getElementById('blogContent').value;
+            }
+
+            if (!title || !content) {
+                showToast('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            // Auto-generate slug if empty
+            if (!slug) {
+                slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            }
+
+            if (currentEditId) {
+                const item = DATA.blogPosts.find(b => b.id === currentEditId);
+                if (item) {
+                    item.title = title;
+                    item.content = content;
+                    item.category = category;
+                    item.author = author || 'Anonymous';
+                    item.status = status;
+                    item.slug = slug;
+                }
+            } else {
+                DATA.blogPosts.push({
+                    id: generateId(),
+                    title,
+                    slug,
+                    content,
+                    category,
+                    author: author || 'Anonymous',
+                    views: 0,
+                    created_at: new Date().toISOString().split('T')[0],
+                    status
+                });
+            }
+
+            saveData(DATA);
+            closeModal();
+            renderAll();
+            showToast(currentEditId ? '✅ Story updated successfully!' : '✅ Story added successfully!', 'success');
+            currentEditId = null;
+        }
+
+        function saveTeam() {
+            const name = document.getElementById('teamName').value.trim();
+            const role = document.getElementById('teamRole').value.trim();
+            let initial = document.getElementById('teamInitial').value.trim().toUpperCase();
+
+            if (!name || !role) {
+                showToast('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            if (!initial) initial = name.charAt(0).toUpperCase();
+
+            if (currentEditId) {
+                // Find by name (since we use name as identifier in team)
+                const item = DATA.team.find(t => t.name === currentEditId);
+                if (item) {
+                    item.name = name;
+                    item.role = role;
+                    item.initial = initial;
+                }
+            } else {
+                DATA.team.push({ name, role, initial });
+            }
+
+            saveData(DATA);
+            closeModal();
+            renderAll();
+            showToast(currentEditId ? '✅ Team member updated successfully!' : '✅ Team member added successfully!', 'success');
+            currentEditId = null;
+        }
+
+        // ============================================================
+        // DELETE FUNCTIONS
+        // ============================================================
+        function deleteShow(id) {
+            if (!confirm('Delete this show permanently?')) return;
+            DATA.shows = DATA.shows.filter(s => s.id !== id);
+            saveData(DATA);
+            renderAll();
+            showToast('🗑️ Show deleted.', '');
+        }
+
+        function deleteFestival(id) {
+            if (!confirm('Delete this festival permanently?')) return;
+            DATA.festivals = DATA.festivals.filter(f => f.id !== id);
+            saveData(DATA);
+            renderAll();
+            showToast('🗑️ Festival deleted.', '');
+        }
+
+        function deleteBlog(id) {
+            if (!confirm('Delete this story permanently?')) return;
+            DATA.blogPosts = DATA.blogPosts.filter(b => b.id !== id);
+            saveData(DATA);
+            renderAll();
+            showToast('🗑️ Story deleted.', '');
+        }
+
+        function deleteReview(id) {
+            if (!confirm('Delete this review permanently?')) return;
+            DATA.reviews = DATA.reviews.filter(r => r.id !== id);
+            saveData(DATA);
+            renderAll();
+            showToast('🗑️ Review deleted.', '');
+        }
+
+        function deleteTeam(name) {
+            if (!confirm('Delete this team member?')) return;
+            DATA.team = DATA.team.filter(t => t.name !== name);
+            saveData(DATA);
+            renderAll();
+            showToast('🗑️ Team member deleted.', '');
+        }
+
+        function approveReview(id) {
+            const review = DATA.reviews.find(r => r.id === id);
+            if (review) {
+                review.isApproved = true;
+                saveData(DATA);
+                renderAll();
+                showToast('✅ Review approved!', 'success');
+            }
+        }
+
+        // ============================================================
+        // RENDER FUNCTIONS
+        // ============================================================
+        function renderAll() {
+            renderStats();
+            renderShows();
+            renderFestivals();
+            renderBlogs();
+            renderReviews();
+            renderTeam();
+            renderRecent();
+        }
+
+        function renderStats() {
+            document.getElementById('statShows').textContent = DATA.shows.length;
+            document.getElementById('statFestivals').textContent = DATA.festivals.length;
+            document.getElementById('statBlogs').textContent = DATA.blogPosts.filter(b => b.status === 'published').length;
+            document.getElementById('statReviews').textContent = DATA.reviews.filter(r => r.isApproved).length;
+        }
+
+        function renderShows() {
+            const tbody = document.getElementById('showsTableBody');
+            tbody.innerHTML = DATA.shows.map(s => `
+                <tr>
+                    <td><strong>${s.title}</strong></td>
+                    <td><span class="badge-status published">${s.genre}</span></td>
+                    <td>${starsHTML(s.rating)}</td>
+                    <td>${s.year}</td>
+                    <td>${s.featured ? '⭐' : ''}</td>
+                    <td style="text-align:right;">
+                        <div class="actions">
+                            <button class="btn-edit" onclick="openModal('show', ${s.id})"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-delete" onclick="deleteShow(${s.id})"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="6" class="text-center text-muted py-4">No shows yet. Add one!</td></tr>';
+        }
+
+        function renderFestivals() {
+            const tbody = document.getElementById('festivalsTableBody');
+            tbody.innerHTML = DATA.festivals.map(f => `
+                <tr>
+                    <td><strong>${f.name}</strong></td>
+                    <td>${formatDate(f.eventDate)}</td>
+                    <td>${f.location}</td>
+                    <td>${f.featuredShowId ? (getShow(f.featuredShowId)?.title || '—') : '—'}</td>
+                    <td style="text-align:right;">
+                        <div class="actions">
+                            <button class="btn-edit" onclick="openModal('festival', ${f.id})"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-delete" onclick="deleteFestival(${f.id})"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="5" class="text-center text-muted py-4">No festivals yet. Add one!</td></tr>';
+        }
+
+        function renderBlogs() {
+            const tbody = document.getElementById('blogsTableBody');
+            tbody.innerHTML = DATA.blogPosts.map(b => `
+                <tr>
+                    <td><strong>${b.title}</strong></td>
+                    <td><span class="badge-status published">${b.category.replace('_', ' ')}</span></td>
+                    <td>${b.author}</td>
+                    <td><span class="badge-status ${b.status}">${b.status}</span></td>
+                    <td>${formatDate(b.created_at)}</td>
+                    <td style="text-align:right;">
+                        <div class="actions">
+                            <button class="btn-edit" onclick="openModal('blog', ${b.id})"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-delete" onclick="deleteBlog(${b.id})"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="6" class="text-center text-muted py-4">No stories yet. Add one!</td></tr>';
+        }
+
+        function renderReviews() {
+            const tbody = document.getElementById('reviewsTableBody');
+            tbody.innerHTML = DATA.reviews.map(r => {
+                const post = getBlogPost(r.blogPostId);
+                return `
+                    <tr>
+                        <td><strong>${r.reviewerName}</strong></td>
+                        <td>${post ? post.title : '—'}</td>
+                        <td>${'⭐'.repeat(r.rating)}</td>
+                        <td><span class="badge-status ${r.isApproved ? 'approved' : 'pending'}">${r.isApproved ? 'Approved' : 'Pending'}</span></td>
+                        <td>${formatDate(r.created_at)}</td>
+                        <td style="text-align:right;">
+                            <div class="actions">
+                                ${!r.isApproved ? `<button class="btn-edit" onclick="approveReview(${r.id})"><i class="bi bi-check2"></i></button>` : ''}
+                                <button class="btn-delete" onclick="deleteReview(${r.id})"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('') || '<tr><td colspan="6" class="text-center text-muted py-4">No reviews yet.</td></tr>';
+        }
+
+        function renderTeam() {
+            const tbody = document.getElementById('teamTableBody');
+            tbody.innerHTML = DATA.team.map(t => `
+                <tr>
+                    <td><strong>${t.name}</strong></td>
+                    <td>${t.role}</td>
+                    <td style="text-align:right;">
+                        <div class="actions">
+                            <button class="btn-edit" onclick="openModal('team', '${t.name}')"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-delete" onclick="deleteTeam('${t.name}')"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="3" class="text-center text-muted py-4">No team members yet. Add one!</td></tr>';
+        }
+
+        function renderRecent() {
+            const showsList = document.getElementById('recentShowsList');
+            showsList.innerHTML = DATA.shows.slice(0, 3).map(s => `
+                <div style="padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; justify-content: space-between; align-items: center;">
+                    <span>${s.title}</span>
+                    <span class="text-muted" style="font-size:0.8rem;">${s.year}</span>
+                </div>
+            `).join('') || '<div class="text-center text-muted py-3">No shows yet.</div>';
+
+            const blogsList = document.getElementById('recentBlogsList');
+            blogsList.innerHTML = DATA.blogPosts.slice(0, 3).map(b => `
+                <div style="padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; justify-content: space-between; align-items: center;">
+                    <span>${b.title}</span>
+                    <span class="badge-status ${b.status}">${b.status}</span>
+                </div>
+            `).join('') || '<div class="text-center text-muted py-3">No stories yet.</div>';
+        }
+
+        // ============================================================
+        // SETTINGS
+        // ============================================================
+        document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const adminPassword = document.getElementById('settingsAdminPassword').value;
+            const studioName = document.getElementById('settingsStudioName').value;
+            const contactEmail = document.getElementById('settingsContactEmail').value;
+
+            // Save to localStorage for admin access
+            const settings = { adminPassword, studioName, contactEmail };
+            localStorage.setItem('parables_admin_settings', JSON.stringify(settings));
+
+            // Also update in DATA
+            DATA.settings = settings;
+            saveData(DATA);
+
+            document.getElementById('settingsStatus').textContent = '✅ Saved!';
+            setTimeout(() => document.getElementById('settingsStatus').textContent = '', 3000);
+            showToast('✅ Settings saved successfully!', 'success');
+        });
+
+        // Load settings
+        function loadSettings() {
+            const settings = DATA.settings || { adminPassword: 'Parables2025', studioName: 'Parables Studio', contactEmail: 'hello@Parables.studio' };
+            document.getElementById('settingsAdminPassword').value = settings.adminPassword || 'Parables2025';
+            document.getElementById('settingsStudioName').value = settings.studioName || 'Parables Studio';
+            document.getElementById('settingsContactEmail').value = settings.contactEmail || 'hello@Parables.studio';
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if admin is logged in
+            const isAdmin = localStorage.getItem('parables_admin_logged_in');
+            if (isAdmin !== 'true') {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            loadSettings();
+            renderAll();
+
+            // Open dashboard by default
+            document.querySelector('.admin-nav-item[data-panel="dashboard"]')?.click();
+        });
+    </script>
+</body>
+</html>

@@ -9,42 +9,40 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Bricolage+Grotesque:wght@600;700;800&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
     <style>
         /* ============================================================
            CSS VARIABLES
            ============================================================ */
         :root {
-    /* Brand Colors */
-    --primary: #C9A84C;
-    --primary-dark: #A8892A;
-    --primary-light: #E8D5A3;
-    
-    /* Background Colors */
-    --dark: #0A0A0A;
-    --dark-card: #141414;
-    --dark-surface: #1A1A1A;
-    
-    /* Text Colors - IMPROVED CONTRAST */
-    --text-light: #F5F0E8;
-    --text-muted: #C5C0B8;        /* Was #A8A098 - Now 30% brighter */
-    --text-muted-secondary: #9A958E; /* For very light elements */
-    
-    /* Effects */
-    --gradient-gold: linear-gradient(135deg, #C9A84C 0%, #F5E6A3 50%, #C9A84C 100%);
-    --shadow-gold: 0 8px 32px rgba(201, 168, 76, 0.2);
-    --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --card-radius: 16px;
-    --container-padding: 16px;
-}
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --primary: #C9A84C;
+            --primary-dark: #A8892A;
+            --primary-light: #E8D5A3;
+            --dark: #0A0A0A;
+            --dark-card: #141414;
+            --dark-surface: #1A1A1A;
+            --text-light: #F5F0E8;
+            --text-muted: #C5C0B8;
+            --text-muted-secondary: #9A958E;
+            --gradient-gold: linear-gradient(135deg, #C9A84C 0%, #F5E6A3 50%, #C9A84C 100%);
+            --shadow-gold: 0 8px 32px rgba(201, 168, 76, 0.2);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --card-radius: 16px;
+            --p-bg-2: #0f0f0f;
+            --p-line: rgba(255,255,255,0.06);
+            --p-text-dim: rgba(255,255,255,0.12);
         }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow-x: hidden; scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--dark);
@@ -52,52 +50,37 @@
             overflow-x: hidden;
             padding-top: 70px;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            width: 100%;
+            position: relative;
         }
 
-        /* ============================================================
-           SCROLLBAR
-           ============================================================ */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--dark);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
 
-        /* ============================================================
-           TYPOGRAPHY - Responsive
-           ============================================================ */
-        .font-display {
-            font-family: 'Playfair Display', serif;
-        }
-
+        /* TYPOGRAPHY */
+        .font-display { font-family: 'Playfair Display', serif; }
         .text-gold {
             background: var(--gradient-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .text-gold-solid {
-            color: var(--primary);
+        .text-gold-solid { color: var(--primary); }
+        .text-grad-1 {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        /* Responsive headings */
         .hero-title {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
             line-height: 1.1;
             font-size: 2rem;
         }
-
         .section-title {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
@@ -105,9 +88,7 @@
             line-height: 1.2;
         }
 
-        /* ============================================================
-           NAVBAR - Fully Responsive
-           ============================================================ */
+        /* NAVBAR */
         .navbar-custom {
             background: rgba(10, 10, 10, 0.98);
             backdrop-filter: blur(20px);
@@ -116,34 +97,24 @@
             padding: 10px 0;
             transition: var(--transition);
         }
-
         .navbar-custom .navbar-brand {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
             font-size: 1.2rem;
             letter-spacing: 1px;
+            cursor: pointer;
         }
-
         .navbar-custom .navbar-brand span {
             background: var(--gradient-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .navbar-custom .navbar-toggler {
-            border: none;
-            padding: 6px 10px;
-        }
-
-        .navbar-custom .navbar-toggler:focus {
-            box-shadow: none;
-        }
-
+        .navbar-custom .navbar-toggler { border: none; padding: 6px 10px; }
+        .navbar-custom .navbar-toggler:focus { box-shadow: none; }
         .navbar-custom .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(201,168,76,0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
-
         .navbar-custom .nav-link {
             color: var(--text-light) !important;
             font-weight: 400;
@@ -153,21 +124,13 @@
             transition: var(--transition);
             border-radius: 8px;
         }
-
-        .navbar-custom .nav-link:active {
-            background: rgba(201, 168, 76, 0.1);
-        }
-
+        .navbar-custom .nav-link:active { background: rgba(201, 168, 76, 0.1); }
         .navbar-custom .nav-link.active {
             color: var(--primary) !important;
             background: rgba(201, 168, 76, 0.08);
         }
-
-        /* Desktop nav link underline */
         @media (min-width: 992px) {
-            .navbar-custom .nav-link {
-                position: relative;
-            }
+            .navbar-custom .nav-link { position: relative; }
             .navbar-custom .nav-link::after {
                 content: '';
                 position: absolute;
@@ -180,53 +143,30 @@
                 transform: translateX(-50%);
             }
             .navbar-custom .nav-link:hover::after,
-            .navbar-custom .nav-link.active::after {
-                width: 60%;
-            }
-            .navbar-custom .nav-link:hover {
-                color: var(--primary) !important;
-            }
-            .navbar-custom .nav-link.active {
-                background: transparent;
-            }
+            .navbar-custom .nav-link.active::after { width: 60%; }
+            .navbar-custom .nav-link:hover { color: var(--primary) !important; }
+            .navbar-custom .nav-link.active { background: transparent; }
         }
 
-        /* ============================================================
-           PAGE SECTIONS
-           ============================================================ */
-        .page-section {
-            display: none;
-            animation: fadeInUp 0.5s ease forwards;
-        }
-
-        .page-section.active {
-            display: block;
-        }
-
+        /* PAGE SECTIONS */
+        .page-section { display: none; animation: fadeInUp 0.5s ease forwards; }
+        .page-section.active { display: block; }
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============================================================
-           HERO - Fully Responsive
-           ============================================================ */
+        /* HERO */
         .hero {
-            min-height: 80vh;
+            min-height: 70vh;
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
             background: var(--dark);
-            padding: 30px 0;
+            padding: 20px 0 10px 0;
+            margin-top: 0;
         }
-
         .hero::before {
             content: '';
             position: absolute;
@@ -239,7 +179,6 @@
                 radial-gradient(ellipse at 70% 50%, rgba(201, 168, 76, 0.04) 0%, transparent 60%);
             z-index: 1;
         }
-
         .hero-bg-pattern {
             position: absolute;
             top: 0;
@@ -250,13 +189,7 @@
             background-size: 40px 40px;
             z-index: 0;
         }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-        }
-
+        .hero-content { position: relative; z-index: 2; width: 100%; }
         .hero-badge {
             display: inline-block;
             padding: 6px 18px;
@@ -268,7 +201,6 @@
             color: var(--primary);
             margin-bottom: 16px;
         }
-
         .hero p {
             font-size: 1rem;
             color: var(--text-muted);
@@ -276,101 +208,25 @@
             margin-bottom: 24px;
             max-width: 100%;
         }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 28px;
-        }
-
-        .hero-stats .stat {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 12px 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .hero-stats .stat h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 2px;
-        }
-
-        .hero-stats .stat p {
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            margin: 0;
-            letter-spacing: 0.5px;
-        }
-
-        /* Hero responsive breakpoints */
         @media (min-width: 576px) {
-            .hero-title {
-                font-size: 2.8rem;
-            }
-            .hero p {
-                font-size: 1.05rem;
-                max-width: 90%;
-            }
-            .hero-stats .stat h3 {
-                font-size: 1.8rem;
-            }
-            .hero-stats .stat p {
-                font-size: 0.7rem;
-            }
+            .hero { min-height: 75vh; padding: 30px 0 15px 0; }
+            .hero-title { font-size: 2.8rem; }
+            .hero p { font-size: 1.05rem; max-width: 90%; }
         }
-
         @media (min-width: 768px) {
-            .hero {
-                min-height: 85vh;
-                padding: 40px 0;
-            }
-            .hero-title {
-                font-size: 3.5rem;
-            }
-            .hero p {
-                font-size: 1.1rem;
-                max-width: 80%;
-            }
-            .hero-stats {
-                gap: 20px;
-            }
-            .hero-stats .stat {
-                padding: 16px 20px;
-            }
-            .hero-stats .stat h3 {
-                font-size: 2.2rem;
-            }
+            .hero { min-height: 80vh; padding: 40px 0 20px 0; }
+            .hero-title { font-size: 3.5rem; }
+            .hero p { font-size: 1.1rem; max-width: 80%; }
         }
-
         @media (min-width: 992px) {
-            .hero {
-                min-height: 90vh;
-            }
-            .hero-title {
-                font-size: 4.5rem;
-            }
-            .hero p {
-                max-width: 540px;
-            }
-            .hero-badge {
-                font-size: 0.8rem;
-                padding: 8px 24px;
-            }
+            .hero { min-height: 85vh; padding: 50px 0 30px 0; }
+            .hero-title { font-size: 4.5rem; }
+            .hero p { max-width: 540px; }
+            .hero-badge { font-size: 0.8rem; padding: 8px 24px; }
         }
+        @media (min-width: 1200px) { .hero-title { font-size: 5rem; } }
 
-        @media (min-width: 1200px) {
-            .hero-title {
-                font-size: 5rem;
-            }
-        }
-
-        /* ============================================================
-           BUTTONS - Responsive
-           ============================================================ */
+        /* BUTTONS */
         .btn-gold {
             background: var(--gradient-gold);
             color: var(--dark);
@@ -387,17 +243,8 @@
             justify-content: center;
             gap: 8px;
         }
-
-        .btn-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-gold);
-            color: var(--dark);
-        }
-
-        .btn-gold:active {
-            transform: scale(0.97);
-        }
-
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); color: var(--dark); }
+        .btn-gold:active { transform: scale(0.97); }
         .btn-outline-gold {
             background: transparent;
             color: var(--primary);
@@ -414,61 +261,16 @@
             justify-content: center;
             gap: 8px;
         }
+        .btn-outline-gold:hover { background: var(--primary); color: var(--dark); transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+        .btn-outline-gold:active { background: rgba(201, 168, 76, 0.1); transform: scale(0.97); }
+        .btn-sm { padding: 10px 18px; font-size: 0.85rem; min-height: 42px; }
+        .btn-gold.btn-sm { padding: 10px 18px; min-height: 42px; }
+        .btn-outline-gold.btn-sm { padding: 8px 16px; min-height: 40px; }
+        @media (max-width: 575px) { .btn-gold, .btn-outline-gold { width: 100%; justify-content: center; } }
+        @media (min-width: 576px) { .btn-gold { padding: 14px 36px; } .btn-outline-gold { padding: 12px 32px; } }
 
-        .btn-outline-gold:hover {
-            background: var(--primary);
-            color: var(--dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-gold);
-        }
-
-        .btn-outline-gold:active {
-            background: rgba(201, 168, 76, 0.1);
-            transform: scale(0.97);
-        }
-
-        .btn-sm {
-            padding: 10px 18px;
-            font-size: 0.85rem;
-            min-height: 42px;
-        }
-
-        .btn-gold.btn-sm {
-            padding: 10px 18px;
-            min-height: 42px;
-        }
-
-        .btn-outline-gold.btn-sm {
-            padding: 8px 16px;
-            min-height: 40px;
-        }
-
-        /* Button responsive */
-        @media (max-width: 575px) {
-            .btn-gold,
-            .btn-outline-gold {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        @media (min-width: 576px) {
-            .btn-gold {
-                padding: 14px 36px;
-            }
-            .btn-outline-gold {
-                padding: 12px 32px;
-            }
-        }
-
-        /* ============================================================
-           SECTION HEADERS - Responsive
-           ============================================================ */
-        .section-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
+        /* SECTION HEADERS */
+        .section-header { text-align: center; margin-bottom: 32px; }
         .section-header .subtitle {
             display: inline-block;
             color: var(--primary);
@@ -477,39 +279,43 @@
             text-transform: uppercase;
             margin-bottom: 8px;
         }
-
-        .section-header .divider {
-            width: 40px;
-            height: 3px;
-            background: var(--gradient-gold);
-            margin: 12px auto 0;
-            border-radius: 2px;
-        }
-
+        .section-header .divider { width: 40px; height: 3px; background: var(--gradient-gold); margin: 12px auto 0; border-radius: 2px; }
         @media (min-width: 768px) {
-            .section-header {
-                margin-bottom: 48px;
-            }
-            .section-title {
-                font-size: 2.5rem;
-            }
-            .section-header .subtitle {
-                font-size: 0.8rem;
-            }
-            .section-header .divider {
-                width: 60px;
-            }
+            .section-header { margin-bottom: 48px; }
+            .section-title { font-size: 2.5rem; }
+            .section-header .subtitle { font-size: 0.8rem; }
+            .section-header .divider { width: 60px; }
         }
+        @media (min-width: 992px) { .section-title { font-size: 3rem; } }
 
-        @media (min-width: 992px) {
-            .section-title {
-                font-size: 3rem;
-            }
+        /* MARQUEE */
+        .p-marquee {
+            overflow: hidden;
+            border-top: 1px solid var(--p-line);
+            border-bottom: 1px solid var(--p-line);
+            padding: 1.2rem 0;
+            background: var(--p-bg-2);
+            margin: 0;
+            width: 100%;
+            position: relative;
         }
+        .p-marquee-track { display: flex; gap: 4rem; animation: marquee 30s linear infinite; width: max-content; }
+        .p-marquee-item {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--p-text-dim);
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            white-space: nowrap;
+        }
+        .p-marquee-item .dot { color: var(--p-cyan); }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @media (min-width: 576px) { .p-marquee { padding: 1.5rem 0; } .p-marquee-item { font-size: 2rem; } }
+        @media (max-width: 575px) { .p-marquee-item { font-size: 1.2rem; gap: 2rem; } }
 
-        /* ============================================================
-           SHOW CARDS - Fully Responsive
-           ============================================================ */
+        /* SHOW CARDS */
         .show-card {
             background: var(--dark-card);
             border-radius: var(--card-radius);
@@ -518,17 +324,8 @@
             transition: var(--transition);
             height: 100%;
         }
-
-        .show-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(201, 168, 76, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .show-card:active {
-            transform: scale(0.98);
-        }
-
+        .show-card:hover { transform: translateY(-6px); border-color: rgba(201, 168, 76, 0.3); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+        .show-card:active { transform: scale(0.98); }
         .show-card .card-thumb {
             position: relative;
             height: 160px;
@@ -538,7 +335,6 @@
             justify-content: center;
             overflow: hidden;
         }
-
         .show-card .card-thumb .play-icon {
             position: absolute;
             top: 50%;
@@ -548,12 +344,7 @@
             color: rgba(255, 255, 255, 0.2);
             transition: var(--transition);
         }
-
-        .show-card:hover .card-thumb .play-icon {
-            color: var(--primary);
-            transform: translate(-50%, -50%) scale(1.2);
-        }
-
+        .show-card:hover .card-thumb .play-icon { color: var(--primary); transform: translate(-50%, -50%) scale(1.2); }
         .show-card .card-thumb .genre-tag {
             position: absolute;
             top: 10px;
@@ -566,58 +357,29 @@
             font-weight: 700;
             letter-spacing: 0.5px;
         }
-
-        .show-card .card-body {
-            padding: 16px;
-        }
-
-        .show-card .card-body .rating {
-            color: var(--primary);
-            font-size: 0.8rem;
-        }
-
+        .show-card .card-body { padding: 16px; }
+        .show-card .card-body .rating { color: var(--primary); font-size: 0.8rem; }
         .show-card .card-body h5 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1rem;
             margin: 6px 0;
         }
-
         .show-card .card-body p {
             color: var(--text-muted);
             font-size: 0.85rem;
             line-height: 1.5;
             margin-bottom: 12px;
         }
-
-        /* Card responsive */
         @media (min-width: 576px) {
-            .show-card .card-thumb {
-                height: 180px;
-            }
-            .show-card .card-thumb .play-icon {
-                font-size: 3rem;
-            }
-            .show-card .card-body {
-                padding: 20px;
-            }
-            .show-card .card-body h5 {
-                font-size: 1.1rem;
-            }
+            .show-card .card-thumb { height: 180px; }
+            .show-card .card-thumb .play-icon { font-size: 3rem; }
+            .show-card .card-body { padding: 20px; }
+            .show-card .card-body h5 { font-size: 1.1rem; }
         }
+        @media (min-width: 768px) { .show-card .card-thumb { height: 200px; } .show-card .card-body { padding: 24px; } }
 
-        @media (min-width: 768px) {
-            .show-card .card-thumb {
-                height: 200px;
-            }
-            .show-card .card-body {
-                padding: 24px;
-            }
-        }
-
-        /* ============================================================
-           FESTIVAL CARDS - Responsive
-           ============================================================ */
+        /* FESTIVAL CARDS */
         .festival-card {
             background: var(--dark-card);
             border-radius: var(--card-radius);
@@ -626,16 +388,8 @@
             transition: var(--transition);
             height: 100%;
         }
-
-        .festival-card:hover {
-            transform: translateX(6px);
-            box-shadow: var(--shadow-gold);
-        }
-
-        .festival-card:active {
-            transform: scale(0.98);
-        }
-
+        .festival-card:hover { transform: translateX(6px); box-shadow: var(--shadow-gold); }
+        .festival-card:active { transform: scale(0.98); }
         .festival-card .festival-date {
             display: inline-block;
             background: rgba(201, 168, 76, 0.15);
@@ -645,38 +399,12 @@
             font-size: 0.65rem;
             font-weight: 600;
         }
+        .festival-card h5 { font-family: 'Playfair Display', serif; font-size: 1.05rem; margin-top: 8px; }
+        .festival-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+        @media (min-width: 576px) { .festival-card { padding: 24px; } .festival-card h5 { font-size: 1.15rem; } }
+        @media (min-width: 768px) { .festival-card { padding: 28px; border-left-width: 4px; } }
 
-        .festival-card h5 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.05rem;
-            margin-top: 8px;
-        }
-
-        .festival-card p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        @media (min-width: 576px) {
-            .festival-card {
-                padding: 24px;
-            }
-            .festival-card h5 {
-                font-size: 1.15rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .festival-card {
-                padding: 28px;
-                border-left-width: 4px;
-            }
-        }
-
-        /* ============================================================
-           BLOG CARDS - Responsive
-           ============================================================ */
+        /* BLOG CARDS */
         .blog-card {
             background: var(--dark-card);
             border-radius: var(--card-radius);
@@ -685,133 +413,44 @@
             transition: var(--transition);
             height: 100%;
         }
-
-        .blog-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(201, 168, 76, 0.3);
-        }
-
-        .blog-card:active {
-            transform: scale(0.98);
-        }
-
-        .blog-card .blog-meta {
-            padding: 16px 16px 0;
-        }
-
-        .blog-card .blog-meta .category {
-            color: var(--primary);
-            font-size: 0.65rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .blog-card .blog-meta .date {
-            color: var(--text-muted);
-            font-size: 0.7rem;
-        }
-
-        .blog-card .blog-body {
-            padding: 12px 16px 16px;
-        }
-
-        .blog-card .blog-body h5 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .blog-card .blog-body h5 a {
-            color: var(--text-light);
-            text-decoration: none;
-        }
-
-        .blog-card .blog-body h5 a:hover {
-            color: var(--primary);
-        }
-
-        .blog-card .blog-body p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
+        .blog-card:hover { transform: translateY(-6px); border-color: rgba(201, 168, 76, 0.3); }
+        .blog-card:active { transform: scale(0.98); }
+        .blog-card .blog-meta { padding: 16px 16px 0; }
+        .blog-card .blog-meta .category { color: var(--primary); font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; }
+        .blog-card .blog-meta .date { color: var(--text-muted); font-size: 0.7rem; }
+        .blog-card .blog-body { padding: 12px 16px 16px; }
+        .blog-card .blog-body h5 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; }
+        .blog-card .blog-body h5 a { color: var(--text-light); text-decoration: none; }
+        .blog-card .blog-body h5 a:hover { color: var(--primary); }
+        .blog-card .blog-body p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
         @media (min-width: 576px) {
-            .blog-card .blog-meta {
-                padding: 20px 20px 0;
-            }
-            .blog-card .blog-body {
-                padding: 16px 20px 20px;
-            }
-            .blog-card .blog-body h5 {
-                font-size: 1.1rem;
-            }
+            .blog-card .blog-meta { padding: 20px 20px 0; }
+            .blog-card .blog-body { padding: 16px 20px 20px; }
+            .blog-card .blog-body h5 { font-size: 1.1rem; }
         }
 
-        /* ============================================================
-           BLOG DETAIL - Responsive
-           ============================================================ */
+        /* BLOG DETAIL */
         .blog-detail-content {
             background: var(--dark-card);
             border-radius: var(--card-radius);
             padding: 20px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        .blog-detail-content .blog-content p { color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; }
+        .blog-detail-content .blog-content ul { color: var(--text-muted); padding-left: 20px; }
+        .blog-detail-content .blog-content li { margin-bottom: 8px; font-size: 0.95rem; }
+        @media (min-width: 576px) { .blog-detail-content { padding: 28px; } }
+        @media (min-width: 768px) { .blog-detail-content { padding: 36px; } .blog-detail-content .blog-content p { font-size: 1.05rem; } }
+        @media (min-width: 992px) { .blog-detail-content { padding: 44px; } }
 
-        .blog-detail-content .blog-content p {
-            color: var(--text-muted);
-            line-height: 1.8;
-            font-size: 0.95rem;
-        }
-
-        .blog-detail-content .blog-content ul {
-            color: var(--text-muted);
-            padding-left: 20px;
-        }
-
-        .blog-detail-content .blog-content li {
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        @media (min-width: 576px) {
-            .blog-detail-content {
-                padding: 28px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .blog-detail-content {
-                padding: 36px;
-            }
-            .blog-detail-content .blog-content p {
-                font-size: 1.05rem;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .blog-detail-content {
-                padding: 44px;
-            }
-        }
-
-        /* ============================================================
-           REVIEWS - Responsive
-           ============================================================ */
+        /* REVIEWS */
         .review-card {
             background: var(--dark-surface);
             border-radius: var(--card-radius);
             padding: 16px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-
-        .review-card .reviewer {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
+        .review-card .reviewer { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
         .review-card .reviewer .avatar {
             width: 38px;
             height: 38px;
@@ -825,37 +464,13 @@
             color: var(--dark);
             flex-shrink: 0;
         }
+        .review-card .reviewer .reviewer-info { flex: 1; min-width: 0; }
+        .review-card .reviewer .reviewer-info strong { display: block; font-size: 0.9rem; }
+        .review-card .reviewer .reviewer-info span { font-size: 0.7rem; }
+        .review-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+        @media (min-width: 576px) { .review-card { padding: 20px; } }
 
-        .review-card .reviewer .reviewer-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .review-card .reviewer .reviewer-info strong {
-            display: block;
-            font-size: 0.9rem;
-        }
-
-        .review-card .reviewer .reviewer-info span {
-            font-size: 0.7rem;
-        }
-
-        .review-card p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 8px;
-        }
-
-        @media (min-width: 576px) {
-            .review-card {
-                padding: 20px;
-            }
-        }
-
-        /* ============================================================
-           VIDEO EMBED
-           ============================================================ */
+        /* VIDEO EMBED */
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%;
@@ -865,19 +480,9 @@
             background: var(--dark-surface);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* ============================================================
-           ABOUT PAGE - Responsive
-           ============================================================ */
+        /* ABOUT */
         .about-image-placeholder {
             background: var(--dark-card);
             border-radius: var(--card-radius);
@@ -888,7 +493,6 @@
             border: 2px dashed rgba(201, 168, 76, 0.15);
             margin-top: 16px;
         }
-
         .value-card {
             background: var(--dark-card);
             border-radius: var(--card-radius);
@@ -898,109 +502,154 @@
             transition: var(--transition);
             height: 100%;
         }
-
-        .value-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
+        .value-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+        .value-card:active { transform: scale(0.97); }
+        .value-card .icon { font-size: 1.8rem; color: var(--primary); margin-bottom: 8px; }
+        .value-card h6 { font-family: 'Playfair Display', serif; font-size: 0.9rem; }
+        .value-card p { font-size: 0.75rem; color: var(--text-muted); margin: 0; }
+        @media (min-width: 576px) { .about-image-placeholder { height: 250px; margin-top: 0; } }
+        @media (min-width: 768px) {
+            .about-image-placeholder { height: 320px; }
+            .value-card { padding: 24px; }
+            .value-card .icon { font-size: 2.2rem; }
+            .value-card h6 { font-size: 1rem; }
         }
+        @media (min-width: 992px) { .about-image-placeholder { height: 400px; } }
 
-        .value-card:active {
-            transform: scale(0.97);
-        }
-
-        .value-card .icon {
-            font-size: 1.8rem;
+        /* CONTACT */
+        .p-section { padding: 60px 0; }
+        .p-section-alt { background: var(--dark-surface); }
+        .p-section-header { text-align: center; margin-bottom: 48px; }
+        .p-section-header .p-eyebrow {
+            display: inline-block;
             color: var(--primary);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             margin-bottom: 8px;
         }
-
-        .value-card h6 {
-            font-family: 'Playfair Display', serif;
-            font-size: 0.9rem;
-        }
-
-        .value-card p {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        @media (min-width: 576px) {
-            .about-image-placeholder {
-                height: 250px;
-                margin-top: 0;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .about-image-placeholder {
-                height: 320px;
-            }
-            .value-card {
-                padding: 24px;
-            }
-            .value-card .icon {
-                font-size: 2.2rem;
-            }
-            .value-card h6 {
-                font-size: 1rem;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .about-image-placeholder {
-                height: 400px;
-            }
-        }
-
-        /* ============================================================
-           CONTACT - Responsive
-           ============================================================ */
-        .contact-info-card {
+        .p-section-header h2 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 2.2rem; line-height: 1.2; }
+        .p-section-header p { color: var(--text-muted); margin-top: 8px; }
+        .p-contact-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media (min-width: 992px) { .p-contact-grid { grid-template-columns: 1fr 1.5fr; gap: 3rem; } }
+        .p-contact-info-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             background: var(--dark-card);
             border-radius: var(--card-radius);
-            padding: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+        }
+        .p-contact-info-card:hover { border-color: var(--primary); transform: translateX(4px); }
+        .p-contact-info-card .ic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(201, 168, 76, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .p-contact-info-card .lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .p-contact-info-card .val { font-weight: 500; color: var(--text-light); }
+        .p-form-card {
+            background: var(--dark-card);
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        @media (min-width: 576px) { .p-form-card { padding: 2rem; } }
+        @media (min-width: 768px) { .p-form-card { padding: 2.5rem; } }
+        .p-form-label { color: var(--text-muted); font-size: 0.8rem; font-weight: 500; margin-bottom: 4px; display: block; }
+        .p-form-control {
+            width: 100%;
+            background: var(--dark-surface);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: var(--text-light);
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            min-height: 48px;
+        }
+        .p-form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.08); }
+        .p-form-control::placeholder { color: var(--text-muted-secondary); }
+        select.p-form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23C9A84C' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 12px;
+        }
+        .p-budget-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+        .p-budget-pill {
+            padding: 6px 14px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+        .p-budget-pill:hover { border-color: var(--primary); color: var(--text-light); }
+        .p-budget-pill.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
+        .p-btn-grad {
+            background: var(--gradient-gold);
+            color: var(--dark);
+            border: none;
+            padding: 14px 28px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            min-height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .p-btn-grad:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); color: var(--dark); }
+        .p-btn-grad:active { transform: scale(0.97); }
+        .text-mute { color: var(--text-muted-secondary); }
+
+        /* TEAM CARDS */
+        .p-team-card {
+            background: var(--dark-card);
+            border-radius: var(--card-radius);
+            padding: 1.5rem 1.5rem 1.5rem;
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
             transition: var(--transition);
             height: 100%;
         }
-
-        .contact-info-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
+        .p-team-card:hover { transform: translateY(-4px); border-color: rgba(201, 168, 76, 0.2); }
+        .p-team-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--dark);
+            background: var(--gradient-gold);
         }
+        .p-team-card h5 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; }
+        .p-team-card .role { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
+        .p-team-card .socials { display: flex; justify-content: center; gap: 10px; }
+        .p-team-card .socials a { color: var(--text-muted); transition: var(--transition); font-size: 0.9rem; }
+        .p-team-card .socials a:hover { color: var(--primary); }
 
-        .contact-info-card:active {
-            transform: scale(0.97);
-        }
-
-        .contact-info-card .icon {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .contact-info-card h6 {
-            font-family: 'Playfair Display', serif;
-            font-size: 0.95rem;
-        }
-
-        .contact-info-card p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        @media (min-width: 576px) {
-            .contact-info-card {
-                padding: 24px;
-            }
-        }
-
-        /* ============================================================
-           FORM - Responsive
-           ============================================================ */
+        /* FORM */
         .form-control-custom {
             background: var(--dark-card);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1011,20 +660,8 @@
             font-size: 0.95rem;
             min-height: 48px;
         }
-
-        .form-control-custom:focus {
-            background: var(--dark-card);
-            border-color: var(--primary);
-            color: var(--text-light);
-            box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.08);
-            outline: none;
-        }
-
-        .form-control-custom::placeholder {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
+        .form-control-custom:focus { background: var(--dark-card); border-color: var(--primary); color: var(--text-light); box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.08); outline: none; }
+        .form-control-custom::placeholder { color: var(--text-muted); font-size: 0.9rem; }
         .form-select-custom {
             background: var(--dark-card);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1040,78 +677,29 @@
             background-position: right 16px center;
             background-size: 12px;
         }
+        .form-select-custom:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.08); outline: none; }
+        .form-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+        @media (min-width: 576px) { .form-control-custom { padding: 14px 20px; min-height: 52px; } .form-select-custom { padding: 14px 20px; min-height: 52px; } }
 
-        .form-select-custom:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.08);
-            outline: none;
-        }
+        /* CATEGORY PILLS */
+        .category-pill { padding: 8px 14px !important; font-size: 0.7rem !important; min-height: 36px; white-space: nowrap; }
+        @media (min-width: 576px) { .category-pill { padding: 10px 20px !important; font-size: 0.8rem !important; min-height: 42px; } }
 
-        .form-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
-
-        @media (min-width: 576px) {
-            .form-control-custom {
-                padding: 14px 20px;
-                min-height: 52px;
-            }
-            .form-select-custom {
-                padding: 14px 20px;
-                min-height: 52px;
-            }
-        }
-
-        /* ============================================================
-           CATEGORY PILLS - Responsive
-           ============================================================ */
-        .category-pill {
-            padding: 8px 14px !important;
-            font-size: 0.7rem !important;
-            min-height: 36px;
-            white-space: nowrap;
-        }
-
-        @media (min-width: 576px) {
-            .category-pill {
-                padding: 10px 20px !important;
-                font-size: 0.8rem !important;
-                min-height: 42px;
-            }
-        }
-
-        /* ============================================================
-           FOOTER - Responsive
-           ============================================================ */
+        /* FOOTER */
         .footer {
             background: var(--dark-card);
             border-top: 1px solid rgba(201, 168, 76, 0.08);
             padding: 40px 0 20px;
-            margin-top: 20px;
+            margin-top: 0;
         }
-
-        .footer .brand {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 1.3rem;
-        }
-
+        .footer .brand { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.3rem; }
         .footer .brand span {
             background: var(--gradient-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .footer .social-links {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-
+        .footer .social-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
         .footer .social-links a {
             display: inline-flex;
             align-items: center;
@@ -1125,17 +713,8 @@
             transition: var(--transition);
             font-size: 0.85rem;
         }
-
-        .footer .social-links a:hover {
-            background: var(--primary);
-            color: var(--dark);
-            transform: translateY(-2px);
-        }
-
-        .footer .social-links a:active {
-            transform: scale(0.92);
-        }
-
+        .footer .social-links a:hover { background: var(--primary); color: var(--dark); transform: translateY(-2px); }
+        .footer .social-links a:active { transform: scale(0.92); }
         .footer-links a {
             color: var(--text-muted);
             text-decoration: none;
@@ -1144,55 +723,14 @@
             padding: 4px 0;
             font-size: 0.85rem;
         }
+        .footer-links a:hover { color: var(--primary); }
+        .footer h6 { font-size: 0.85rem; margin-bottom: 8px; }
+        .footer .text-muted { font-size: 0.8rem; }
+        @media (min-width: 576px) { .footer { padding: 50px 0 24px; } .footer .brand { font-size: 1.5rem; } .footer .social-links a { width: 42px; height: 42px; font-size: 0.9rem; } }
+        @media (min-width: 768px) { .footer { padding: 60px 0 30px; } .footer .brand { font-size: 1.8rem; } }
 
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        .footer h6 {
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-        }
-
-        .footer .text-muted {
-            font-size: 0.8rem;
-        }
-
-        @media (min-width: 576px) {
-            .footer {
-                padding: 50px 0 24px;
-            }
-            .footer .brand {
-                font-size: 1.5rem;
-            }
-            .footer .social-links a {
-                width: 42px;
-                height: 42px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .footer {
-                padding: 60px 0 30px;
-            }
-            .footer .brand {
-                font-size: 1.8rem;
-            }
-        }
-
-        /* ============================================================
-           TOAST - Responsive
-           ============================================================ */
-        .toast-container {
-            position: fixed;
-            bottom: 16px;
-            left: 16px;
-            right: 16px;
-            z-index: 9999;
-            width: auto;
-        }
-
+        /* TOAST */
+        .toast-container { position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 9999; width: auto; }
         .toast-custom {
             background: var(--dark-card);
             border: 1px solid rgba(201, 168, 76, 0.25);
@@ -1204,148 +742,71 @@
             max-width: 420px;
             margin: 0 auto;
         }
+        @media (min-width: 576px) { .toast-container { left: auto; right: 24px; bottom: 24px; width: auto; } .toast-custom { padding: 16px 24px; min-width: 320px; } }
 
-        @media (min-width: 576px) {
-            .toast-container {
-                left: auto;
-                right: 24px;
-                bottom: 24px;
-                width: auto;
-            }
-            .toast-custom {
-                padding: 16px 24px;
-                min-width: 320px;
-            }
-        }
+        /* BREADCRUMB */
+        .breadcrumb-custom { background: transparent; padding: 0; margin-bottom: 16px; }
+        .breadcrumb-custom .breadcrumb-item { font-size: 0.85rem; }
+        .breadcrumb-custom .breadcrumb-item a { color: var(--primary); text-decoration: none; }
 
-        /* ============================================================
-           BREADCRUMB - Responsive
-           ============================================================ */
-        .breadcrumb-custom {
-            background: transparent;
-            padding: 0;
-            margin-bottom: 16px;
-        }
+        /* RATING STARS */
+        #ratingStars .form-check { padding-left: 0; }
+        #ratingStars .form-check-input { margin-right: 2px; }
+        #ratingStars .form-check-label { font-size: 0.8rem; padding-left: 2px; }
 
-        .breadcrumb-custom .breadcrumb-item {
-            font-size: 0.85rem;
-        }
-
-        .breadcrumb-custom .breadcrumb-item a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        /* ============================================================
-           RATING STARS - Responsive
-           ============================================================ */
-        #ratingStars .form-check {
-            padding-left: 0;
-        }
-
-        #ratingStars .form-check-input {
-            margin-right: 2px;
-        }
-
-        #ratingStars .form-check-label {
-            font-size: 0.8rem;
-            padding-left: 2px;
-        }
-
-        /* ============================================================
-           UTILITY - Responsive
-           ============================================================ */
+        /* UTILITY */
         .gap-2 { gap: 8px !important; }
         .gap-3 { gap: 12px !important; }
         .gap-4 { gap: 16px !important; }
-
-        @media (min-width: 576px) {
-            .gap-sm-3 { gap: 12px !important; }
-            .gap-sm-4 { gap: 16px !important; }
-        }
-
-        @media (min-width: 768px) {
-            .gap-md-4 { gap: 20px !important; }
-        }
-
+        @media (min-width: 576px) { .gap-sm-3 { gap: 12px !important; } .gap-sm-4 { gap: 16px !important; } }
+        @media (min-width: 768px) { .gap-md-4 { gap: 20px !important; } }
         .mt-2 { margin-top: 8px !important; }
         .mt-3 { margin-top: 12px !important; }
         .mt-4 { margin-top: 16px !important; }
         .mt-5 { margin-top: 24px !important; }
-
         .mb-2 { margin-bottom: 8px !important; }
         .mb-3 { margin-bottom: 12px !important; }
         .mb-4 { margin-bottom: 16px !important; }
         .mb-5 { margin-bottom: 24px !important; }
-
         .py-3 { padding-top: 12px !important; padding-bottom: 12px !important; }
         .py-4 { padding-top: 16px !important; padding-bottom: 16px !important; }
         .py-5 { padding-top: 24px !important; padding-bottom: 24px !important; }
+        @media (min-width: 576px) { .py-sm-5 { padding-top: 40px !important; padding-bottom: 40px !important; } }
+        @media (min-width: 768px) { .py-md-5 { padding-top: 60px !important; padding-bottom: 60px !important; } }
+        .row.g-3 { --bs-gutter-y: 0.75rem; }
+        .row.g-4 { --bs-gutter-y: 1rem; }
+        @media (min-width: 576px) { .row.g-3 { --bs-gutter-y: 1rem; } .row.g-4 { --bs-gutter-y: 1.5rem; } }
+        .touch-feedback { -webkit-tap-highlight-color: transparent; }
+        .container, .container-fluid { overflow-x: hidden; padding-left: 15px; padding-right: 15px; }
+        .row { margin-left: 0; margin-right: 0; }
+        .col, .col-*, .col-sm-*, .col-md-*, .col-lg-*, .col-xl-* { padding-left: 15px; padding-right: 15px; }
 
-        @media (min-width: 576px) {
-            .py-sm-5 {
-                padding-top: 40px !important;
-                padding-bottom: 40px !important;
-            }
+        /* ADMIN INDICATOR */
+        .admin-indicator {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 999;
+            box-shadow: var(--shadow-gold);
+            cursor: pointer;
+            transition: var(--transition);
         }
+        .admin-indicator:hover { transform: scale(1.05); }
+        .admin-indicator.visible { display: block; }
 
-        @media (min-width: 768px) {
-            .py-md-5 {
-                padding-top: 60px !important;
-                padding-bottom: 60px !important;
-            }
-        }
-
-        /* Fix for responsive grid */
-        .row.g-3 {
-            --bs-gutter-y: 0.75rem;
-        }
-        .row.g-4 {
-            --bs-gutter-y: 1rem;
-        }
-
-        @media (min-width: 576px) {
-            .row.g-3 {
-                --bs-gutter-y: 1rem;
-            }
-            .row.g-4 {
-                --bs-gutter-y: 1.5rem;
-            }
-        }
-
-        /* Smooth touch feedback */
-        .touch-feedback {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Prevent horizontal scroll */
-        .container,
-        .container-fluid {
-            overflow-x: hidden;
-        }
-
-        /* ============================================================
-           PRINT STYLES
-           ============================================================ */
+        /* PRINT STYLES */
         @media print {
-            .navbar-custom,
-            .footer,
-            .hero-bg-pattern,
-            .hero::before {
-                display: none !important;
-            }
-            body {
-                padding-top: 0 !important;
-                background: #fff !important;
-                color: #000 !important;
-            }
-            .page-section {
-                display: block !important;
-                page-break-after: always;
-            }
-            .page-section:not(.active) {
-                display: none !important;
-            }
+            .navbar-custom, .footer, .hero-bg-pattern, .hero::before { display: none !important; }
+            body { padding-top: 0 !important; background: #fff !important; color: #000 !important; }
+            .page-section { display: block !important; page-break-after: always; }
+            .page-section:not(.active) { display: none !important; }
         }
     </style>
 </head>
@@ -1364,11 +825,18 @@
     </div>
 
     <!-- ============================================================ -->
+    <!-- ADMIN INDICATOR -->
+    <!-- ============================================================ -->
+    <div class="admin-indicator" id="adminIndicator" onclick="window.location.href='admin.html'">
+        <i class="fas fa-crown me-1"></i> Admin Panel
+    </div>
+
+    <!-- ============================================================ -->
     <!-- NAVBAR -->
     <!-- ============================================================ -->
     <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#" onclick="showPage('home')">
+            <a class="navbar-brand" href="#" onclick="showPage('home')" id="brandLogo">
                 <span>Parables</span> Studio
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation">
@@ -1381,6 +849,7 @@
                     <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('festivals')">Festivals</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('blog')">Stories</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('about')">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('team')">Team</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('contact')">Contact</a></li>
                 </ul>
             </div>
@@ -1397,7 +866,7 @@
             <div class="hero-bg-pattern"></div>
             <div class="container hero-content">
                 <div class="row align-items-center">
-                    <div class="col-12 col-lg-7">
+                    <div class="col-12 col-lg-7" data-aos="fade-up">
                         <div class="hero-badge">
                             <i class="fas fa-star me-2"></i> Ghana's Premier Animation Studio
                         </div>
@@ -1417,34 +886,59 @@
                                 <i class="fas fa-handshake me-2"></i> Work With Us
                             </a>
                         </div>
-                        <div class="hero-stats">
-                            <div class="stat">
-                                <h3>12+</h3>
-                                <p>Award Shows</p>
-                            </div>
-                            <div class="stat">
-                                <h3>50+</h3>
-                                <p>Festivals</p>
-                            </div>
-                            <div class="stat">
-                                <h3>100k+</h3>
-                                <p>Viewers</p>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-lg-5 d-none d-lg-block">
-                        <div class="text-center">
-                            <i class="fas fa-film fa-8x text-gold" style="opacity: 0.12;"></i>
+                    <div class="col-12 col-lg-5" data-aos="fade-left" data-aos-delay="100">
+                        <div class="hero-image-placeholder" style="
+                            background: linear-gradient(135deg, var(--dark-surface), var(--dark-card));
+                            border-radius: var(--card-radius);
+                            padding: 2rem;
+                            text-align: center;
+                            border: 2px dashed rgba(201, 168, 76, 0.2);
+                            min-height: 300px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: column;
+                        ">
+                            <i class="fas fa-film fa-4x text-gold" style="opacity: 0.3; margin-bottom: 1rem;"></i>
+                            <p class="text-muted">Featured Show Coming Soon</p>
+                            <div class="d-flex gap-2 mt-2 flex-wrap justify-content-center">
+                                <span class="badge" style="background: rgba(201,168,76,0.15); color: var(--primary); padding: 8px 14px;">The Golden Drum</span>
+                                <span class="badge" style="background: rgba(201,168,76,0.15); color: var(--primary); padding: 8px 14px;">Ananse</span>
+                                <span class="badge" style="background: rgba(201,168,76,0.15); color: var(--primary); padding: 8px 14px;">Accra Dreams</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- MARQUEE -->
+        <div class="p-marquee">
+            <div class="p-marquee-track">
+                <div class="p-marquee-item">2D Animation <span class="dot">✦</span></div>
+                <div class="p-marquee-item">3D Character <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Motion Graphics <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Visual Effects <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Storyboarding <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Cultural IP <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Brand Films <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Kids Series <span class="dot">✦</span></div>
+                <div class="p-marquee-item">2D Animation <span class="dot">✦</span></div>
+                <div class="p-marquee-item">3D Character <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Motion Graphics <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Visual Effects <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Storyboarding <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Cultural IP <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Brand Films <span class="dot">✦</span></div>
+                <div class="p-marquee-item">Kids Series <span class="dot">✦</span></div>
+            </div>
+        </div>
+
         <!-- FEATURED SHOWS -->
         <section class="py-4 py-sm-5" style="background: var(--dark-surface);">
             <div class="container">
-                <div class="section-header">
+                <div class="section-header" data-aos="fade-up">
                     <div class="subtitle"><i class="fas fa-star me-2"></i> Featured Productions</div>
                     <h2 class="section-title">Our <span class="text-gold">Signature</span> Shows</h2>
                     <div class="divider"></div>
@@ -1460,12 +954,12 @@
             <div class="container">
                 <div class="row g-4">
                     <div class="col-12 col-lg-8">
-                        <div class="section-header text-start" style="text-align: left !important; margin-bottom: 20px;">
+                        <div class="section-header text-start" style="text-align: left !important; margin-bottom: 20px;" data-aos="fade-right">
                             <div class="subtitle"><i class="fas fa-book-open me-2"></i> Latest Stories</div>
                             <h2 class="section-title" style="font-size: 1.5rem;">From Our <span class="text-gold">Blog</span></h2>
                             <div class="divider" style="margin-left: 0;"></div>
                         </div>
-                        <div id="latestBlogs">
+                        <div id="latestBlogs" data-aos="fade-up">
                             <!-- JS Populated -->
                         </div>
                         <a href="#" class="btn btn-outline-gold btn-sm mt-3" onclick="showPage('blog')">
@@ -1473,12 +967,12 @@
                         </a>
                     </div>
                     <div class="col-12 col-lg-4">
-                        <div class="section-header text-start" style="text-align: left !important; margin-bottom: 20px;">
+                        <div class="section-header text-start" style="text-align: left !important; margin-bottom: 20px;" data-aos="fade-left">
                             <div class="subtitle"><i class="fas fa-calendar-alt me-2"></i> Events</div>
                             <h2 class="section-title" style="font-size: 1.5rem;">Upcoming <span class="text-gold">Festivals</span></h2>
                             <div class="divider" style="margin-left: 0;"></div>
                         </div>
-                        <div id="upcomingFestivals">
+                        <div id="upcomingFestivals" data-aos="fade-up">
                             <!-- JS Populated -->
                         </div>
                     </div>
@@ -1493,12 +987,12 @@
     <div id="page-shows" class="page-section">
         <section class="py-4 py-sm-5" style="background: var(--dark-surface); min-height: 70vh;">
             <div class="container">
-                <div class="section-header">
+                <div class="section-header" data-aos="fade-up">
                     <div class="subtitle"><i class="fas fa-film me-2"></i> Our Portfolio</div>
                     <h2 class="section-title">All <span class="text-gold">Productions</span></h2>
                     <div class="divider"></div>
                 </div>
-                <div class="row g-3 g-sm-4" id="allShows">
+                <div class="row g-3 g-sm-4" id="allShows" data-aos="fade-up">
                     <!-- JS Populated -->
                 </div>
             </div>
@@ -1511,12 +1005,12 @@
     <div id="page-festivals" class="page-section">
         <section class="py-4 py-sm-5" style="min-height: 70vh;">
             <div class="container">
-                <div class="section-header">
+                <div class="section-header" data-aos="fade-up">
                     <div class="subtitle"><i class="fas fa-calendar-alt me-2"></i> Events</div>
                     <h2 class="section-title">Animation <span class="text-gold">Festivals</span></h2>
                     <div class="divider"></div>
                 </div>
-                <div class="row g-3 g-sm-4" id="festivalList">
+                <div class="row g-3 g-sm-4" id="festivalList" data-aos="fade-up">
                     <!-- JS Populated -->
                 </div>
             </div>
@@ -1529,14 +1023,14 @@
     <div id="page-blog" class="page-section">
         <section class="py-4 py-sm-5" style="background: var(--dark-surface); min-height: 70vh;">
             <div class="container">
-                <div class="section-header">
+                <div class="section-header" data-aos="fade-up">
                     <div class="subtitle"><i class="fas fa-book-open me-2"></i> Insights</div>
                     <h2 class="section-title">Stories &amp; <span class="text-gold">Perspectives</span></h2>
                     <div class="divider"></div>
                 </div>
 
                 <!-- Category Filters -->
-                <div class="d-flex flex-wrap gap-2 justify-content-center mb-3 mb-sm-4" id="categoryFilters">
+                <div class="d-flex flex-wrap gap-2 justify-content-center mb-3 mb-sm-4" id="categoryFilters" data-aos="fade-up">
                     <button class="btn btn-outline-gold btn-sm category-pill active" data-category="all">All</button>
                     <button class="btn btn-outline-gold btn-sm category-pill" data-category="stories">📖 Stories</button>
                     <button class="btn btn-outline-gold btn-sm category-pill" data-category="parenting_tips">👶 Parenting</button>
@@ -1544,7 +1038,7 @@
                     <button class="btn btn-outline-gold btn-sm category-pill" data-category="parent_reviews">👪 Parents</button>
                 </div>
 
-                <div class="row g-3 g-sm-4" id="blogPosts">
+                <div class="row g-3 g-sm-4" id="blogPosts" data-aos="fade-up">
                     <!-- JS Populated -->
                 </div>
             </div>
@@ -1557,7 +1051,7 @@
     <div id="page-blog-detail" class="page-section">
         <section class="py-4 py-sm-5" style="min-height: 70vh;">
             <div class="container">
-                <nav aria-label="breadcrumb" class="breadcrumb-custom">
+                <nav aria-label="breadcrumb" class="breadcrumb-custom" data-aos="fade-up">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#" onclick="showPage('blog')">← Back to Stories</a></li>
                         <li class="breadcrumb-item active text-light" id="blogDetailTitle" style="font-size: 0.85rem;">Post</li>
@@ -1566,12 +1060,12 @@
 
                 <div class="row g-4">
                     <div class="col-12 col-lg-8">
-                        <div class="blog-detail-content" id="blogDetailContent">
+                        <div class="blog-detail-content" id="blogDetailContent" data-aos="fade-up">
                             <!-- JS Populated -->
                         </div>
 
                         <!-- Reviews Section -->
-                        <div class="mt-4 mt-sm-5">
+                        <div class="mt-4 mt-sm-5" data-aos="fade-up">
                             <h3 class="font-display" style="font-size: 1.3rem;">
                                 <i class="fas fa-star text-gold-solid me-2"></i> Community Reviews
                             </h3>
@@ -1643,7 +1137,7 @@
 
                     <!-- Sidebar -->
                     <div class="col-12 col-lg-4">
-                        <div class="card" style="background: var(--dark-card); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--card-radius);">
+                        <div class="card" style="background: var(--dark-card); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--card-radius);" data-aos="fade-left">
                             <div class="card-body p-3 p-sm-4">
                                 <h5 class="font-display" style="font-size: 1.1rem;">📌 About Parables</h5>
                                 <p class="text-muted small">We create animated stories that inspire, educate, and celebrate African culture especially Ghana.</p>
@@ -1668,16 +1162,16 @@
     <!-- PAGE: ABOUT -->
     <!-- ============================================================ -->
     <div id="page-about" class="page-section">
-        <section class="py-4 py-sm-5" style="background: var(--dark-surface); min-height: 70vh;">
+        <section class="py-4 py-sm-5" style="background: var(--dark-surface);">
             <div class="container">
-                <div class="section-header">
+                <div class="section-header" data-aos="fade-up">
                     <div class="subtitle"><i class="fas fa-info-circle me-2"></i> Who We Are</div>
                     <h2 class="section-title">About <span class="text-gold">Parables</span></h2>
                     <div class="divider"></div>
                 </div>
 
                 <div class="row g-4">
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-6" data-aos="fade-right">
                         <h3 class="font-display" style="font-size: 1.5rem;">Crafting Stories That <span class="text-gold">Matter</span></h3>
                         <p class="text-muted" style="font-size: 0.95rem; line-height: 1.7;">
                             Parables Animation Studio was born from a simple belief: that every story has the power 
@@ -1719,7 +1213,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-6" data-aos="fade-left">
                         <div class="about-image-placeholder">
                             <div class="text-center">
                                 <i class="fas fa-paint-brush fa-3x text-gold" style="opacity: 0.3;"></i>
@@ -1733,74 +1227,163 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- PAGE: CONTACT -->
+    <!-- PAGE: TEAM -->
     <!-- ============================================================ -->
-    <div id="page-contact" class="page-section">
-        <section class="py-4 py-sm-5" style="min-height: 70vh;">
+    <div id="page-team" class="page-section">
+        <section class="p-section p-section-alt" style="padding-top: 20px;">
             <div class="container">
-                <div class="section-header">
-                    <div class="subtitle"><i class="fas fa-envelope me-2"></i> Get In Touch</div>
-                    <h2 class="section-title">Let's <span class="text-gold">Create Together</span></h2>
-                    <div class="divider"></div>
+                <div class="p-section-header" data-aos="fade-up">
+                    <span class="p-eyebrow">The crew</span>
+                    <h2>Meet the <span class="text-grad-1">artists</span>.</h2>
+                    <p>who'd work on your project.</p>
                 </div>
-
-                <div class="row g-3 g-sm-4">
-                    <div class="col-12 col-lg-5">
-                        <div class="row g-3">
-                            <div class="col-12 col-sm-4 col-lg-12">
-                                <div class="contact-info-card">
-                                    <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
-                                    <h6 class="font-display" style="font-size: 0.9rem;">Visit Us</h6>
-                                    <p class="text-muted small">Accra, Ghana<br>East Legon</p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-4 col-lg-12">
-                                <div class="contact-info-card">
-                                    <div class="icon"><i class="fas fa-phone"></i></div>
-                                    <h6 class="font-display" style="font-size: 0.9rem;">Call Us</h6>
-                                    <p class="text-muted small">+233 50 123 4567<br>Mon-Fri: 9am - 6pm</p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-4 col-lg-12">
-                                <div class="contact-info-card">
-                                    <div class="icon"><i class="fas fa-envelope"></i></div>
-                                    <h6 class="font-display" style="font-size: 0.9rem;">Email Us</h6>
-                                    <p class="text-muted small">hello@parables.studio<br>We reply within 24hrs</p>
-                                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+                        <div class="p-team-card">
+                            <div class="p-team-avatar">C</div>
+                            <h5>Cycil Jones Abban</h5>
+                            <div class="role">Founder / Creative Director / Animator</div>
+                            <div class="socials">
+                                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                                <a href="#"><i class="bi bi-linkedin"></i></a>
+                                <a href="#"><i class="bi bi-instagram"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-7">
-                        <div class="card" style="background: var(--dark-card); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--card-radius);">
-                            <div class="card-body p-3 p-sm-4 p-md-5">
-                                <h5 class="font-display mb-3" style="font-size: 1.1rem;">Send a Message</h5>
-                                <form id="contactForm">
-                                    <div class="row g-3">
-                                        <div class="col-12 col-sm-6">
-                                            <label class="form-label">Full Name</label>
-                                            <input type="text" class="form-control form-control-custom" placeholder="Your name" required>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <label class="form-label">Email Address</label>
-                                            <input type="email" class="form-control form-control-custom" placeholder="you@example.com" required>
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label">Subject</label>
-                                            <input type="text" class="form-control form-control-custom" placeholder="What's this about?" required>
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label">Message</label>
-                                            <textarea class="form-control form-control-custom" rows="4" placeholder="Tell us about your project..." required></textarea>
-                                        </div>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-gold w-100 w-sm-auto" onclick="showToast('🎉 Message sent! We\'ll get back to you within 24 hours.')">
-                                                <i class="fas fa-paper-plane me-2"></i> Send Message
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="p-team-card">
+                            <div class="p-team-avatar">M</div>
+                            <h5>Your Bothers Name</h5>
+                            <div class="role">Head of 3D</div>
+                            <div class="socials">
+                                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                                <a href="#"><i class="bi bi-linkedin"></i></a>
+                                <a href="#"><i class="bi bi-artstation"></i></a>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                        <div class="p-team-card">
+                            <div class="p-team-avatar">K</div>
+                            <h5>Martin Boadi</h5>
+                            <div class="role">Lead Animator</div>
+                            <div class="socials">
+                                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                                <a href="#"><i class="bi bi-linkedin"></i></a>
+                                <a href="#"><i class="bi bi-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                        <div class="p-team-card">
+                            <div class="p-team-avatar">S</div>
+                            <h5>Jones Abban</h5>
+                            <div class="role">Producer</div>
+                            <div class="socials">
+                                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                                <a href="#"><i class="bi bi-linkedin"></i></a>
+                                <a href="#"><i class="bi bi-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PAGE: CONTACT -->
+    <!-- ============================================================ -->
+    <div id="page-contact" class="page-section">
+        <section class="p-section p-section-alt" style="padding-top: 20px;">
+            <div class="container">
+                <div class="p-section-header" data-aos="fade-up">
+                    <span class="p-eyebrow">Start a project</span>
+                    <h2>Tell us about your <span class="text-grad-1">idea.</span></h2>
+                    <p>The more you tell us up front, the better the first draft will be.</p>
+                </div>
+                <div class="p-contact-grid">
+                    <div data-aos="fade-right">
+                        <div class="p-contact-info-card">
+                            <div class="ic"><i class="bi bi-envelope"></i></div>
+                            <div>
+                                <div class="lbl">Email</div>
+                                <div class="val">hello@Parables.studio</div>
+                            </div>
+                        </div>
+                        <div class="p-contact-info-card">
+                            <div class="ic"><i class="bi bi-telephone"></i></div>
+                            <div>
+                                <div class="lbl">Phone</div>
+                                <div class="val">+233 (024) 395-1227</div>
+                            </div>
+                        </div>
+                        <div class="p-contact-info-card">
+                            <div class="ic"><i class="bi bi-geo-alt"></i></div>
+                            <div>
+                                <div class="lbl">Studio</div>
+                                <div class="val">8 Sam Nujoma Rd, Accra, Ghana</div>
+                            </div>
+                        </div>
+                        <div class="p-contact-info-card">
+                            <div class="ic"><i class="bi bi-clock"></i></div>
+                            <div>
+                                <div class="lbl">Hours</div>
+                                <div class="val">Mon-Fri 9am – 7pm</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-aos="fade-left">
+                        <form class="p-form-card" id="contactForm" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="p-form-label">Your name</label>
+                                    <input class="p-form-control" name="name" placeholder="Justina Arhin" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="p-form-label">Email</label>
+                                    <input class="p-form-control" name="email" type="email" placeholder="you@brand.com" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="p-form-label">Company (optional)</label>
+                                    <input class="p-form-control" name="company" placeholder="Acme Studios">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="p-form-label">Project type</label>
+                                    <select class="p-form-control" name="type">
+                                        <option>2D Animation</option>
+                                        <option>3D / CGI</option>
+                                        <option>Motion Graphics</option>
+                                        <option>Visual Effects</option>
+                                        <option>Game Cinematic</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="p-form-label">Budget range</label>
+                                    <div class="p-budget-pills" id="budgetPills">
+                                        <div class="p-budget-pill" data-value="<5k">Under $5k</div>
+                                        <div class="p-budget-pill" data-value="5-15k">$5k – $15k</div>
+                                        <div class="p-budget-pill" data-value="15-50k">$15k – $50k</div>
+                                        <div class="p-budget-pill" data-value="50-150k">$50k – $150k</div>
+                                        <div class="p-budget-pill" data-value="150k+">$150k+</div>
+                                    </div>
+                                    <input type="hidden" name="budget" id="budgetInput">
+                                </div>
+                                <div class="col-12">
+                                    <label class="p-form-label">Tell us about it</label>
+                                    <textarea class="p-form-control" name="message" rows="4" placeholder="A 30-second hero animation for our product launch…" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="p-btn-grad w-100" id="contactBtn">
+                                        Send brief <i class="bi bi-send"></i>
+                                    </button>
+                                    <div class="text-center mt-3 text-mute" style="font-size:0.8rem;">
+                                        <i class="bi bi-shield-check"></i> We reply within 4 working hours.
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -1814,7 +1397,7 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-12 col-lg-4">
-                    <div class="brand"><span>Parables</span> Studio</div>
+                    <div class="brand"><span>Parables Animation</span> Studio</div>
                     <p class="text-muted small mt-2" style="max-width: 100%;">
                         Crafting animated stories that celebrate African culture, inspire families, 
                         and captivate the world.
@@ -1834,6 +1417,7 @@
                         <a href="#" onclick="showPage('festivals')">Festivals</a>
                         <a href="#" onclick="showPage('blog')">Stories</a>
                         <a href="#" onclick="showPage('about')">About</a>
+                        <a href="#" onclick="showPage('team')">Team</a>
                     </div>
                 </div>
                 <div class="col-6 col-md-4 col-lg-2">
@@ -1858,256 +1442,359 @@
             </div>
             <hr style="border-color: rgba(255,255,255,0.05);" class="mt-4">
             <div class="text-center">
-                <p class="text-muted small mb-0">
-                    &copy; 2026 Parables Animation Studio. All rights reserved. 🇬🇭
-                </p>
+                <div class="text-muted" style="opacity: 0.85; font-size: 0.85rem;">
+                    © 2026 Parables Studio. All rights reserved. <span class="text-muted">·</span> Made with <i class="bi bi-heart-fill" style="color: #FF2E93; opacity: 1;"></i> in Ghana.
+                </div>
             </div>
         </div>
     </footer>
 
     <!-- ============================================================ -->
-    <!-- BOOTSTRAP JS -->
+    <!-- SCRIPTS -->
     <!-- ============================================================ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
-    <!-- ============================================================ -->
-    <!-- MAIN JAVASCRIPT -->
-    <!-- ============================================================ -->
     <script>
+        // ============================================================
+        // AOS INIT
+        // ============================================================
+        AOS.init({
+            duration: 800,
+            once: false,
+            mirror: true,
+            offset: 50
+        });
+
+        // ============================================================
+        // ADMIN ACCESS - 5x Click on Logo
+        // ============================================================
+        let brandClicks = 0;
+        let brandTimer = null;
+        
+        document.getElementById('brandLogo').addEventListener('click', function(e) {
+            e.preventDefault();
+            brandClicks++;
+            clearTimeout(brandTimer);
+            brandTimer = setTimeout(() => { brandClicks = 0; }, 2000);
+            
+            if (brandClicks >= 5) {
+                brandClicks = 0;
+                // Check if admin is logged in
+                const isAdmin = localStorage.getItem('parables_admin_logged_in');
+                if (isAdmin === 'true') {
+                    window.location.href = 'admin.html';
+                } else {
+                    // Show login prompt
+                    const password = prompt('Enter admin password:');
+                    if (password) {
+                        // Check against stored password
+                        const settings = getAdminSettings();
+                        if (password === settings.adminPassword) {
+                            localStorage.setItem('parables_admin_logged_in', 'true');
+                            document.getElementById('adminIndicator').classList.add('visible');
+                            showToast('✅ Admin access granted! Click the crown to enter.');
+                            window.location.href = 'admin.html';
+                        } else {
+                            showToast('❌ Incorrect password. Try again.');
+                        }
+                    }
+                }
+            }
+        });
+
+        // ============================================================
+        // ADMIN SETTINGS
+        // ============================================================
+        function getAdminSettings() {
+            try {
+                const data = localStorage.getItem('parables_admin_settings');
+                if (data) {
+                    const parsed = JSON.parse(data);
+                    return parsed;
+                }
+            } catch(e) {}
+            // Default settings
+            return {
+                adminPassword: 'Parables2025',
+                studioName: 'Parables Studio',
+                contactEmail: 'hello@Parables.studio'
+            };
+        }
+
+        // Check admin status on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const isAdmin = localStorage.getItem('parables_admin_logged_in');
+            if (isAdmin === 'true') {
+                document.getElementById('adminIndicator').classList.add('visible');
+            }
+        });
+
         // ============================================================
         // DATA
         // ============================================================
-        const DATA = {
-            shows: [{
-                id: 1,
-                title: "The Golden Drum",
-                description: "A young boy discovers a magical drum that unites his village through rhythm and dance.",
-                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                genre: "Musical",
-                targetAudience: "Family",
-                rating: 4.9,
-                festivalRelated: true,
-                year: "2025"
-            }, {
-                id: 2,
-                title: "Ananse: Web of Wisdom",
-                description: "The legendary spider Ananse teaches timeless lessons through clever tricks in this modern retelling.",
-                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                genre: "Folklore",
-                targetAudience: "Kids",
-                rating: 4.8,
-                festivalRelated: true,
-                year: "2024"
-            }, {
-                id: 3,
-                title: "Accra Dreams",
-                description: "Three friends navigate life in Accra, discovering the beauty of friendship and family.",
-                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                genre: "Slice of Life",
-                targetAudience: "Teens",
-                rating: 4.6,
-                festivalRelated: false,
-                year: "2025"
-            }, {
-                id: 4,
-                title: "The Talking Drum",
-                description: "An epic journey across the savannah where a magical drum carries the voices of ancestors.",
-                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                genre: "Adventure",
-                targetAudience: "Family",
-                rating: 4.7,
-                festivalRelated: true,
-                year: "2024"
-            }, {
-                id: 5,
-                title: "Nana's Kitchen",
-                description: "Nana teaches her grandchildren traditional recipes and the stories behind each dish.",
-                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                genre: "Educational",
-                targetAudience: "Kids",
-                rating: 4.5,
-                festivalRelated: false,
-                year: "2025"
-            }, {
-                id: 6,
-                title: "The Moonlight Tales",
-                description: "Under the African moon, elders share stories that teach courage and kindness.",
-                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                genre: "Folklore",
-                targetAudience: "Family",
-                rating: 4.9,
-                festivalRelated: true,
-                year: "2023"
-            }, {
-                id: 7,
-                title: "Sankofa Kids",
-                description: "Time-traveling adventures where kids explore Ghana's history to build a better future.",
-                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                genre: "Educational",
-                targetAudience: "Kids",
-                rating: 4.7,
-                festivalRelated: false,
-                year: "2025"
-            }, {
-                id: 8,
-                title: "The Spirit of the Forest",
-                description: "A magical tale of a forest guardian who teaches children about protecting nature.",
-                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                genre: "Fantasy",
-                targetAudience: "Family",
-                rating: 4.8,
-                festivalRelated: false,
-                year: "2024"
-            }],
+        function getDefaultData() {
+            return {
+                shows: [{
+                    id: 1,
+                    title: "The Golden Drum",
+                    description: "A young boy discovers a magical drum that unites his village through rhythm and dance.",
+                    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                    genre: "Musical",
+                    targetAudience: "Family",
+                    rating: 4.9,
+                    festivalRelated: true,
+                    year: "2025",
+                    featured: true
+                }, {
+                    id: 2,
+                    title: "Ananse: Web of Wisdom",
+                    description: "The legendary spider Ananse teaches timeless lessons through clever tricks in this modern retelling.",
+                    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                    genre: "Folklore",
+                    targetAudience: "Kids",
+                    rating: 4.8,
+                    festivalRelated: true,
+                    year: "2024",
+                    featured: true
+                }, {
+                    id: 3,
+                    title: "Accra Dreams",
+                    description: "Three friends navigate life in Accra, discovering the beauty of friendship and family.",
+                    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                    genre: "Slice of Life",
+                    targetAudience: "Teens",
+                    rating: 4.6,
+                    festivalRelated: false,
+                    year: "2025",
+                    featured: true
+                }, {
+                    id: 4,
+                    title: "The Talking Drum",
+                    description: "An epic journey across the savannah where a magical drum carries the voices of ancestors.",
+                    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                    genre: "Adventure",
+                    targetAudience: "Family",
+                    rating: 4.7,
+                    festivalRelated: true,
+                    year: "2024",
+                    featured: false
+                }, {
+                    id: 5,
+                    title: "Nana's Kitchen",
+                    description: "Nana teaches her grandchildren traditional recipes and the stories behind each dish.",
+                    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                    genre: "Educational",
+                    targetAudience: "Kids",
+                    rating: 4.5,
+                    festivalRelated: false,
+                    year: "2025",
+                    featured: false
+                }, {
+                    id: 6,
+                    title: "The Moonlight Tales",
+                    description: "Under the African moon, elders share stories that teach courage and kindness.",
+                    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                    genre: "Folklore",
+                    targetAudience: "Family",
+                    rating: 4.9,
+                    festivalRelated: true,
+                    year: "2023",
+                    featured: false
+                }, {
+                    id: 7,
+                    title: "Sankofa Kids",
+                    description: "Time-traveling adventures where kids explore Ghana's history to build a better future.",
+                    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                    genre: "Educational",
+                    targetAudience: "Kids",
+                    rating: 4.7,
+                    festivalRelated: false,
+                    year: "2025",
+                    featured: false
+                }, {
+                    id: 8,
+                    title: "The Spirit of the Forest",
+                    description: "A magical tale of a forest guardian who teaches children about protecting nature.",
+                    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                    genre: "Fantasy",
+                    targetAudience: "Family",
+                    rating: 4.8,
+                    festivalRelated: false,
+                    year: "2024",
+                    featured: false
+                }],
+                festivals: [{
+                    id: 1,
+                    name: "Accra Animation Festival 2026",
+                    description: "West Africa's largest animation celebration with screenings and masterclasses.",
+                    eventDate: "2026-12-10",
+                    location: "Accra International Conference Centre",
+                    website: "#",
+                    featuredShowId: 1
+                }, {
+                    id: 2,
+                    name: "Kumasi Storytelling & Animation Fair",
+                    description: "A vibrant fair combining traditional storytelling with modern animation.",
+                    eventDate: "2026-10-15",
+                    location: "Kumasi Cultural Centre",
+                    website: "#",
+                    featuredShowId: 2
+                }, {
+                    id: 3,
+                    name: "Tamale Animation Summit",
+                    description: "Northern Ghana's premier animation event focusing on cultural preservation.",
+                    eventDate: "2027-02-20",
+                    location: "Tamale Sports Stadium",
+                    website: "#",
+                    featuredShowId: 4
+                }, {
+                    id: 4,
+                    name: "Parables Family Film Festival",
+                    description: "A family-friendly celebration with screenings and character meet-and-greets.",
+                    eventDate: "2026-12-20",
+                    location: "Accra, Airport City",
+                    website: "#",
+                    featuredShowId: 6
+                }],
+                blogPosts: [{
+                    id: 1,
+                    title: "The Power of African Folklore in Modern Animation",
+                    slug: "african-folklore-animation",
+                    content: `<p>African folklore is a treasure trove of wisdom, humor, and timeless lessons. At Parables Studio, we've made it our mission to bring these stories to life through animation.</p>
+                            <p>From the cunning Ananse to the brave warriors of the savannah, these characters have captivated audiences for generations.</p>
+                            <p>In this post, we explore how we adapt traditional tales for contemporary viewers, balancing cultural authenticity with modern storytelling techniques.</p>`,
+                    category: "stories",
+                    author: "Kwame Adjei",
+                    views: 2341,
+                    created_at: "2026-08-25",
+                    status: "published"
+                }, {
+                    id: 2,
+                    title: "6 Ways Animation Boosts Childhood Development",
+                    slug: "animation-child-development",
+                    content: `<p>Animation isn't just entertainment—it's a powerful tool for learning and development. Research shows that well-crafted animated content can enhance creativity, empathy, and cognitive skills in children.</p>
+                            <p>At Parables, we design our shows with developmental milestones in mind. Here are six ways animation positively impacts child development:</p>
+                            <ul>
+                                <li><strong>Language skills:</strong> Exposure to rich vocabulary and dialogue</li>
+                                <li><strong>Emotional intelligence:</strong> Understanding characters' feelings</li>
+                                <li><strong>Problem-solving:</strong> Following story plots and predicting outcomes</li>
+                                <li><strong>Cultural awareness:</strong> Learning about different traditions</li>
+                                <li><strong>Creativity:</strong> Inspiring imaginative play and art</li>
+                                <li><strong>Concentration:</strong> Building attention span through engaging narratives</li>
+                            </ul>`,
+                    category: "parenting_tips",
+                    author: "Akua Mensah",
+                    views: 1856,
+                    created_at: "2026-08-20",
+                    status: "published"
+                }, {
+                    id: 3,
+                    title: "Accra Academy's Animation Club: A Success Story",
+                    slug: "accra-academy-animation-club",
+                    content: `<p>When Accra Academy launched their animation club in 2024, they had no idea it would become one of the school's most popular extracurricular activities.</p>
+                            <p>We visited the school to see the club in action and speak with students and teachers about the impact of animation on learning.</p>
+                            <p>"Animation has given our students a new way to express themselves and explore their creativity," says Mrs. Asare, the club's faculty advisor.</p>`,
+                    category: "school_reviews",
+                    author: "School Review Team",
+                    views: 1432,
+                    created_at: "2026-08-15",
+                    status: "published"
+                }, {
+                    id: 4,
+                    title: "Parent Reviews: Why Families Love 'The Golden Drum'",
+                    slug: "parent-reviews-golden-drum",
+                    content: `<p>Since its premiere, "The Golden Drum" has become a family favorite across Ghana. We spoke with parents about why this show has resonated so deeply.</p>
+                            <p>Parents praise the show's positive messages, beautiful animation, and authentic Ghanaian cultural elements. "My kids are learning about their heritage while being entertained," says Akua Mensah.</p>`,
+                    category: "parent_reviews",
+                    author: "Parent Panel",
+                    views: 2078,
+                    created_at: "2026-08-10",
+                    status: "published"
+                }, {
+                    id: 5,
+                    title: "The Art of Visual Storytelling in African Animation",
+                    slug: "visual-storytelling-african-animation",
+                    content: `<p>Visual storytelling is at the heart of animation, and African artists bring a unique perspective to this art form. From vibrant color palettes inspired by Ghanaian textiles to character designs influenced by traditional masks.</p>
+                            <p>In this article, we explore the visual language of African animation and how Parables Studio incorporates cultural motifs into our character design, backgrounds, and cinematography.</p>`,
+                    category: "stories",
+                    author: "Kwame Adjei",
+                    views: 1890,
+                    created_at: "2026-08-05",
+                    status: "published"
+                }],
+                reviews: [{
+                    id: 1,
+                    blogPostId: 1,
+                    reviewerName: "Ama Serwaa",
+                    reviewerType: "parent",
+                    content: "This beautifully captures the essence of our storytelling traditions. My children are captivated!",
+                    rating: 5,
+                    isApproved: true,
+                    created_at: "2026-08-24"
+                }, {
+                    id: 2,
+                    blogPostId: 1,
+                    reviewerName: "Dr. Kofi Anane",
+                    reviewerType: "educator",
+                    content: "An excellent resource for teaching African literature and cultural studies. Highly recommended.",
+                    rating: 5,
+                    isApproved: true,
+                    created_at: "2026-08-23"
+                }, {
+                    id: 3,
+                    blogPostId: 2,
+                    reviewerName: "Esi Amponsah",
+                    reviewerType: "parent",
+                    content: "These tips are practical and effective. My son's creativity has blossomed since we started using them.",
+                    rating: 4,
+                    isApproved: true,
+                    created_at: "2026-08-19"
+                }, {
+                    id: 4,
+                    blogPostId: 3,
+                    reviewerName: "Mr. Owusu",
+                    reviewerType: "school",
+                    content: "The animation club has transformed student engagement. We're proud to partner with Parables Studio.",
+                    rating: 5,
+                    isApproved: true,
+                    created_at: "2026-08-14"
+                }, {
+                    id: 5,
+                    blogPostId: 4,
+                    reviewerName: "Nana Yaa",
+                    reviewerType: "parent",
+                    content: "My whole family watches 'The Golden Drum' together. It's become a Sunday tradition!",
+                    rating: 5,
+                    isApproved: true,
+                    created_at: "2026-08-09"
+                }],
+                team: [
+                    { name: "Cyril Jones", role: "Founder / Creative Director/Animator", initial: "C" },
+                    { name: "Your Bothers Name", role: "Head of 3D", initial: "M" },
+                    { name: "Kenji Park", role: "Lead Animator", initial: "K" },
+                    { name: "Sasha Okafor", role: "Producer", initial: "S" }
+                ]
+            };
+        }
 
-            festivals: [{
-                id: 1,
-                name: "Accra Animation Festival 2026",
-                description: "West Africa's largest animation celebration with screenings and masterclasses.",
-                eventDate: "2026-12-10",
-                location: "Accra International Conference Centre",
-                website: "#",
-                featuredShowId: 1
-            }, {
-                id: 2,
-                name: "Kumasi Storytelling & Animation Fair",
-                description: "A vibrant fair combining traditional storytelling with modern animation.",
-                eventDate: "2026-10-15",
-                location: "Kumasi Cultural Centre",
-                website: "#",
-                featuredShowId: 2
-            }, {
-                id: 3,
-                name: "Tamale Animation Summit",
-                description: "Northern Ghana's premier animation event focusing on cultural preservation.",
-                eventDate: "2027-02-20",
-                location: "Tamale Sports Stadium",
-                website: "#",
-                featuredShowId: 4
-            }, {
-                id: 4,
-                name: "Parables Family Film Festival",
-                description: "A family-friendly celebration with screenings and character meet-and-greets.",
-                eventDate: "2026-12-20",
-                location: "Accra, Airport City",
-                website: "#",
-                featuredShowId: 6
-            }],
+        function loadData() {
+            try {
+                const data = localStorage.getItem('parables_data');
+                if (data) {
+                    return JSON.parse(data);
+                }
+            } catch(e) {}
+            const defaultData = getDefaultData();
+            localStorage.setItem('parables_data', JSON.stringify(defaultData));
+            return defaultData;
+        }
 
-            blogPosts: [{
-                id: 1,
-                title: "The Power of African Folklore in Modern Animation",
-                slug: "african-folklore-animation",
-                content: `<p>African folklore is a treasure trove of wisdom, humor, and timeless lessons. At Parables Studio, we've made it our mission to bring these stories to life through animation.</p>
-                        <p>From the cunning Ananse to the brave warriors of the savannah, these characters have captivated audiences for generations.</p>
-                        <p>In this post, we explore how we adapt traditional tales for contemporary viewers, balancing cultural authenticity with modern storytelling techniques.</p>`,
-                category: "stories",
-                featuredImage: "",
-                author: "Kwame Adjei",
-                views: 2341,
-                created_at: "2026-08-25"
-            }, {
-                id: 2,
-                title: "6 Ways Animation Boosts Childhood Development",
-                slug: "animation-child-development",
-                content: `<p>Animation isn't just entertainment—it's a powerful tool for learning and development. Research shows that well-crafted animated content can enhance creativity, empathy, and cognitive skills in children.</p>
-                        <p>At Parables, we design our shows with developmental milestones in mind. Here are six ways animation positively impacts child development:</p>
-                        <ul>
-                            <li><strong>Language skills:</strong> Exposure to rich vocabulary and dialogue</li>
-                            <li><strong>Emotional intelligence:</strong> Understanding characters' feelings</li>
-                            <li><strong>Problem-solving:</strong> Following story plots and predicting outcomes</li>
-                            <li><strong>Cultural awareness:</strong> Learning about different traditions</li>
-                            <li><strong>Creativity:</strong> Inspiring imaginative play and art</li>
-                            <li><strong>Concentration:</strong> Building attention span through engaging narratives</li>
-                        </ul>`,
-                category: "parenting_tips",
-                featuredImage: "",
-                author: "Akua Mensah",
-                views: 1856,
-                created_at: "2026-08-20"
-            }, {
-                id: 3,
-                title: "Accra Academy's Animation Club: A Success Story",
-                slug: "accra-academy-animation-club",
-                content: `<p>When Accra Academy launched their animation club in 2024, they had no idea it would become one of the school's most popular extracurricular activities.</p>
-                        <p>We visited the school to see the club in action and speak with students and teachers about the impact of animation on learning.</p>
-                        <p>"Animation has given our students a new way to express themselves and explore their creativity," says Mrs. Asare, the club's faculty advisor.</p>`,
-                category: "school_reviews",
-                featuredImage: "",
-                author: "School Review Team",
-                views: 1432,
-                created_at: "2026-08-15"
-            }, {
-                id: 4,
-                title: "Parent Reviews: Why Families Love 'The Golden Drum'",
-                slug: "parent-reviews-golden-drum",
-                content: `<p>Since its premiere, "The Golden Drum" has become a family favorite across Ghana. We spoke with parents about why this show has resonated so deeply.</p>
-                        <p>Parents praise the show's positive messages, beautiful animation, and authentic Ghanaian cultural elements. "My kids are learning about their heritage while being entertained," says Akua Mensah.</p>`,
-                category: "parent_reviews",
-                featuredImage: "",
-                author: "Parent Panel",
-                views: 2078,
-                created_at: "2026-08-10"
-            }, {
-                id: 5,
-                title: "The Art of Visual Storytelling in African Animation",
-                slug: "visual-storytelling-african-animation",
-                content: `<p>Visual storytelling is at the heart of animation, and African artists bring a unique perspective to this art form. From vibrant color palettes inspired by Ghanaian textiles to character designs influenced by traditional masks.</p>
-                        <p>In this article, we explore the visual language of African animation and how Parables Studio incorporates cultural motifs into our character design, backgrounds, and cinematography.</p>`,
-                category: "stories",
-                featuredImage: "",
-                author: "Kwame Adjei",
-                views: 1890,
-                created_at: "2026-08-05"
-            }],
+        function saveData(data) {
+            localStorage.setItem('parables_data', JSON.stringify(data));
+        }
 
-            reviews: [{
-                id: 1,
-                blogPostId: 1,
-                reviewerName: "Ama Serwaa",
-                reviewerType: "parent",
-                content: "This beautifully captures the essence of our storytelling traditions. My children are captivated!",
-                rating: 5,
-                isApproved: true,
-                created_at: "2026-08-24"
-            }, {
-                id: 2,
-                blogPostId: 1,
-                reviewerName: "Dr. Kofi Anane",
-                reviewerType: "educator",
-                content: "An excellent resource for teaching African literature and cultural studies. Highly recommended.",
-                rating: 5,
-                isApproved: true,
-                created_at: "2026-08-23"
-            }, {
-                id: 3,
-                blogPostId: 2,
-                reviewerName: "Esi Amponsah",
-                reviewerType: "parent",
-                content: "These tips are practical and effective. My son's creativity has blossomed since we started using them.",
-                rating: 4,
-                isApproved: true,
-                created_at: "2026-08-19"
-            }, {
-                id: 4,
-                blogPostId: 3,
-                reviewerName: "Mr. Owusu",
-                reviewerType: "school",
-                content: "The animation club has transformed student engagement. We're proud to partner with Parables Studio.",
-                rating: 5,
-                isApproved: true,
-                created_at: "2026-08-14"
-            }, {
-                id: 5,
-                blogPostId: 4,
-                reviewerName: "Nana Yaa",
-                reviewerType: "parent",
-                content: "My whole family watches 'The Golden Drum' together. It's become a Sunday tradition!",
-                rating: 5,
-                isApproved: true,
-                created_at: "2026-08-09"
-            }]
-        };
+        let DATA = loadData();
 
         // ============================================================
         // HELPERS
@@ -2157,7 +1844,6 @@
                 }
             });
 
-            // Close mobile menu
             const navCollapse = document.getElementById('mainNav');
             if (navCollapse.classList.contains('show')) {
                 const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
@@ -2166,6 +1852,8 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (page !== 'blog-detail') sessionStorage.removeItem('blogDetailId');
+            
+            setTimeout(() => { AOS.refresh(); }, 100);
         }
 
         // ============================================================
@@ -2181,11 +1869,11 @@
         // RENDER FUNCTIONS
         // ============================================================
 
-        // -- HOME --
         function renderHome() {
             const container = document.getElementById('featuredShows');
-            container.innerHTML = DATA.shows.slice(0, 4).map(s => `
-                <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+            const featuredShows = DATA.shows.filter(s => s.featured !== false).slice(0, 4);
+            container.innerHTML = featuredShows.map((s, index) => `
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="${index * 50}">
                     <div class="show-card">
                         <div class="card-thumb" style="background: linear-gradient(135deg, #1a1a2e, #0f3460);">
                             <i class="fas fa-play-circle play-icon"></i>
@@ -2206,10 +1894,10 @@
                 </div>
             `).join('');
 
-            // Latest blogs
             const blogContainer = document.getElementById('latestBlogs');
-            blogContainer.innerHTML = DATA.blogPosts.slice(0, 3).map(b => `
-                <div class="blog-card mb-3">
+            const publishedPosts = DATA.blogPosts.filter(b => b.status === 'published').slice(0, 3);
+            blogContainer.innerHTML = publishedPosts.map((b, index) => `
+                <div class="blog-card mb-3" data-aos="fade-up" data-aos-delay="${index * 50}">
                     <div class="blog-meta d-flex justify-content-between align-items-center">
                         <span class="category"><i class="fas fa-tag me-1"></i> ${categoryLabel(b.category)}</span>
                         <span class="date"><i class="far fa-calendar me-1"></i> ${formatDate(b.created_at)}</span>
@@ -2222,10 +1910,9 @@
                 </div>
             `).join('');
 
-            // Festivals
             const festContainer = document.getElementById('upcomingFestivals');
-            festContainer.innerHTML = DATA.festivals.slice(0, 2).map(f => `
-                <div class="festival-card mb-3">
+            festContainer.innerHTML = DATA.festivals.slice(0, 2).map((f, index) => `
+                <div class="festival-card mb-3" data-aos="fade-up" data-aos-delay="${index * 50}">
                     <span class="festival-date"><i class="far fa-calendar me-1"></i> ${formatDate(f.eventDate)}</span>
                     <h5>${f.name}</h5>
                     <p class="text-muted small">${truncateText(f.description, 70)}</p>
@@ -2235,11 +1922,10 @@
             `).join('') || '<p class="text-muted text-center py-3">No upcoming festivals.</p>';
         }
 
-        // -- SHOWS --
         function renderAllShows() {
             const container = document.getElementById('allShows');
-            container.innerHTML = DATA.shows.map(s => `
-                <div class="col-6 col-md-4 col-lg-3">
+            container.innerHTML = DATA.shows.map((s, index) => `
+                <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="${index * 50}">
                     <div class="show-card">
                         <div class="card-thumb" style="background: linear-gradient(135deg, #1a1a2e, #0f3460);">
                             <i class="fas fa-play-circle play-icon"></i>
@@ -2261,11 +1947,10 @@
             `).join('');
         }
 
-        // -- FESTIVALS --
         function renderFestivals() {
             const container = document.getElementById('festivalList');
-            container.innerHTML = DATA.festivals.map(f => `
-                <div class="col-12 col-md-6 col-lg-4">
+            container.innerHTML = DATA.festivals.map((f, index) => `
+                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="${index * 50}">
                     <div class="festival-card">
                         <span class="festival-date"><i class="far fa-calendar me-1"></i> ${formatDate(f.eventDate)}</span>
                         <h5 class="mt-2 font-display">${f.name}</h5>
@@ -2278,17 +1963,16 @@
             `).join('');
         }
 
-        // -- BLOG --
         let currentCategory = 'all';
 
         function renderBlog(category = 'all') {
             currentCategory = category;
-            let posts = DATA.blogPosts;
+            let posts = DATA.blogPosts.filter(b => b.status === 'published');
             if (category !== 'all') posts = posts.filter(p => p.category === category);
 
             const container = document.getElementById('blogPosts');
-            container.innerHTML = posts.map(b => `
-                <div class="col-12 col-md-6 col-lg-4">
+            container.innerHTML = posts.map((b, index) => `
+                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="${index * 50}">
                     <div class="blog-card">
                         <div class="blog-meta d-flex justify-content-between align-items-center">
                             <span class="category"><i class="fas fa-tag me-1"></i> ${categoryLabel(b.category)}</span>
@@ -2314,7 +1998,6 @@
             });
         }
 
-        // -- BLOG DETAIL --
         function showBlogDetail(id, type) {
             if (type === 'show') {
                 const s = getShow(id);
@@ -2387,7 +2070,6 @@
             showPage('blog-detail');
         }
 
-        // -- SUBMIT REVIEW --
         function submitReview() {
             const postId = parseInt(sessionStorage.getItem('blogDetailId'));
             if (!postId) { showToast('Please view a blog post first.'); return; }
@@ -2408,17 +2090,18 @@
                 reviewerType: type,
                 content: content,
                 rating: parseInt(ratingInput.value),
-                isApproved: true,
+                isApproved: false,
                 created_at: new Date().toISOString().split('T')[0]
             };
             DATA.reviews.push(newReview);
+            saveData(DATA);
 
             document.getElementById('reviewName').value = '';
             document.getElementById('reviewContent').value = '';
             document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
 
-            const container = document.getElementById('reviewsList');
             const reviews = getReviewsForPost(postId);
+            const container = document.getElementById('reviewsList');
             container.innerHTML = reviews.map(r => `
                 <div class="review-card mb-2">
                     <div class="reviewer">
@@ -2434,19 +2117,42 @@
                 </div>
             `).join('');
 
-            showToast('🎉 Thank you! Your review has been submitted.');
+            showToast('🎉 Thank you! Your review has been submitted and awaits approval.');
         }
 
         // ============================================================
-        // INIT
+        // CONTACT FORM
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.category-pill').forEach(pill => {
+            const pills = document.querySelectorAll('.p-budget-pill');
+            pills.forEach(pill => {
                 pill.addEventListener('click', function() {
-                    renderBlog(this.dataset.category);
+                    pills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById('budgetInput').value = this.dataset.value;
                 });
             });
 
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    showToast('🎉 Brief sent! We\'ll get back to you within 4 working hours.');
+                    this.reset();
+                    pills.forEach(p => p.classList.remove('active'));
+                    document.getElementById('budgetInput').value = '';
+                });
+            }
+
+            // Category filters
+            document.querySelectorAll('.category-pill').forEach(pill => {
+                pill.addEventListener('click', function() {
+                    renderBlog(this.dataset.category);
+                    setTimeout(() => AOS.refresh(), 100);
+                });
+            });
+
+            // Initial render
             renderHome();
             renderAllShows();
             renderFestivals();
@@ -2463,8 +2169,9 @@
                     }
                 });
             });
+
+            setTimeout(() => AOS.refresh(), 200);
         });
     </script>
-
 </body>
 </html>
