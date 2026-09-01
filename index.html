@@ -809,6 +809,102 @@
             .page-section:not(.active) { display: none !important; }
         }
     </style>
+        <!-- ============================================================ -->
+    <!-- MAINTENANCE MODE CHECK -->
+    <!-- ============================================================ -->
+    <script>
+        (function() {
+            // Check if site is in maintenance mode
+            const maintenanceMode = localStorage.getItem('parables_maintenance_mode');
+            const maintenanceMessage = localStorage.getItem('parables_maintenance_message') || 'We are currently performing maintenance. Please check back soon!';
+            
+            // Check if user is an admin (has admin session)
+            const adminSession = localStorage.getItem('parables_admin_session');
+            
+            // If maintenance is enabled AND user is not an admin, show maintenance page
+            if (maintenanceMode === 'true' && !adminSession) {
+                document.write(`
+                    <style>
+                        * { margin: 0; padding: 0; box-sizing: border-box; }
+                        body { 
+                            display: flex; 
+                            align-items: center; 
+                            justify-content: center; 
+                            min-height: 100vh; 
+                            background: #0A0A0A; 
+                            color: #F5F0E8; 
+                            font-family: 'Inter', sans-serif; 
+                            padding: 20px; 
+                            text-align: center;
+                            margin: 0;
+                        }
+                        .maintenance-container {
+                            max-width: 600px;
+                            padding: 40px;
+                        }
+                        .maintenance-icon {
+                            font-size: 4rem; 
+                            margin-bottom: 1.5rem;
+                        }
+                        .maintenance-title {
+                            font-family: 'Playfair Display', serif; 
+                            font-size: 2.5rem; 
+                            margin-bottom: 0.5rem;
+                            background: linear-gradient(135deg, #C9A84C 0%, #F5E6A3 50%, #C9A84C 100%);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                        }
+                        .maintenance-message {
+                            color: #C5C0B8; 
+                            max-width: 500px; 
+                            margin: 0 auto; 
+                            line-height: 1.6;
+                            font-size: 1.05rem;
+                        }
+                        .maintenance-footer {
+                            color: #9A958E; 
+                            margin-top: 1.5rem; 
+                            font-size: 0.85rem;
+                        }
+                        .maintenance-logo {
+                            font-family: 'Playfair Display', serif;
+                            font-size: 1.2rem;
+                            font-weight: 900;
+                            margin-bottom: 1rem;
+                        }
+                        .maintenance-logo span {
+                            background: linear-gradient(135deg, #C9A84C 0%, #F5E6A3 50%, #C9A84C 100%);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                        }
+                        .maintenance-status {
+                            display: inline-block;
+                            padding: 4px 16px;
+                            border-radius: 50px;
+                            font-size: 0.7rem;
+                            font-weight: 600;
+                            letter-spacing: 0.05em;
+                            background: rgba(255,181,71,0.15);
+                            color: #FFB547;
+                            margin-top: 1rem;
+                        }
+                    </style>
+                    <div class="maintenance-container">
+                        <div class="maintenance-logo"><span>Parables</span> Studio</div>
+                        <div class="maintenance-icon">🔧</div>
+                        <h1 class="maintenance-title">Under Maintenance</h1>
+                        <p class="maintenance-message">${maintenanceMessage}</p>
+                        <div class="maintenance-status">⏳ MAINTENANCE IN PROGRESS</div>
+                        <p class="maintenance-footer">We'll be back soon. Thank you for your patience.</p>
+                    </div>
+                `);
+                document.body.style.paddingTop = '0';
+                document.body.style.overflow = 'hidden';
+            }
+        })();
+    </script>
 </head>
 <body>
 
@@ -1537,10 +1633,10 @@
             return {
                 shows: [{
                     id: 1,
-                    title: "The Golden Drum",
-                    description: "A young boy discovers a magical drum that unites his village through rhythm and dance.",
+                    title: "Might Joo",
+                    description: "A young boy discovers his unique abilities and decides to help fight.....",
                     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                    genre: "Musical",
+                    genre: "Sci-Fi",
                     targetAudience: "Family",
                     rating: 4.9,
                     festivalRelated: true,
@@ -1560,7 +1656,7 @@
                 }, {
                     id: 3,
                     title: "Accra Dreams",
-                    description: "Three friends navigate life in Accra, discovering the beauty of friendship and family.",
+                    description: "Three friends (all having traits of Ananse) navigate life in Accra, discovering the beauty of friendship and family.",
                     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
                     genre: "Slice of Life",
                     targetAudience: "Teens",
@@ -1593,7 +1689,7 @@
                 }, {
                     id: 6,
                     title: "The Moonlight Tales",
-                    description: "Under the African moon, elders share stories that teach courage and kindness.",
+                    description: "Under the Ghanaian moon, elders share stories that teach courage and kindness.",
                     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
                     genre: "Folklore",
                     targetAudience: "Family",
@@ -1653,7 +1749,7 @@
                     name: "Parables Family Film Festival",
                     description: "A family-friendly celebration with screenings and character meet-and-greets.",
                     eventDate: "2026-12-20",
-                    location: "Accra, Airport City",
+                    location: "Accra, National Theater",
                     website: "#",
                     featuredShowId: 6
                 }],
